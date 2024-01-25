@@ -3,9 +3,6 @@
 # Define the output file
 outputFile="data.csv"
 
-# Write header (optional, remove if your upload process does not expect a header)
-echo "ID,A,B,C" > "$outputFile"
-
 # Generate 5000 lines of data
 for id in {1..5000}
 do
