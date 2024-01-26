@@ -295,3 +295,30 @@ xuzhitao@iits-i406-03:~/cscd43/hw1_github_repo$
 
 ```
 
+## Files to change
+- The files which will most likely need the most are:
+- freelist.c
+	- it manages pages which are not pinned in memory and are eligible for replacement.
+- bufmgr.c
+	- it defines the interface used by the rest of PostgreSQL to access the memory buffer.
+- buf_init.c
+	- it handles initializations of the buffer manager data structures.
+- buf_internals.h
+	- it defines the data structures used by the rest of the buffer manager.
+
+
+## Ideas to change from lru to mru and lfu
+- lru (original one)
+	- least recently used buffer
+	- [1, 2, 3, 4]
+	- want 5 in, take 1 out
+- mru
+	- most recently used buffer
+	- [1, 2, 3, 4]
+	- want 5 in, take 4 out
+	- change the algo of chose the oldest to chose the eariest
+- lfu
+	- least frequently used buffer
+	- [1, 2, 3, 4]
+	- want 5 in, take the one used least out
+	- will need a counter on the time of used
