@@ -109,12 +109,13 @@ Explain SELECT COUNT(*) FROM Data WHERE ID > 4666 AND ID < 4999;
 ### try the queries
 - try executing these queries in PostgreSQL , and
 - check, using the EXPLAIN command in psql, that they are indeed executed using Sequential Scans or Index Scans, as specified
-
+- Some use index scans, some use sequential scans
+- TODO: which use what?
 
 ## postgres in backend mode
 - 
 ```shell
-cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 16 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -s data
+cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s data
 ```
 - output
 ```shell
