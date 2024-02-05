@@ -82,19 +82,18 @@ AddBufferToFreelist(BufferDesc *bf)
 	// END OLDCODE
 
 	// BEGIN NEWCODE
-	/* change bf so it points to the first element of the free list */
+	/* Prepare bf to be the first element in SharedFreeList */
     bf->freeNext = SharedFreeList->freeNext;
     bf->freePrev = Free_List_Descriptor;
 
     /* If the free list is not empty, adjust the current head's previous pointer */
     if (SharedFreeList->freeNext != Free_List_Descriptor) {
         BufferDescriptors[SharedFreeList->freeNext].freePrev = bf->buf_id;
+    	SharedFreeList->freeNext = bf->buf_id;
     } else { /* The free list is empty */
         SharedFreeList->freePrev = bf->buf_id;
+    	SharedFreeList->freeNext = bf->buf_id;
     }
-
-    // Now, set the free list to start with the new buffer
-    SharedFreeList->freeNext = bf->buf_id;
 	// END NEWCODE
 }
 

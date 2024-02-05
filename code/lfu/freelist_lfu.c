@@ -82,16 +82,16 @@ AddBufferToFreelist(BufferDesc *bf)
 	// END OLDCODE
 
 	// BEGIN NEWCODE
-	/* Initialize the current buffer descriptor */
+	/* Get the first element in buffer descriptor */
     BufferDesc *current = &BufferDescriptors[Free_List_Descriptor];
 
-	/* Set the current buffer descriptor with the lowest use count */
+	/* Loop over the list and stop current where smaller than bf count */
     while (current->freeNext != Free_List_Descriptor && 
            BufferDescriptors[current->freeNext].buf_use_cnt <= bf->buf_use_cnt) {
         current = &BufferDescriptors[current->freeNext];
     }
 
-    /* insert new into chain */
+    /* set bf to be after current which is where it should be  */
     bf->freeNext = current->freeNext;
     bf->freePrev = current->buf_id;
     BufferDescriptors[current->freeNext].freePrev = bf->buf_id;
