@@ -94,6 +94,10 @@ typedef struct sbufdesc
 
 	bool		cntxDirty;		/* new way to mark block as dirty */
 
+	// BEGIN NEWCODE
+	int         buf_use_cnt;    /* use counter for lfu algorithm */
+	// END NEWCODE
+	
 	/*
 	 * We can't physically remove items from a disk page if another
 	 * backend has the buffer pinned.  Hence, a backend may need to wait

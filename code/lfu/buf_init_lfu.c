@@ -197,6 +197,10 @@ InitBufferPool(void)
 			buf->cntx_lock = LWLockAssign();
 			buf->cntxDirty = false;
 			buf->wait_backend_id = 0;
+
+			// BEGIN NEWCODE
+			buf->buf_use_cnt = 0;
+			// END NEWCODE
 		}
 
 		/* close the circular queue */

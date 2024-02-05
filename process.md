@@ -300,7 +300,7 @@ cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postg
 ```
 
 ## LRU result:
-- output scanqueries d1
+- scanqueries d1
 ```shell
 xuzhitao@iits-i406-42:~/cscd43/hw1_github_repo$ cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test
 LOG:  database system was shut down at 2024-01-26 17:24:30 EST
@@ -477,7 +477,7 @@ LOG:  database system is shut down
 xuzhitao@iits-i406-42:~/cscd43/hw1_github_repo$ 
 ```
 
-- output indexscanqueries d1
+- indexscanqueries d1
 ```shell
 xuzhitao@iits-i406-42:~/cscd43/hw1_github_repo$ cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test
 LOG:  database system was shut down at 2024-01-26 17:26:08 EST
