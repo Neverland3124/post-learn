@@ -123,6 +123,11 @@ PinBuffer(BufferDesc *buf)
 
 		/* mark buffer as no longer free */
 		buf->flags &= ~BM_FREE;
+
+		// BEGIN NEWCODE
+		/* Increment the buffer use count */
+		buf->buf_use_cnt++;
+		// END NEWCODE
 	}
 	else
 		IsNotInQueue(buf);
