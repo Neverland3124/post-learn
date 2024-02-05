@@ -137,6 +137,10 @@ ReadBufferInternal(Relation reln, BlockNumber blockNum,
 	isExtend = (blockNum == P_NEW);
 	isLocalBuf = reln->rd_istemp;
 
+	// BEGIN NEWCODE
+	// Just a comment
+	// local buffer used to store temp tables, no need to count and evict
+	// END NEWCODE
 	if (isLocalBuf)
 	{
 		ReadLocalBufferCount++;
@@ -177,6 +181,10 @@ ReadBufferInternal(Relation reln, BlockNumber blockNum,
 		{
 			BufferHitCount++;
 			pgstat_count_buffer_hit(&reln->pgstat_info, reln);
+			// BEGIN NEWCODE
+			// this case it's the buffer can be evicted and is found, increment it
+			bufHdr->buf_use_cnt++;
+			// END NEWCODE
 		}
 	}
 
@@ -248,6 +256,20 @@ ReadBufferInternal(Relation reln, BlockNumber blockNum,
 							 blockNum, RelationGetRelationName(reln))));
 		}
 	}
+
+	// BEGIN NEWCODE
+	// Need to handle the case that found is not true initially, but a read
+	//  operation success, and now it's in the buffer pool
+	if (found || status == SM_SUCCESS)
+	{
+		if (!isLocalBuf)
+		{
+			LWLockAcquire(BufMgrLock, LW_EXCLUSIVE);
+			bufHdr->buf_use_cnt++;
+			LWLockRelease(BufMgrLock);
+		}
+	}
+	// END NEWCODE
 
 	if (isLocalBuf)
 	{
@@ -364,6 +386,12 @@ BufferAlloc(Relation reln,
 			 */
 			*foundPtr = FALSE;
 		}
+		// BEGIN NEWCODE
+		else
+		{
+			buf->buf_use_cnt++;
+		}
+		// END NEWCODE
 #ifdef BMTRACE
 		_bm_trace((reln->rd_rel->relisshared ? 0 : MyDatabaseId), RelationGetRelid(reln), blockNum, BufferDescriptorGetBuffer(buf), BMT_ALLOCFND);
 #endif   /* BMTRACE */
@@ -608,6 +636,11 @@ write_buffer(Buffer buffer, bool release)
 	Assert(bufHdr->refcount > 0);
 
 	bufHdr->flags |= (BM_DIRTY | BM_JUST_DIRTIED);
+
+	// BEGIN NEWCODE
+	// Increment the usage count
+    bufHdr->buf_use_cnt++;
+	// END NEWCODE
 
 	if (release)
 		UnpinBuffer(bufHdr);
