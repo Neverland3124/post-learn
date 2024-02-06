@@ -1,7 +1,7 @@
-LOG:  database system was shut down at 2024-02-05 20:30:24 EST
-LOG:  checkpoint record is at 0/BE4DB8
-LOG:  redo record is at 0/BE4DB8; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 1577; next OID: 27152
+LOG:  database system was shut down at 2024-02-05 21:11:34 EST
+LOG:  checkpoint record is at 0/BE5118
+LOG:  redo record is at 0/BE5118; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1709; next OID: 27152
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -9,142 +9,46 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.038566 elapsed 0.004615 user 0.000000 system sec
-	!	[0.008790 user 0.000000 sys total]
-	!	32/0 [32/56] filesystem blocks in/out
-	!	4/51 [46/441] page faults/reclaims, 0 [0] swaps
+	!	0.041386 elapsed 0.001984 user 0.000000 system sec
+	!	[0.006156 user 0.000000 sys total]
+	!	0/0 [0/56] filesystem blocks in/out
+	!	4/60 [46/455] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	34/1 [82/2] voluntary/involuntary context switches
+	!	35/2 [83/13] voluntary/involuntary context switches
 	! buffer usage stats:
-	!	Shared blocks:        208 read,          0 written, buffer hit rate = 11.49%
+	!	Shared blocks:        223 read,          0 written, buffer hit rate = 25.42%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
 	!	Direct blocks:          0 read,          0 written
 	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
-	 1: count = "4980"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	 1: count = "41"	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002404 elapsed 0.002369 user 0.000000 system sec
-	!	[0.011201 user 0.000000 sys total]
-	!	0/0 [32/64] filesystem blocks in/out
-	!	0/7 [46/448] page faults/reclaims, 0 [0] swaps
+	!	0.003220 elapsed 0.003220 user 0.000000 system sec
+	!	[0.009415 user 0.000000 sys total]
+	!	0/0 [0/64] filesystem blocks in/out
+	!	0/10 [46/465] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [82/5] voluntary/involuntary context switches
+	!	0/0 [83/13] voluntary/involuntary context switches
 	! buffer usage stats:
-	!	Shared blocks:         70 read,          0 written, buffer hit rate = 17.65%
+	!	Shared blocks:         83 read,          0 written, buffer hit rate = 24.55%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
 	!	Direct blocks:          0 read,          0 written
 	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
-	 1: count = "1999"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	 1: count = "50"	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002549 elapsed 0.002540 user 0.000000 system sec
-	!	[0.013772 user 0.000000 sys total]
-	!	0/0 [32/72] filesystem blocks in/out
-	!	0/0 [46/448] page faults/reclaims, 0 [0] swaps
+	!	0.000542 elapsed 0.000541 user 0.000000 system sec
+	!	[0.009984 user 0.000000 sys total]
+	!	0/0 [0/72] filesystem blocks in/out
+	!	0/12 [46/477] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/1 [82/6] voluntary/involuntary context switches
+	!	0/0 [84/13] voluntary/involuntary context switches
 	! buffer usage stats:
-	!	Shared blocks:         32 read,          0 written, buffer hit rate = 0.00%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "1000"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.003435 elapsed 0.000276 user 0.000000 system sec
-	!	[0.014067 user 0.000000 sys total]
-	!	96/0 [128/80] filesystem blocks in/out
-	!	0/2 [46/450] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	4/0 [86/6] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:          5 read,          0 written, buffer hit rate = 97.44%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "192"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.000152 elapsed 0.000152 user 0.000000 system sec
-	!	[0.014246 user 0.000000 sys total]
-	!	0/0 [128/88] filesystem blocks in/out
-	!	0/2 [46/452] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/0 [86/6] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:          2 read,          0 written, buffer hit rate = 97.22%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "69"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.002249 elapsed 0.001946 user 0.000000 system sec
-	!	[0.016215 user 0.000000 sys total]
-	!	240/0 [368/96] filesystem blocks in/out
-	!	0/0 [46/452] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	1/3 [88/9] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:         37 read,          0 written, buffer hit rate = 98.92%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "3400"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.002279 elapsed 0.002279 user 0.000000 system sec
-	!	[0.018525 user 0.000000 sys total]
-	!	0/0 [368/112] filesystem blocks in/out
-	!	0/0 [46/452] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/0 [89/9] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:         44 read,          0 written, buffer hit rate = 98.88%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "3899"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.001198 elapsed 0.001198 user 0.000000 system sec
-	!	[0.019740 user 0.000000 sys total]
-	!	0/0 [368/112] filesystem blocks in/out
-	!	0/0 [46/452] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/0 [89/9] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:         28 read,          0 written, buffer hit rate = 98.79%
-	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
-	!	Direct blocks:          0 read,          0 written
-	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-	 1: count = "2299"	(typeid = 20, len = 8, typmod = -1, byval = f)
-	----
-backend> LOG:  QUERY STATISTICS
-DETAIL:  ! system usage stats:
-	!	0.000134 elapsed 0.000134 user 0.000000 system sec
-	!	[0.019890 user 0.000000 sys total]
-	!	0/0 [368/112] filesystem blocks in/out
-	!	0/0 [46/452] page faults/reclaims, 0 [0] swaps
-	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/0 [89/9] voluntary/involuntary context switches
-	! buffer usage stats:
-	!	Shared blocks:          4 read,          0 written, buffer hit rate = 96.08%
+	!	Shared blocks:         84 read,          0 written, buffer hit rate = 59.62%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
 	!	Direct blocks:          0 read,          0 written
 	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
@@ -153,19 +57,115 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.000246 elapsed 0.000242 user 0.000000 system sec
-	!	[0.020147 user 0.000000 sys total]
-	!	0/0 [368/112] filesystem blocks in/out
-	!	0/0 [46/452] page faults/reclaims, 0 [0] swaps
+	!	0.000721 elapsed 0.000626 user 0.000000 system sec
+	!	[0.010630 user 0.000000 sys total]
+	!	0/0 [0/72] filesystem blocks in/out
+	!	0/0 [46/477] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/1 [89/10] voluntary/involuntary context switches
+	!	0/1 [84/14] voluntary/involuntary context switches
 	! buffer usage stats:
-	!	Shared blocks:          7 read,          0 written, buffer hit rate = 97.92%
+	!	Shared blocks:         13 read,          0 written, buffer hit rate = 98.71%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
 	!	Direct blocks:          0 read,          0 written
 	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
-	 1: count = "332"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	 1: count = "1000"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.003463 elapsed 0.003462 user 0.000000 system sec
+	!	[0.014113 user 0.000000 sys total]
+	!	0/0 [0/72] filesystem blocks in/out
+	!	0/1 [46/479] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/0 [84/14] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "2500"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.002915 elapsed 0.002909 user 0.000000 system sec
+	!	[0.017039 user 0.000000 sys total]
+	!	0/0 [0/72] filesystem blocks in/out
+	!	0/0 [46/479] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/1 [84/15] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "999"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.000626 elapsed 0.000619 user 0.000000 system sec
+	!	[0.017689 user 0.000000 sys total]
+	!	0/0 [0/88] filesystem blocks in/out
+	!	0/2 [46/481] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/1 [85/16] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:         15 read,          0 written, buffer hit rate = 98.51%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "1001"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.002687 elapsed 0.002624 user 0.000000 system sec
+	!	[0.020331 user 0.000000 sys total]
+	!	0/0 [0/88] filesystem blocks in/out
+	!	0/0 [46/481] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/2 [85/18] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "10"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.000396 elapsed 0.000396 user 0.000000 system sec
+	!	[0.020749 user 0.000000 sys total]
+	!	0/0 [0/96] filesystem blocks in/out
+	!	0/0 [46/481] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/0 [86/18] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:          9 read,          0 written, buffer hit rate = 98.21%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "499"	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+backend> LOG:  QUERY STATISTICS
+DETAIL:  ! system usage stats:
+	!	0.000221 elapsed 0.000221 user 0.000000 system sec
+	!	[0.020989 user 0.000000 sys total]
+	!	0/0 [0/96] filesystem blocks in/out
+	!	0/0 [46/481] page faults/reclaims, 0 [0] swaps
+	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
+	!	0/0 [86/18] voluntary/involuntary context switches
+	! buffer usage stats:
+	!	Shared blocks:          7 read,          0 written, buffer hit rate = 97.70%
+	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
+	!	Direct blocks:          0 read,          0 written
+	 1: count	(typeid = 20, len = 8, typmod = -1, byval = f)
+	----
+	 1: count = "301"	(typeid = 20, len = 8, typmod = -1, byval = f)
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
