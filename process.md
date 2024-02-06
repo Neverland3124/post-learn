@@ -390,3 +390,60 @@ gmake uninstall
 gmake
 gmake install
 ```
+
+
+
+## new sql statements
+```sql
+-- Sequential Scan Queries (First 10):
+-- Aim to vary access to different portions of the table and combine broad with specific conditions.
+
+SELECT COUNT(*) FROM Data WHERE A < 50; (Broad range, touching many rows)
+SELECT COUNT(*) FROM Data WHERE B % 10 = 0; (Selective, touching rows sporadically)
+SELECT COUNT(*) FROM Data WHERE C BETWEEN 10 AND 20; (Specific range)
+SELECT COUNT(*) FROM Data WHERE A > 25 AND B > 50 AND C < 75; (Mixed conditions)
+SELECT COUNT(*) FROM Data WHERE A % 5 = 0 AND C % 5 = 0; (Selective on two columns)
+SELECT COUNT(*) FROM Data WHERE A < 20 OR B > 80; (Combining less and more frequent data)
+SELECT COUNT(*) FROM Data WHERE C > 90; (Highly selective)
+SELECT COUNT(*) FROM Data WHERE A BETWEEN 40 AND 60; (Mid-range selectivity)
+SELECT COUNT(*) FROM Data WHERE B < 25 OR C > 75; (Diverse data access)
+SELECT COUNT(*) FROM Data WHERE A < 10 OR A > 90; (Edge conditions, possibly touching less cached data)
+
+-- Index Scan Queries (Next 10):
+-- Focus on varying the ID range and patterns to exploit index caching differences.
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 10 AND 50; (Small range, frequent access)
+SELECT COUNT(*) FROM Data WHERE ID % 100 = 0; (Sporadic access across the table)
+SELECT COUNT(*) FROM Data WHERE ID > 2500 AND ID < 2600; (Narrow range, middle of the table)
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 1 AND 1000; (Broad range)
+SELECT COUNT(*) FROM Data WHERE ID % 2 = 0; (Every other row, promoting cache churn)
+SELECT COUNT(*) FROM Data WHERE ID < 500 OR ID > 4500; (Edge conditions)
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 2000 AND 3000; (Mid-table focus)
+SELECT COUNT(*) FROM Data WHERE ID % 500 = 0; (Specific, sporadic IDs)
+SELECT COUNT(*) FROM Data WHERE ID > 1000 AND ID < 1500; (Narrow range, early table)
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 300 AND 600; (Small range, early table)
+```
+- sql without statement
+```sql
+SELECT COUNT(*) FROM Data WHERE A < 50;
+SELECT COUNT(*) FROM Data WHERE B % 10 = 0;
+SELECT COUNT(*) FROM Data WHERE C BETWEEN 10 AND 20;
+SELECT COUNT(*) FROM Data WHERE A > 25 AND B > 50 AND C < 75;
+SELECT COUNT(*) FROM Data WHERE A % 5 = 0 AND C % 5 = 0;
+SELECT COUNT(*) FROM Data WHERE A < 20 OR B > 80;
+SELECT COUNT(*) FROM Data WHERE C > 90;
+SELECT COUNT(*) FROM Data WHERE A BETWEEN 40 AND 60;
+SELECT COUNT(*) FROM Data WHERE B < 25 OR C > 75;
+SELECT COUNT(*) FROM Data WHERE A < 10 OR A > 90;
+
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 10 AND 50;
+SELECT COUNT(*) FROM Data WHERE ID % 100 = 0;
+SELECT COUNT(*) FROM Data WHERE ID > 2500 AND ID < 2600;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 1 AND 1000;
+SELECT COUNT(*) FROM Data WHERE ID % 2 = 0;
+SELECT COUNT(*) FROM Data WHERE ID < 500 OR ID > 4500;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 2000 AND 3000;
+SELECT COUNT(*) FROM Data WHERE ID % 500 = 0;
+SELECT COUNT(*) FROM Data WHERE ID > 1000 AND ID < 1500;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 300 AND 600;
+
+```
