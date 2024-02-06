@@ -71,13 +71,30 @@ AddBufferToFreelist(BufferDesc *bf)
 #endif   /* BMTRACE */
 	IsNotInQueue(bf);
 
-	/* change bf so it points to inFrontOfNew and its successor */
-	bf->freePrev = SharedFreeList->freePrev;
-	bf->freeNext = Free_List_Descriptor;
+	// BEGIN OLDCODE
+	// /* change bf so it points to inFrontOfNew and its successor */
+	// bf->freePrev = SharedFreeList->freePrev;
+	// bf->freeNext = Free_List_Descriptor;
 
-	/* insert new into chain */
-	BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
-	BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
+	// /* insert new into chain */
+	// BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
+	// BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
+	// END OLDCODE
+
+	// BEGIN NEWCODE
+	/* Prepare bf to be the first element in SharedFreeList */
+    bf->freeNext = SharedFreeList->freeNext;
+    bf->freePrev = Free_List_Descriptor;
+
+    /* If the free list is not empty, adjust the current head's previous pointer */
+    if (SharedFreeList->freeNext != Free_List_Descriptor) {
+        BufferDescriptors[SharedFreeList->freeNext].freePrev = bf->buf_id;
+    	SharedFreeList->freeNext = bf->buf_id;
+    } else { /* The free list is empty */
+        SharedFreeList->freePrev = bf->buf_id;
+    	SharedFreeList->freeNext = bf->buf_id;
+    }
+	// END NEWCODE
 }
 
 #undef PinBuffer

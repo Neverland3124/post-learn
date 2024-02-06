@@ -71,13 +71,32 @@ AddBufferToFreelist(BufferDesc *bf)
 #endif   /* BMTRACE */
 	IsNotInQueue(bf);
 
-	/* change bf so it points to inFrontOfNew and its successor */
-	bf->freePrev = SharedFreeList->freePrev;
-	bf->freeNext = Free_List_Descriptor;
+	// BEGIN OLDCODE
+	// /* change bf so it points to inFrontOfNew and its successor */
+	// bf->freePrev = SharedFreeList->freePrev;
+	// bf->freeNext = Free_List_Descriptor;
 
-	/* insert new into chain */
-	BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
-	BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
+	// /* insert new into chain */
+	// BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
+	// BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
+	// END OLDCODE
+
+	// BEGIN NEWCODE
+	/* Get the first element in buffer descriptor */
+    BufferDesc *current = &BufferDescriptors[Free_List_Descriptor];
+
+	/* Loop over the list and stop current where smaller than bf count */
+    while (current->freeNext != Free_List_Descriptor && 
+           BufferDescriptors[current->freeNext].buf_use_cnt <= bf->buf_use_cnt) {
+        current = &BufferDescriptors[current->freeNext];
+    }
+
+    /* set bf to be after current which is where it should be  */
+    bf->freeNext = current->freeNext;
+    bf->freePrev = current->buf_id;
+    BufferDescriptors[current->freeNext].freePrev = bf->buf_id;
+    current->freeNext = bf->buf_id;
+	// END NEWCODE
 }
 
 #undef PinBuffer
@@ -104,6 +123,11 @@ PinBuffer(BufferDesc *buf)
 
 		/* mark buffer as no longer free */
 		buf->flags &= ~BM_FREE;
+
+		// BEGIN NEWCODE
+		/* Increment the buffer use count */
+		buf->buf_use_cnt++;
+		// END NEWCODE
 	}
 	else
 		IsNotInQueue(buf);
