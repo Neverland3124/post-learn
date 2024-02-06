@@ -29,7 +29,7 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 50 100 150 200)
+BUFFER_SIZES=(20 30 40 50 75 100)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
@@ -145,9 +145,6 @@ PG_CMD="/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres"
 PG_DATA_DIR="/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/"
 DB_NAME="test"
 DEBUG_LEVEL="1"
-
-# Buffer sizes to test with
-BUFFER_SIZES=(20 30 50 100 150 200)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
@@ -265,10 +262,8 @@ PG_DATA_DIR="/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/"
 DB_NAME="test"
 DEBUG_LEVEL="1"
 
-# Buffer sizes to test with
-BUFFER_SIZES=(20 30 50 100 150 200)
-
 # Loop through each buffer size
+
 for buffer_size in "${BUFFER_SIZES[@]}"; do
     # Construct the log file name based on the buffer size
     log_file="$LOG_DIR/${buffer_size}_scan.log"
