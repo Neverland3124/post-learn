@@ -7,10 +7,12 @@
 logdir="./logs/$1"
 
 # Output file to store the results, specified by the second argument
-outputfile="result/$1.txt"
+outputfile="./result/$1.txt"
 
 # Empty the output file in case it already exists
 > "$outputfile"
+
+echo "Processing log files in $logdir and writing results to $outputfile"
 
 # Loop through all files in the log directory
 for logfile in "$logdir"/*

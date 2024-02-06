@@ -326,14 +326,14 @@ mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgres
 mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/50_scan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/100_scan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 150 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/150_scan.log 2>&1 && \
-mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/200_scan.log 2>&1 && 
+mkdir -p ./logs/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/200_scan.log 2>&1 
 
 mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/20_indexscan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/30_indexscan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/50_indexscan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/100_indexscan.log 2>&1 && \
 mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 150 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/150_indexscan.log 2>&1 && \
-mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/200_indexscan.log 2>&1 && 
+mkdir -p ./logs/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs/mru/200_indexscan.log 2>&1 
 ```
 
 ## LFU result:
