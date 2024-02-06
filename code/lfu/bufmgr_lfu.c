@@ -386,12 +386,7 @@ BufferAlloc(Relation reln,
 			 */
 			*foundPtr = FALSE;
 		}
-		// BEGIN NEWCODE
-		else
-		{
-			buf->buf_use_cnt++;
-		}
-		// END NEWCODE
+
 #ifdef BMTRACE
 		_bm_trace((reln->rd_rel->relisshared ? 0 : MyDatabaseId), RelationGetRelid(reln), blockNum, BufferDescriptorGetBuffer(buf), BMT_ALLOCFND);
 #endif   /* BMTRACE */
@@ -517,6 +512,12 @@ BufferAlloc(Relation reln,
 				UnpinBuffer(buf);
 				buf = (BufferDesc *) NULL;
 			}
+
+			// BEGIN NEWCODE
+			/* Reset the buffer use count since we put it back to disk */
+			if (buf != NULL)
+				buf->buf_use_cnt = 0;
+			// END NEWCODE
 
 			/*
 			 * Somebody could have allocated another buffer for the same

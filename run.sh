@@ -37,6 +37,8 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
             sleep 1
         fi
     done < "$QUERY_FILE"
+
+    echo "end file $log_file"
 done
 
 
@@ -60,6 +62,8 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
             sleep 1
         fi
     done < "$QUERY_FILE_2"
+
+    echo "end file $log_file"
 done
 
 # Directory containing the log files, specified by the first argument
