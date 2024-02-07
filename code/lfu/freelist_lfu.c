@@ -32,6 +32,9 @@
 #include "storage/ipc.h"
 #include "storage/proc.h"
 
+// BEGIN NEWCODE
+#include <limits.h>
+// END NEWCODE
 
 static BufferDesc *SharedFreeList;
 
@@ -71,32 +74,13 @@ AddBufferToFreelist(BufferDesc *bf)
 #endif   /* BMTRACE */
 	IsNotInQueue(bf);
 
-	// BEGIN OLDCODE
-	// /* change bf so it points to inFrontOfNew and its successor */
-	// bf->freePrev = SharedFreeList->freePrev;
-	// bf->freeNext = Free_List_Descriptor;
+	/* change bf so it points to inFrontOfNew and its successor */
+	bf->freePrev = SharedFreeList->freePrev;
+	bf->freeNext = Free_List_Descriptor;
 
-	// /* insert new into chain */
-	// BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
-	// BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
-	// END OLDCODE
-
-	// BEGIN NEWCODE
-	/* Get the first element in buffer descriptor */
-    BufferDesc *current = &BufferDescriptors[Free_List_Descriptor];
-
-	/* Loop over the list and stop current where smaller than bf count */
-    while (current->freeNext != Free_List_Descriptor && 
-           BufferDescriptors[current->freeNext].buf_use_cnt <= bf->buf_use_cnt) {
-        current = &BufferDescriptors[current->freeNext];
-    }
-
-    /* set bf to be after current which is where it should be  */
-    bf->freeNext = current->freeNext;
-    bf->freePrev = current->buf_id;
-    BufferDescriptors[current->freeNext].freePrev = bf->buf_id;
-    current->freeNext = bf->buf_id;
-	// END NEWCODE
+	/* insert new into chain */
+	BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
+	BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
 }
 
 #undef PinBuffer
@@ -227,16 +211,57 @@ GetFreeBuffer(void)
 				 errmsg("out of free buffers")));
 		return NULL;
 	}
-	buf = &(BufferDescriptors[SharedFreeList->freeNext]);
 
-	/* remove from freelist queue */
-	BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
-	BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
-	buf->freeNext = buf->freePrev = INVALID_DESCRIPTOR;
+	// BEGIN OLD CODE
+	// buf = &(BufferDescriptors[SharedFreeList->freeNext]);
 
-	buf->flags &= ~(BM_FREE);
+	// /* remove from freelist queue */
+	// BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
+	// BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
+	// buf->freeNext = buf->freePrev = INVALID_DESCRIPTOR;
 
-	return buf;
+	// buf->flags &= ~(BM_FREE);
+
+	// return buf;
+	// END OLD CODE
+
+	// BEGIN NEWCODE
+	/* Init variables*/
+	int buf_id = SharedFreeList->freeNext;
+	int minCount = INT_MAX;
+	BufferDesc *minBuf = NULL;
+
+	/* Find the buffer with the least use count */
+    while (buf_id != Free_List_Descriptor)
+    {
+        buf = &BufferDescriptors[buf_id];
+        if (buf->buf_use_cnt < minCount)
+        {
+            minCount = buf->buf_use_cnt;
+            minBuf = buf;
+        }
+        buf_id = buf->freeNext;
+    }
+
+	/* Error handling */
+    if (minBuf == NULL)
+    {
+        /* This should never happen, but just in case... */
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                 errmsg("no free buffers found")));
+        return NULL;
+    }
+
+    /* remove the fount bf from freelist queue */
+    BufferDescriptors[minBuf->freeNext].freePrev = minBuf->freePrev;
+    BufferDescriptors[minBuf->freePrev].freeNext = minBuf->freeNext;
+    minBuf->freeNext = minBuf->freePrev = INVALID_DESCRIPTOR;
+
+    minBuf->flags &= ~(BM_FREE);
+
+    return minBuf;
+	// END NEWCODE
 }
 
 /*
