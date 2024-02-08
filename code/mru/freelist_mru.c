@@ -232,6 +232,20 @@ GetFreeBuffer(void)
 	return buf;
 }
 
+void
+UpdateFreeList(BufferDesc *buf)
+{
+    // Remove buf from its current position in the list
+    BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
+    BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
+
+    // Insert buf at the front of the list
+    buf->freeNext = SharedFreeList->freeNext;
+    buf->freePrev = SharedFreeList->freePrev;
+    BufferDescriptors[SharedFreeList->freeNext].freePrev = buf->buf_id;
+    SharedFreeList->freeNext = buf->buf_id;
+}
+
 /*
  * InitFreeList -- initialize the dummy buffer descriptor used
  *		as a freelist head.

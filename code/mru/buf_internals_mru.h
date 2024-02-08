@@ -169,6 +169,7 @@ extern void PinBuffer(BufferDesc *buf);
 extern void UnpinBuffer(BufferDesc *buf);
 extern BufferDesc *GetFreeBuffer(void);
 extern void InitFreeList(bool init);
+extern void UpdateFreeList(BufferDesc *buf);
 
 /* buf_table.c */
 extern void InitBufTable(void);
