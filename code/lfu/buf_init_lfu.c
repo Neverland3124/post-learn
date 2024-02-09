@@ -199,6 +199,7 @@ InitBufferPool(void)
 			buf->wait_backend_id = 0;
 
 			// BEGIN NEWCODE
+			// Initialize the use count of the buffer to 0
 			buf->buf_use_cnt = 0;
 			// END NEWCODE
 		}

@@ -226,7 +226,7 @@ GetFreeBuffer(void)
 	// END OLD CODE
 
 	// BEGIN NEWCODE
-	/* Init variables*/
+	/* Init variables */
 	int buf_id = SharedFreeList->freeNext;
 	int minCount = INT_MAX;
 	BufferDesc *minBuf = NULL;
@@ -243,7 +243,7 @@ GetFreeBuffer(void)
         buf_id = buf->freeNext;
     }
 
-	/* Error handling */
+	/* Error handling, should not happen */
     if (minBuf == NULL)
     {
         /* This should never happen, but just in case... */
@@ -253,6 +253,7 @@ GetFreeBuffer(void)
         return NULL;
     }
 
+	/* now we get the buffer that have the lowest use count, we should remove it */
     /* remove the fount bf from freelist queue */
     BufferDescriptors[minBuf->freeNext].freePrev = minBuf->freePrev;
     BufferDescriptors[minBuf->freePrev].freeNext = minBuf->freeNext;

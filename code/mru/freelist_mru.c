@@ -34,7 +34,6 @@
 
 
 static BufferDesc *SharedFreeList;
-static bool AllBuffersUsed = false;
 static int numberOfBufferCount = 0;
 
 /*
@@ -85,29 +84,19 @@ AddBufferToFreelist(BufferDesc *bf)
 
 	// BEGIN NEWCODE
 
-	// if not all buffers are used, add the buffer to the end of the free list
-	// if all buffers are used, add the buffer to the front of the free list
-	if (numberOfBufferCount < (NBuffers - 1)){
+	/* The idea is to put the buffer in to the end of the list until 
+	    all buffers are used. Then, we will start apply MRU
+	   If we don't replace the whole freelist, the buffer hit rate will
+	    not change when we increase buffer size. */
+	if (numberOfBufferCount < (NBuffers)){
+		/* change bf so it points to inFrontOfNew and its successor */
 		bf->freePrev = SharedFreeList->freePrev;
 		bf->freeNext = Free_List_Descriptor;
 
 		/* insert new into chain */
 		BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
 		BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
-		// bf->is_buffer_used = true;
 		numberOfBufferCount++;
-
-		// loop through the free list to check if all buffers are used
-		// make ALL_BUFFERS_USED true if all buffers are used
-		// BufferDesc *buf = &(BufferDescriptors[SharedFreeList->freeNext]);
-		// AllBuffersUsed = true;
-		// while (buf != Free_List_Descriptor) {
-		// 	if (buf->is_buffer_used == false) {
-		// 		AllBuffersUsed = false;
-		// 		break;
-		// 	}
-		// 	buf = &(BufferDescriptors[buf->freeNext]);
-		// }
 	} else {
 		// /* Prepare bf to be the first element in SharedFreeList */
 		bf->freeNext = SharedFreeList->freeNext;
@@ -232,31 +221,6 @@ refcount = %ld, file: %s, line: %d\n",
 }
 #endif
 
-BufferDesc *
-FindNextUnusedBufferInFreeList() {
-    BufferDesc *buf = &(BufferDescriptors[SharedFreeList->freeNext]);
-
-	
-	// Iterate over the buffers in the free list
-	while (buf != Free_List_Descriptor) {
-		printf("buf->is_buffer_used: %d\n", buf->is_buffer_used);
-		// Check if the buffer is unused
-		if (buf->is_buffer_used == false) {
-			buf->is_buffer_used = true;
-			// If the buffer is unused, return it
-			return buf;
-		}
-
-		// Move to the next buffer in the free list
-		buf = &(BufferDescriptors[buf->freeNext]);
-	}
-	
-
-	// AllBuffersUsed = true;
-    // If no unused buffer is found, return the next buffer to start mru
-    return &(BufferDescriptors[SharedFreeList->freeNext]);
-}
-
 /*
  * GetFreeBuffer() -- get the 'next' buffer from the freelist.
  */
@@ -274,7 +238,6 @@ GetFreeBuffer(void)
 		return NULL;
 	}
 	buf = &(BufferDescriptors[SharedFreeList->freeNext]);
-	// buf = FindNextUnusedBufferInFreeList();
 
 	/* remove from freelist queue */
 	BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
@@ -286,19 +249,24 @@ GetFreeBuffer(void)
 	return buf;
 }
 
+// BEGIN NEWCODE
+/* Helper function to extract the buffer to the top of the Free List.
+    Need to call this when read the buffer (write will do pin and unpin which
+	will automatically update the buffer location). */
 void
 UpdateFreeList(BufferDesc *buf)
 {
-    // Remove buf from its current position in the list
-    // BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
-    // BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
+    Remove buf from its current position in the list
+    BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
+    BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
 
-    // // Insert buf at the front of the list
-    // buf->freeNext = SharedFreeList->freeNext;
-    // buf->freePrev = SharedFreeList->freePrev;
-    // BufferDescriptors[SharedFreeList->freeNext].freePrev = buf->buf_id;
-    // SharedFreeList->freeNext = buf->buf_id;
+    // Insert buf at the front of the list
+    buf->freeNext = SharedFreeList->freeNext;
+    buf->freePrev = SharedFreeList->freePrev;
+    BufferDescriptors[SharedFreeList->freeNext].freePrev = buf->buf_id;
+    SharedFreeList->freeNext = buf->buf_id;
 }
+// END NEWCODE
 
 /*
  * InitFreeList -- initialize the dummy buffer descriptor used

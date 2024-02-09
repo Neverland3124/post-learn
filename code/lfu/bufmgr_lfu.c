@@ -137,10 +137,7 @@ ReadBufferInternal(Relation reln, BlockNumber blockNum,
 	isExtend = (blockNum == P_NEW);
 	isLocalBuf = reln->rd_istemp;
 
-	// BEGIN NEWCODE
-	// Just a comment
-	// local buffer used to store temp tables, no need to count and evict
-	// END NEWCODE
+
 	if (isLocalBuf)
 	{
 		ReadLocalBufferCount++;
