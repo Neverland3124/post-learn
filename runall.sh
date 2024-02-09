@@ -29,7 +29,7 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 40 50 75 100 200)
+BUFFER_SIZES=(20 30 40 50 60 64 75 100 125 150)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
@@ -71,27 +71,19 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/20_scan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/30_scan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/75_scan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/100_scan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/200_scan.log 2>&1
-
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/20_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/30_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/75_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/100_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lru/200_indexscan.log 2>&1
+for buffer in "${BUFFER_SIZES[@]}"
+do
+    mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
+    mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
+done
 
 # Directory containing the log files, specified by the first argument
 logdir="./logs/$ALGO"
 
 # Output file to store the results, specified by the second argument
 outputfile="./result/$ALGO.txt"
+
+mkdir -p ./result
 
 # Empty the output file in case it already exists
 > "$outputfile"
@@ -237,21 +229,11 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/20_scan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/30_scan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/75_scan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/100_scan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/200_scan.log 2>&1
-
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/20_indexscan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/30_indexscan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/75_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/100_indexscan.log 2>&1
-mkdir -p ./logs_sequential/mru/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/mru/200_indexscan.log 2>&1
+for buffer in "${BUFFER_SIZES[@]}"
+do
+    mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
+    mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
+done
 
 # Directory containing the log files, specified by the first argument
 logdir="./logs/$ALGO"
@@ -404,21 +386,11 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/20_scan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/30_scan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/50_scan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/75_scan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/100_scan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/200_scan.log 2>&1
-
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 20 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/20_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 30 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/30_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 40 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 50 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/50_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 75 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/75_indexscan.log 2>&1 
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 100 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/100_indexscan.log 2>&1
-mkdir -p ./logs_sequential/lfu/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B 200 -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > ./logs_sequential/lfu/200_indexscan.log 2>&1
+for buffer in "${BUFFER_SIZES[@]}"
+do
+    mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
+    mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
+done
 
 # Directory containing the log files, specified by the first argument
 logdir="./logs/$ALGO"
@@ -426,6 +398,7 @@ logdir="./logs/$ALGO"
 # Output file to store the results, specified by the second argument
 outputfile="./result/$ALGO.txt"
 
+mkdir -p ./result
 # Empty the output file in case it already exists
 > "$outputfile"
 
