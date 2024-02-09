@@ -1,7 +1,7 @@
-LOG:  database system was shut down at 2024-02-09 15:12:59 EST
-LOG:  checkpoint record is at 0/BB8350
-LOG:  redo record is at 0/BB8350; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 27272; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 15:38:14 EST
+LOG:  checkpoint record is at 0/BCFD98
+LOG:  redo record is at 0/BCFD98; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 31054; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -9,12 +9,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.034656 elapsed 0.000000 user 0.003579 system sec
-	!	[0.000000 user 0.008143 sys total]
+	!	0.044084 elapsed 0.004177 user 0.000000 system sec
+	!	[0.006321 user 0.002144 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	44/50 [91/434] page faults/reclaims, 0 [0] swaps
+	!	44/54 [91/439] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	32/3 [79/10] voluntary/involuntary context switches
+	!	31/0 [79/11] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        188 read,          0 written, buffer hit rate = 20.34%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -25,12 +25,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.003657 elapsed 0.003645 user 0.000000 system sec
-	!	[0.003645 user 0.008186 sys total]
+	!	0.003284 elapsed 0.003062 user 0.000211 system sec
+	!	[0.009420 user 0.002355 sys total]
 	!	0/0 [0/64] filesystem blocks in/out
-	!	0/10 [91/444] page faults/reclaims, 0 [0] swaps
+	!	0/10 [91/449] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/1 [79/11] voluntary/involuntary context switches
+	!	0/1 [79/12] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         84 read,          0 written, buffer hit rate = 26.32%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -41,12 +41,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002841 elapsed 0.002776 user 0.000000 system sec
-	!	[0.006448 user 0.008186 sys total]
+	!	0.003065 elapsed 0.002452 user 0.000613 system sec
+	!	[0.011900 user 0.002975 sys total]
 	!	0/0 [0/72] filesystem blocks in/out
-	!	0/13 [91/458] page faults/reclaims, 0 [0] swaps
+	!	0/13 [91/463] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [79/14] voluntary/involuntary context switches
+	!	0/0 [80/12] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        104 read,          0 written, buffer hit rate = 24.09%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -57,12 +57,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002829 elapsed 0.002771 user 0.000000 system sec
-	!	[0.009242 user 0.008186 sys total]
-	!	0/0 [0/72] filesystem blocks in/out
-	!	0/7 [91/465] page faults/reclaims, 0 [0] swaps
+	!	0.003315 elapsed 0.002593 user 0.000648 system sec
+	!	[0.014513 user 0.003628 sys total]
+	!	0/0 [0/80] filesystem blocks in/out
+	!	0/7 [91/470] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/4 [79/18] voluntary/involuntary context switches
+	!	0/5 [81/17] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         66 read,          0 written, buffer hit rate = 21.43%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -73,12 +73,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.004009 elapsed 0.003938 user 0.000000 system sec
-	!	[0.013210 user 0.008186 sys total]
-	!	0/0 [0/80] filesystem blocks in/out
-	!	0/2 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.003961 elapsed 0.003906 user 0.000054 system sec
+	!	[0.018443 user 0.003688 sys total]
+	!	0/0 [0/88] filesystem blocks in/out
+	!	0/2 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/1 [80/19] voluntary/involuntary context switches
+	!	0/0 [82/17] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -89,12 +89,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.003344 elapsed 0.003294 user 0.000000 system sec
-	!	[0.016527 user 0.008186 sys total]
-	!	0/0 [0/88] filesystem blocks in/out
-	!	0/0 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.003056 elapsed 0.002967 user 0.000000 system sec
+	!	[0.021430 user 0.003692 sys total]
+	!	0/0 [0/96] filesystem blocks in/out
+	!	0/0 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [81/22] voluntary/involuntary context switches
+	!	0/6 [83/23] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -105,12 +105,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002131 elapsed 0.002098 user 0.000000 system sec
-	!	[0.018648 user 0.008186 sys total]
-	!	0/0 [0/96] filesystem blocks in/out
-	!	0/0 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.002244 elapsed 0.002239 user 0.000000 system sec
+	!	[0.023694 user 0.003692 sys total]
+	!	0/0 [0/112] filesystem blocks in/out
+	!	0/0 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/2 [81/24] voluntary/involuntary context switches
+	!	0/1 [83/24] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -121,12 +121,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002758 elapsed 0.002710 user 0.000000 system sec
-	!	[0.021378 user 0.008186 sys total]
-	!	0/0 [0/104] filesystem blocks in/out
-	!	0/0 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.003196 elapsed 0.003167 user 0.000000 system sec
+	!	[0.026877 user 0.003692 sys total]
+	!	0/0 [0/112] filesystem blocks in/out
+	!	0/0 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [82/27] voluntary/involuntary context switches
+	!	0/2 [83/26] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -137,12 +137,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.002844 elapsed 0.002804 user 0.000000 system sec
-	!	[0.024200 user 0.008186 sys total]
-	!	0/0 [0/104] filesystem blocks in/out
-	!	0/0 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.003238 elapsed 0.003089 user 0.000056 system sec
+	!	[0.029991 user 0.003748 sys total]
+	!	0/0 [0/120] filesystem blocks in/out
+	!	0/0 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [82/30] voluntary/involuntary context switches
+	!	0/5 [84/31] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -153,12 +153,12 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.003223 elapsed 0.002461 user 0.000708 system sec
-	!	[0.026683 user 0.008894 sys total]
-	!	0/0 [0/112] filesystem blocks in/out
-	!	0/0 [91/467] page faults/reclaims, 0 [0] swaps
+	!	0.003159 elapsed 0.003106 user 0.000000 system sec
+	!	[0.033121 user 0.003751 sys total]
+	!	0/0 [0/128] filesystem blocks in/out
+	!	0/0 [91/472] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	0/3 [83/33] voluntary/involuntary context switches
+	!	0/4 [85/35] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:         31 read,          0 written, buffer hit rate = 3.12%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%

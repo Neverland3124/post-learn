@@ -29,8 +29,8 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 40 50 60 63 64 75 100 125 150)
-buffer_sizes=(20 30 31 32 40 50 60 75 100 125 150)
+BUFFER_SIZES=(20 30 40 50 62 63 75 100 125 150)
+buffer_sizes=(20 31 32 40 50 60 75 100 125 150)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
