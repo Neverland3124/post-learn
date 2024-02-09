@@ -29,7 +29,8 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 40 50 60 64 75 100 125 150)
+BUFFER_SIZES=(20 30 40 50 60 63 64 75 100 125 150)
+buffer_sizes=(20 30 31 32 40 50 60 75 100 125 150)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
@@ -71,7 +72,7 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-for buffer in "${BUFFER_SIZES[@]}"
+for buffer in "${buffer_sizes[@]}"
 do
     mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
     mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
@@ -229,7 +230,7 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-for buffer in "${BUFFER_SIZES[@]}"
+for buffer in "${buffer_sizes[@]}"
 do
     mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
     mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
@@ -386,7 +387,7 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
     echo "end file $log_file"
 done
 
-for buffer in "${BUFFER_SIZES[@]}"
+for buffer in "${buffer_sizes[@]}"
 do
     mkdir -p ./logs_sequential/$ALGO/ && cat ScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_scan.log" 2>&1
     mkdir -p ./logs_sequential/$ALGO/ && cat IndexScanQueries.sql | '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/bin/postgres' -B $buffer -D '/cmshome/xuzhitao/cscd43/postgresql-7.4.13/data/' -d 1 -s test > "./logs_sequential/$ALGO/${buffer}_indexscan.log" 2>&1
