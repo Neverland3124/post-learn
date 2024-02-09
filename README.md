@@ -2,7 +2,7 @@
 
 ## Student Information
 - Student 1: Zhitao Xu, Student numbe: 1006668697
-- Student 2: TODO:
+- Student 2: Lianting Wang, Student numbe: 1007452374
 
 ## What works in the assignment
 - The main part of this project is divided to three part:
