@@ -37,6 +37,31 @@ SELECT COUNT(*) FROM Data WHERE ID > 3500 AND ID < 3600;
 SELECT COUNT(*) FROM Data WHERE ID > 4666 AND ID < 4999;
 ```
 - In the later implementations, we did change the sql statements later to try generate more representitive data. 
+```sql
+-- Updated Scan Queries
+SELECT COUNT(*) FROM Data WHERE A < 45;
+SELECT COUNT(*) FROM Data WHERE B % 5 = 0;
+SELECT COUNT(*) FROM Data WHERE C BETWEEN 15 AND 25;
+SELECT COUNT(*) FROM Data WHERE A > 30 AND B > 45 AND C < 70;
+SELECT COUNT(*) FROM Data WHERE A % 4 = 0 AND C % 4 = 0;
+SELECT COUNT(*) FROM Data WHERE A < 25 OR B > 85;
+SELECT COUNT(*) FROM Data WHERE C > 85;
+SELECT COUNT(*) FROM Data WHERE A BETWEEN 45 AND 55;
+SELECT COUNT(*) FROM Data WHERE B < 30 OR C > 70;
+SELECT COUNT(*) FROM Data WHERE A < 15 OR A > 85;
+
+-- Updated IndexScanQueries
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 10 AND 50;
+SELECT COUNT(*) FROM Data WHERE ID % 100 = 0;
+SELECT COUNT(*) FROM Data WHERE ID > 2500 AND ID < 2600;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 1 AND 1000;
+SELECT COUNT(*) FROM Data WHERE ID % 2 = 0;
+SELECT COUNT(*) FROM Data WHERE ID < 500 OR ID > 4500;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 300 AND 600;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 100 AND 200;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 2150 AND 2250;
+SELECT COUNT(*) FROM Data WHERE ID BETWEEN 4200 AND 4230;
+```
 
 ### MRU Implementation
 - For MRU, initially we checked over that four files and though we might not need to change to much to make the code work. The original algorithm is LRU which Postgres put the new buffer in to the end of the SharedFreeList. We changed that part to put the buffer to the next (top) of the SharedFreeList.
