@@ -203,10 +203,10 @@ ReadBufferInternal(Relation reln, BlockNumber blockNum,
 		if (!isLocalBuf)
 		{
 			LWLockAcquire(BufMgrLock, LW_EXCLUSIVE);
+			StartBufferIO(bufHdr, false);
 			// BEGIN NEWCODE
 			UpdateFreeList(bufHdr);
 			// END NEWCODE
-			StartBufferIO(bufHdr, false);
 			LWLockRelease(BufMgrLock);
 		}
 	}
@@ -611,10 +611,6 @@ write_buffer(Buffer buffer, bool release)
 	Assert(bufHdr->refcount > 0);
 
 	bufHdr->flags |= (BM_DIRTY | BM_JUST_DIRTIED);
-
-	// BEGIN NEWCODE
-	UpdateFreeList(bufHdr);
-	// END NEWCODE
 
 	if (release)
 		UnpinBuffer(bufHdr);

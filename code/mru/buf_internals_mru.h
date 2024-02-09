@@ -103,6 +103,10 @@ typedef struct sbufdesc
 	 * per buffer.
 	 */
 	BackendId	wait_backend_id;	/* backend ID of pin-count waiter */
+
+	// BEGIN NEWCODE
+	bool        is_buffer_used;     /* flag to indicate if buffer is used for mru */
+	// END NEWCODE
 } BufferDesc;
 
 #define BufferDescriptorGetBuffer(bdesc) ((bdesc)->buf_id + 1)
@@ -169,7 +173,10 @@ extern void PinBuffer(BufferDesc *buf);
 extern void UnpinBuffer(BufferDesc *buf);
 extern BufferDesc *GetFreeBuffer(void);
 extern void InitFreeList(bool init);
+
+// BEGIN NEWCODE
 extern void UpdateFreeList(BufferDesc *buf);
+// END NEWCODE
 
 /* buf_table.c */
 extern void InitBufTable(void);
