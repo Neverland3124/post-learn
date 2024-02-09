@@ -35,6 +35,7 @@
 
 static BufferDesc *SharedFreeList;
 static bool AllBuffersUsed = false;
+static int numberOfBufferCount = 0;
 
 /*
  * State-checking macros
@@ -86,26 +87,27 @@ AddBufferToFreelist(BufferDesc *bf)
 
 	// if not all buffers are used, add the buffer to the end of the free list
 	// if all buffers are used, add the buffer to the front of the free list
-	if (!AllBuffersUsed){
+	if (numberOfBufferCount < (NBuffers - 1)){
 		bf->freePrev = SharedFreeList->freePrev;
 		bf->freeNext = Free_List_Descriptor;
 
 		/* insert new into chain */
 		BufferDescriptors[bf->freeNext].freePrev = bf->buf_id;
 		BufferDescriptors[bf->freePrev].freeNext = bf->buf_id;
-		bf->is_buffer_used = true;
+		// bf->is_buffer_used = true;
+		numberOfBufferCount++;
 
 		// loop through the free list to check if all buffers are used
 		// make ALL_BUFFERS_USED true if all buffers are used
-		BufferDesc *buf = &(BufferDescriptors[SharedFreeList->freeNext]);
-		AllBuffersUsed = true;
-		while (buf != Free_List_Descriptor) {
-			if (buf->is_buffer_used == false) {
-				AllBuffersUsed = false;
-				break;
-			}
-			buf = &(BufferDescriptors[buf->freeNext]);
-		}
+		// BufferDesc *buf = &(BufferDescriptors[SharedFreeList->freeNext]);
+		// AllBuffersUsed = true;
+		// while (buf != Free_List_Descriptor) {
+		// 	if (buf->is_buffer_used == false) {
+		// 		AllBuffersUsed = false;
+		// 		break;
+		// 	}
+		// 	buf = &(BufferDescriptors[buf->freeNext]);
+		// }
 	} else {
 		// /* Prepare bf to be the first element in SharedFreeList */
 		bf->freeNext = SharedFreeList->freeNext;

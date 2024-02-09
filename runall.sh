@@ -29,7 +29,7 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 40 50 75 100)
+BUFFER_SIZES=(20 30 40 50 75 100 200)
 
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
@@ -43,9 +43,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE"
 
@@ -68,9 +65,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE_2"
 
@@ -158,9 +152,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE"
 
@@ -183,9 +174,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE_2"
 
@@ -275,9 +263,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE"
 
@@ -300,9 +285,6 @@ for buffer_size in "${BUFFER_SIZES[@]}"; do
         if [[ ! -z "$query" ]]; then # Skip empty lines
             # Use echo to pass the query to PostgreSQL command and append the output to the log file
             echo "$query" | "$PG_CMD" -B "$buffer_size" -D "$PG_DATA_DIR" -d "$DEBUG_LEVEL" -s "$DB_NAME" >> "$log_file" 2>&1
-            
-            # Wait for 1 seconds before the next execution
-            sleep 1
         fi
     done < "$QUERY_FILE_2"
 
