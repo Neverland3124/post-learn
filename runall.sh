@@ -29,9 +29,11 @@ DB_NAME="test"
 DEBUG_LEVEL="1"
 
 # Buffer sizes to test with
-BUFFER_SIZES=(20 30 40 50 62 63 75 100 125 150)
-buffer_sizes=(20 31 32 40 50 60 75 100 125 150)
+# BUFFER_SIZES=(20 30 40 50 62 63 75 100 125 150)
+# buffer_sizes=(20 31 32 40 50 60 75 100 125 150)
 
+BUFFER_SIZES=(20 30 40 50 62 63 75 100 125 150 200 250)
+buffer_sizes=(20 40 60 80 100 200 220 225 230 250)
 # Loop through each buffer size
 for buffer_size in "${BUFFER_SIZES[@]}"; do
     # Construct the log file name based on the buffer size
