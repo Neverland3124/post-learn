@@ -1,7 +1,7 @@
-LOG:  database system was shut down at 2024-02-09 15:40:21 EST
-LOG:  checkpoint record is at 0/BD0CE0
-LOG:  redo record is at 0/BD0CE0; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31288; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:11 EST
+LOG:  checkpoint record is at 0/C0CC28
+LOG:  redo record is at 0/C0CC28; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40810; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -9,12 +9,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.042172 elapsed 0.000000 user 0.003520 system sec
-	!	[0.004126 user 0.003520 sys total]
-	!	0/0 [0/64] filesystem blocks in/out
-	!	112/50 [159/435] page faults/reclaims, 0 [0] swaps
+	!	0.034434 elapsed 0.003850 user 0.000000 system sec
+	!	[0.008086 user 0.000000 sys total]
+	!	0/0 [0/56] filesystem blocks in/out
+	!	112/54 [159/441] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/2 [80/10] voluntary/involuntary context switches
+	!	31/1 [80/5] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        112 read,          0 written, buffer hit rate = 52.54%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -25,10 +25,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:21 EST
-LOG:  checkpoint record is at 0/BD0D28
-LOG:  redo record is at 0/BD0D28; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31290; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:11 EST
+LOG:  checkpoint record is at 0/C0CC70
+LOG:  redo record is at 0/C0CC70; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40812; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -36,12 +36,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.034119 elapsed 0.002398 user 0.002682 system sec
-	!	[0.002398 user 0.007194 sys total]
+	!	0.033873 elapsed 0.004744 user 0.000000 system sec
+	!	[0.008870 user 0.000000 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
 	!	112/54 [159/441] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	29/0 [76/0] voluntary/involuntary context switches
+	!	29/1 [78/7] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 56.11%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -52,10 +52,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:21 EST
-LOG:  checkpoint record is at 0/BD0D70
-LOG:  redo record is at 0/BD0D70; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31292; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:11 EST
+LOG:  checkpoint record is at 0/C0CCB8
+LOG:  redo record is at 0/C0CCB8; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40814; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -63,12 +63,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.041100 elapsed 0.005045 user 0.000000 system sec
-	!	[0.005045 user 0.004402 sys total]
+	!	0.035488 elapsed 0.002576 user 0.002270 system sec
+	!	[0.006810 user 0.002270 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/56 [159/441] page faults/reclaims, 0 [0] swaps
+	!	112/57 [159/447] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/1 [78/2] voluntary/involuntary context switches
+	!	31/0 [80/1] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        113 read,          0 written, buffer hit rate = 60.35%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -79,10 +79,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0DB8
-LOG:  redo record is at 0/BD0DB8; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31294; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:11 EST
+LOG:  checkpoint record is at 0/C0CD00
+LOG:  redo record is at 0/C0CD00; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40816; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -90,12 +90,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.036004 elapsed 0.001860 user 0.002999 system sec
-	!	[0.005999 user 0.002999 sys total]
+	!	0.035226 elapsed 0.003834 user 0.000865 system sec
+	!	[0.005938 user 0.002969 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/58 [159/445] page faults/reclaims, 0 [0] swaps
+	!	112/59 [159/444] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/2 [78/5] voluntary/involuntary context switches
+	!	31/0 [80/3] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 61.41%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -106,10 +106,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0E00
-LOG:  redo record is at 0/BD0E00; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31296; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CD48
+LOG:  redo record is at 0/C0CD48; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40818; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -117,12 +117,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.041150 elapsed 0.001008 user 0.004923 system sec
-	!	[0.004923 user 0.004923 sys total]
+	!	0.035231 elapsed 0.005315 user 0.000000 system sec
+	!	[0.009404 user 0.000000 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/59 [159/441] page faults/reclaims, 0 [0] swaps
+	!	112/56 [159/445] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	29/4 [76/8] voluntary/involuntary context switches
+	!	29/1 [78/2] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 56.77%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -133,10 +133,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0E48
-LOG:  redo record is at 0/BD0E48; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31298; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CD90
+LOG:  redo record is at 0/C0CD90; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40820; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -144,12 +144,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.037261 elapsed 0.005408 user 0.000000 system sec
-	!	[0.009800 user 0.000000 sys total]
+	!	0.040205 elapsed 0.002937 user 0.001598 system sec
+	!	[0.002937 user 0.005875 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/59 [159/441] page faults/reclaims, 0 [0] swaps
+	!	112/59 [159/444] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/0 [78/1] voluntary/involuntary context switches
+	!	31/3 [81/4] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 60.62%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -160,10 +160,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0E90
-LOG:  redo record is at 0/BD0E90; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31300; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CDD8
+LOG:  redo record is at 0/C0CDD8; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40822; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -171,12 +171,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.040483 elapsed 0.001030 user 0.002615 system sec
-	!	[0.005230 user 0.002615 sys total]
+	!	0.037322 elapsed 0.002640 user 0.001147 system sec
+	!	[0.002640 user 0.005281 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/50 [159/435] page faults/reclaims, 0 [0] swaps
+	!	112/50 [159/437] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/1 [79/4] voluntary/involuntary context switches
+	!	32/0 [81/1] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        112 read,          0 written, buffer hit rate = 52.54%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -187,10 +187,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0ED8
-LOG:  redo record is at 0/BD0ED8; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31302; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CE20
+LOG:  redo record is at 0/C0CE20; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40824; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -198,12 +198,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.040907 elapsed 0.002310 user 0.002310 system sec
-	!	[0.004462 user 0.004462 sys total]
+	!	0.035609 elapsed 0.002942 user 0.001471 system sec
+	!	[0.005831 user 0.002915 sys total]
 	!	0/0 [0/64] filesystem blocks in/out
-	!	112/57 [159/441] page faults/reclaims, 0 [0] swaps
+	!	112/61 [159/447] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/4 [78/8] voluntary/involuntary context switches
+	!	31/2 [80/4] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        113 read,          0 written, buffer hit rate = 60.35%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -214,10 +214,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0F20
-LOG:  redo record is at 0/BD0F20; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31304; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CE68
+LOG:  redo record is at 0/C0CE68; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40826; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -225,12 +225,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.042449 elapsed 0.000310 user 0.004517 system sec
-	!	[0.004517 user 0.004517 sys total]
+	!	0.036370 elapsed 0.004737 user 0.000000 system sec
+	!	[0.004737 user 0.004348 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/58 [159/440] page faults/reclaims, 0 [0] swaps
+	!	112/58 [159/447] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/7 [78/12] voluntary/involuntary context switches
+	!	31/1 [80/4] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 60.62%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
@@ -241,10 +241,10 @@ DETAIL:  ! system usage stats:
 	----
 backend> LOG:  shutting down
 LOG:  database system is shut down
-LOG:  database system was shut down at 2024-02-09 15:40:22 EST
-LOG:  checkpoint record is at 0/BD0F68
-LOG:  redo record is at 0/BD0F68; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 31306; next OID: 22147
+LOG:  database system was shut down at 2024-02-09 19:05:12 EST
+LOG:  checkpoint record is at 0/C0CEB0
+LOG:  redo record is at 0/C0CEB0; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 40828; next OID: 22147
 LOG:  database system is ready
 
 POSTGRES backend interactive interface 
@@ -252,12 +252,12 @@ $Revision: 1.375.2.5 $ $Date: 2005/12/14 17:07:00 $
 
 backend> LOG:  QUERY STATISTICS
 DETAIL:  ! system usage stats:
-	!	0.036312 elapsed 0.001841 user 0.003076 system sec
-	!	[0.006153 user 0.003076 sys total]
+	!	0.035777 elapsed 0.004302 user 0.000188 system sec
+	!	[0.004302 user 0.004302 sys total]
 	!	0/0 [0/56] filesystem blocks in/out
-	!	112/57 [159/443] page faults/reclaims, 0 [0] swaps
+	!	112/59 [159/446] page faults/reclaims, 0 [0] swaps
 	!	0 [0] signals rcvd, 0/0 [0/0] messages rcvd/sent
-	!	31/1 [78/1] voluntary/involuntary context switches
+	!	31/0 [83/2] voluntary/involuntary context switches
 	! buffer usage stats:
 	!	Shared blocks:        115 read,          0 written, buffer hit rate = 59.79%
 	!	Local  blocks:          0 read,          0 written, buffer hit rate = 0.00%
