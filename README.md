@@ -95,7 +95,15 @@ cat <queryfile.sql> | postgres -B <numbuffers> -D <datadir> -d <debug-level> -s 
 ## Conclusion
 - The main difficulty of our working on the assignment is about MRU algorithm. We didn't get the trick of MRU algorithm at first and lead to wrong implemntation and useless data collection. Overally we get a quite deep understand of how the buffer replacement algorithm works in Postgres.
 
-# Output Diagram
-- In folder /Diagram
+# Result of the Assignment
+- In folder "/Diagram"
     - First type of diagram (sequential) will be start with Sequential
     - Second type of diagram (individual) will be start with individual
+- Code of MRU & LFU
+    - freelist_mru.c, bufmgr_mru.c, buf_init_mru.c, buf_internals_mru.h
+    - freelist_lfu.c, bufmgr_lfu.c, buf_init_lfu.c, buf_internals_lfu.h.
+- SQL Queries
+    - ScanQueries.sql
+    - IndexScanQueries.sql
+- This README.md
+- report.pdf
