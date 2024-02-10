@@ -256,7 +256,7 @@ GetFreeBuffer(void)
 void
 UpdateFreeList(BufferDesc *buf)
 {
-    Remove buf from its current position in the list
+    // Remove buf from its current position in the list
     BufferDescriptors[buf->freeNext].freePrev = buf->freePrev;
     BufferDescriptors[buf->freePrev].freeNext = buf->freeNext;
 
