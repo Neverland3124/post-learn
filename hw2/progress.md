@@ -26,6 +26,12 @@ ideas:
 - data
 - report
 
+## Important functions
+- nodeHash.c
+    - ExecHash: constructs an in-memory hash table from the tuples of the inner relation
+- nodeHashjoin.c
+    - ExecHashJoin: fetching tuples from the outer relation, probing the hash table built on the inner relation for matches, and applying join conditions to produce the result set
+
 ## Commands
 ```shell
 # Zhitao Part
@@ -85,8 +91,7 @@ ideas:
 - **Purpose**: Prepares the hash node for re-scanning, typically due to a change in the query parameters or for executing a nested loop join. This involves re-scanning the child node if necessary.
 - **Workflow**: Checks if the child node's parameters have changed and triggers a re-scan of the child node if required.
 
-Each of these functions contributes to the efficient execution of hash joins by managing memory, partitioning data, and efficiently finding matching tuples based on hash values.
-- nodeHashjoin.c
+
 
 ## nodeHashjoin.c
 The provided code is part of PostgreSQL's implementation for executing hash joins. Hash joins are a method of joining two tables (relations) by using a hash table to improve the efficiency of the join. Below is a brief explanation of each function in the context of executing a hash join:
