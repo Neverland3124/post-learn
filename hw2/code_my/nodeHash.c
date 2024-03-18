@@ -28,6 +28,11 @@
 #include "utils/memutils.h"
 #include "utils/lsyscache.h"
 
+/* BEGIN NEWCODE */
+// Setup Some Static Variables
+static int BloomFilterSize = 1024;
+static int BloomFilterHashFunctions = 5;
+/* END NEWCODE*/
 
 /* ----------------------------------------------------------------
  *		ExecHash
@@ -73,6 +78,10 @@ ExecHash(HashState *node)
 	hashkeys = node->hashkeys;
 	econtext = node->ps.ps_ExprContext;
 
+	/* BEGIN NEWCODE */
+
+	/* END NEWCODE */
+
 	/*
 	 * get all inner tuples and insert into the hash table (or temp files)
 	 */
@@ -109,10 +118,15 @@ ExecInitHash(Hash *node, EState *estate)
 	/*
 	 * create state structure
 	 */
-	hashstate = makeNode(HashState);
+	hashstate = makeNode(HashState); 
+	// TODO: DELETE: here make node to make the node type T_HashState
 	hashstate->ps.plan = (Plan *) node;
 	hashstate->ps.state = estate;
 	hashstate->hashtable = NULL;
+
+	/* BEGIN NEWCODE */
+	hashstate->bloomFilter = (BloomFilter *) palloc(sizeof(BloomFilter));
+	/* END NEWCODE */
 
 	/*
 	 * Miscellaneous initialization
@@ -182,6 +196,10 @@ ExecEndHash(HashState *node)
 	 */
 	outerPlan = outerPlanState(node);
 	ExecEndNode(outerPlan);
+
+	/* BEGIN NEWCODE */
+	ExecBloomFilterFree(&node->bloomFilter);
+	/* END NEWCODE */
 }
 
 

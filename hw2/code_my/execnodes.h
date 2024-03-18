@@ -954,6 +954,10 @@ typedef struct HashJoinState
 	bool		hj_NeedNewOuter;
 	bool		hj_MatchedOuter;
 	bool		hj_hashdone;
+	/* BEGIN NEWCODE */
+	// A temp version, decide try not to use it.
+	// BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
+	/* END NEWCODE */
 } HashJoinState;
 
 
@@ -1056,6 +1060,23 @@ typedef struct UniqueState
 	MemoryContext tempContext;	/* short-term context for comparisons */
 } UniqueState;
 
+/* BEGIN NEWCODE */
+/* ----------------
+ *	 BloomFilter information
+ *
+ *		bitArray		Pointer to the bit array used in the Bloom filter
+ *		size			Size of the bit array
+ *		numHashes		Number of hash functions
+ * ----------------
+ */
+typedef struct BloomFilter
+{
+    char *bitArray;    /* One bit per position */
+    int size;
+    int numHashes;
+} BloomFilter;
+/* END NEWCODE */
+
 /* ----------------
  *	 HashState information
  * ----------------
@@ -1066,6 +1087,9 @@ typedef struct HashState
 	HashJoinTable hashtable;	/* hash table for the hashjoin */
 	List	   *hashkeys;		/* list of ExprState nodes */
 	/* hashkeys is same as parent's hj_InnerHashKeys */
+	/* BEGIN NEWCODE */
+	BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
+	/* END NEWCODE */
 } HashState;
 
 /* ----------------

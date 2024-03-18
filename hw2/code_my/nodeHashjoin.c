@@ -76,6 +76,9 @@ ExecHashJoin(HashJoinState *node)
 	outerkeys = node->hj_OuterHashKeys;
 	econtext = node->js.ps.ps_ExprContext;
 
+	/* BEGIN NEWCODE */
+	BloomFilter bloomFilter = node->hj_BloomFilter;
+	/* END NEWCODE */
 	/*
 	 * Check to see if we're still projecting out tuples from a previous
 	 * join tuple (because there is a function-returning-set in the
@@ -121,11 +124,30 @@ ExecHashJoin(HashJoinState *node)
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
 
+		/* BEGIN NEWCODE */
+		Assert(bloomFilter == NULL);
+		bloomFilter = ExecBloomFilterInit();
+		// TODO: we only need one initialize, shall we do it here or in
+		//  execnode.c ExecInitHash?
+		// By createplan.c, I think we should do it in ExecInitHash
+		//  since we call that first and anyway later on we will call that again
+		
+		// TODO: may need delete
+		hashnode->bloomFilter = bloomFilter;
+		// TODO: looks like we can always get the hashNode from node by 
+		hashNode = (HashState *) innerPlanState(node);
+		// So we don't need a bloomFilter in HashJoinState
+		/* END NEWCODE */
+
 		/*
 		 * execute the Hash node, to build the hash table
 		 */
 		hashNode->hashtable = hashtable;
 		(void) ExecProcNode((PlanState *) hashNode);
+		// TODO: Delete: What does this ExecProcNode do? 
+		// It seems to call ExecHash() in nodeHash.c to insert
+		// Since the node have type T_HashState, it will call ExecHash
+		// Will need to remember call to hashNode->bloomFilter will have the updated bloomFilter
 
 		/*
 		 * Open temp files for outer batches, if needed. Note that file
@@ -161,6 +183,11 @@ ExecHashJoin(HashJoinState *node)
 			econtext->ecxt_outertuple = outerTupleSlot;
 			node->hj_NeedNewOuter = false;
 			node->hj_MatchedOuter = false;
+
+			/* BEGIN NEWCODE */
+			// TODO: Test the content on the bloom filter
+			// Call ExecBloomFilterTest
+			/* END NEWCODE */
 
 			/*
 			 * now we have an outer tuple, find the corresponding bucket
@@ -316,6 +343,7 @@ ExecInitHashJoin(HashJoin *node, EState *estate)
 	 * create state structure
 	 */
 	hjstate = makeNode(HashJoinState);
+	// TODO: DELETE: here make node to make the node type T_HashJoinState
 	hjstate->js.ps.plan = (Plan *) node;
 	hjstate->js.ps.state = estate;
 
@@ -420,6 +448,11 @@ ExecInitHashJoin(HashJoin *node, EState *estate)
 					 (PlanState *) hjstate);
 	((HashState *) innerPlanState(hjstate))->hashkeys =
 		hjstate->hj_InnerHashKeys;
+	
+	/* BEGIN NEWCODE */
+	// TODO: consider initialze the bloom filter here
+	//  instead of in ExecHashJoin since it will always init the hjstate
+	/* END NEWCODE */
 
 	hclauses = NIL;
 	hoperators = NIL;
@@ -469,6 +502,11 @@ ExecEndHashJoin(HashJoinState *node)
 		ExecHashTableDestroy(node->hj_HashTable);
 		node->hj_HashTable = NULL;
 	}
+
+	/* BEGIN NEWCODE */
+	// Free Bloom Filter
+	ExecBloomFilterFree(node->hj_BloomFilter);
+	/* END NEWCODE */
 
 	/*
 	 * Free the exprcontext
@@ -748,3 +786,30 @@ ExecReScanHashJoin(HashJoinState *node, ExprContext *exprCtxt)
 	if (((PlanState *) node)->lefttree->chgParam == NULL)
 		ExecReScan(((PlanState *) node)->lefttree, exprCtxt);
 }
+
+/* BEGIN NEWCODE */
+void
+ExecBloomFilterInit()
+{
+
+}
+
+
+void
+ExecBloomFilterInsert()
+{
+
+}
+
+void
+ExecBloomFilterTest()
+{
+
+}
+
+void
+ExecBloomFilterFree(BloomFilter bloomFilter)
+{
+	pfree(bloomFilter);
+}
+/* END NEWCODE */

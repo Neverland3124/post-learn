@@ -9,6 +9,14 @@
 - report and graph
 
 ideas:
+- Add BloomFilter struct definition
+- Add BloomFilter in HashState struct
+- Initialize it
+- Use it when we do ExecHashTableInsert
+
+
+
+
 - ExecHash is where we build hash table for inner relation (build tuple), we need to apply the bloom filter on it so that we could have a result bloom filter
 - Then when we go through outer hash table (probe tuple), we could then verify each record with such bloom filter.
 
@@ -26,11 +34,14 @@ ideas:
 - data
 - report
 
-## Important functions
+## Important functions / structure
 - nodeHash.c
     - ExecHash: constructs an in-memory hash table from the tuples of the inner relation
 - nodeHashjoin.c
     - ExecHashJoin: fetching tuples from the outer relation, probing the hash table built on the inner relation for matches, and applying join conditions to produce the result set
+    - ExecHashJoinOuterGetTuple: retrieves the next tuple from the outer relation 
+- execnode.h
+    - HashJoinState: The HashJoinState structure represents the state of execution of a hash join operation.
 
 ## Commands
 ```shell
@@ -129,3 +140,12 @@ The provided code is part of PostgreSQL's implementation for executing hash join
 - **Workflow**: Resets the hash join's state, including the current tuple positions and the hash table. If necessary, the hash table is rebuilt.
 
 Each of these functions plays a specific role in managing the lifecycle of a hash join operation, from initialization and execution to handling batching (if needed due to memory constraints) and cleanup.
+
+
+## Code
+```c
+
+	/* BEGIN NEWCODE */
+	
+	/* END NEWCODE */
+```
