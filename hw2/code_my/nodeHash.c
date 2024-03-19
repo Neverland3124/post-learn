@@ -30,8 +30,8 @@
 
 /* BEGIN NEWCODE */
 // Setup Some Static Variables
-static int BloomFilterSize = 1024;
-static int BloomFilterHashFunctions = 5;
+static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
+static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
 /* END NEWCODE*/
 
 /* ----------------------------------------------------------------
@@ -92,6 +92,12 @@ ExecHash(HashState *node)
 			break;
 		econtext->ecxt_innertuple = slot;
 		ExecHashTableInsert(hashtable, econtext, hashkeys);
+
+		/* BEGIN NEWCODE */
+		// Insert into Bloom Filter
+		ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		/* END NEWCODE */
+
 		ExecClearTuple(slot);
 	}
 
@@ -125,7 +131,7 @@ ExecInitHash(Hash *node, EState *estate)
 	hashstate->hashtable = NULL;
 
 	/* BEGIN NEWCODE */
-	hashstate->bloomFilter = (BloomFilter *) palloc(sizeof(BloomFilter));
+	ExecBloomFilterInit(&hashstate->bloomFilter);
 	/* END NEWCODE */
 
 	/*
@@ -712,3 +718,106 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 	if (((PlanState *) node)->lefttree->chgParam == NULL)
 		ExecReScan(((PlanState *) node)->lefttree, exprCtxt);
 }
+
+/* BEGIN NEWCODE */
+// Helper functions for Bloom Filter Operations
+void
+ExecBloomFilterInit(BloomFilter *bloomFilter)
+{
+	bloomFilter->size = BLOOMFILTER_SIZE;
+	bloomFilter->numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
+	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
+    // we need to convert the size from bits to bytes. There are 8 bits in a byte.
+	int bitArraySize = (BLOOMFILTER_SIZE + 7) / sizeof(char);
+	// printf("bitArraySize: %d\n", bitArraySize);
+	bloomFilter->bitArray = (char *) palloc(bitArraySize);
+	
+	memset(bloomFilter->bitArray, 0, bitArraySize);
+}
+
+static void
+SetBit() {
+
+}
+
+static int
+GetBit() {
+	return 0;
+}
+
+/* ----------------------------------------------------------------
+ *		ExecBloomFilterInsert
+ *
+ *		Insert the hashkeys into the bloom filter
+ *      Similar as ExecHashGetBucket
+ * ----------------------------------------------------------------
+ */
+void
+ExecBloomFilterInsert(BloomFilter bloomFilter,
+					  ExprContext *econtext,
+					  List *hashkeys)
+{
+	uint32		hashkey = 0;
+	List	   *hk;
+	int			i = 0;
+	MemoryContext oldContext;
+
+	/*
+	 * We reset the eval context each time to reclaim any memory leaked in
+	 * the hashkey expressions.
+	 */
+	ResetExprContext(econtext);
+
+	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+	foreach(hk, hashkeys)
+	{
+		Datum		keyval;
+		bool		isNull;
+		// TODO: what should be done in an insert
+	}
+	
+	MemoryContextSwitchTo(oldContext);
+}
+
+bool
+ExecBloomFilterTest(BloomFilter bloomFilter,
+					ExprContext *econtext,
+					List *hashkeys)
+{
+	return false;
+}
+
+void
+ExecBloomFilterFree(BloomFilter bloomFilter)
+{
+	// TODO: is this correct?
+	pfree(bloomFilter.bitArray);
+}
+
+
+// https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
+// Fowler–Noll–Vo hash function
+
+// FNV_prime: hex: 0x811c9dc5
+// FNV_prime: dec: 2166136261
+
+// pseudo code from wikipedia
+// algorithm fnv-1 is
+//     hash := FNV_offset_basis
+//     for each byte_of_data to be hashed do
+//         hash := hash × FNV_prime
+//         hash := hash XOR byte_of_data
+//     return hash
+
+/* ----------------------------------------------------------------
+ *		HashFunctionFNV
+ *
+ *		First hash Function
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+HashFunctionFNV(int data) {
+}
+
+/* END NEWCODE */
