@@ -33,9 +33,9 @@
 static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
 static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
 // Define the type of the hash functions
-typedef int (*HashFunction)(int);
+typedef int (*HashFunction)(uint32);
 // Define the array of hash functions
-static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionFNV,/*...*/};
+static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionMurmur,/*...*/};
 
 /* END NEWCODE*/
 // TODO: Static functioon declarations
@@ -888,6 +888,10 @@ ExecBloomFilterFree(BloomFilter bloomFilter)
 
 // FNV_prime: hex: 0x811c9dc5
 // FNV_prime: dec: 2166136261
+//     var fnvPrime = 16777619;
+    // var hash = 2166136261;
+	// https://thimbleby.gitlab.io/algorithm-wiki-site/wiki/fowler-noll-vo_hash_function/
+    
 
 // pseudo code from wikipedia
 // algorithm fnv-1 is
@@ -904,7 +908,53 @@ ExecBloomFilterFree(BloomFilter bloomFilter)
  * ----------------------------------------------------------------
  */
 static unsigned int
-HashFunctionFNV(int data) {
+HashFunctionFNV(uint32 data) {
+	unsigned int FNVPrime = 16777619;
+	unsigned int hash = 2166136261;
+	unsigned char *dataByte = (unsigned char *) &data;
+
+	for (int i = 0; i < sizeof(data); i++) {
+		hash = hash * FNVPrime;
+		hash = hash ^ dataByte[i];
+	}
+
+	return hash;
 }
 
+/* ----------------------------------------------------------------
+ *		HashFunctionMurmur
+ *
+ *		Second hash Function
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+HashFunctionMurmur(uint32 data) {
+    const uint32_t c1 = 0xcc9e2d51;
+    const uint32_t c2 = 0x1b873593;
+    const uint32_t r1 = 15;
+    const uint32_t r2 = 13;
+    const uint32_t m = 5;
+    const uint32_t n = 0xe6546b64;
+    const uint32_t seed = 0; // Default seed value
+
+    uint32_t hash = seed;
+    uint32_t k = data;
+
+    k *= c1;
+    k = (k << r1) | (k >> (32 - r1));
+    k *= c2;
+
+    hash ^= k;
+    hash = (hash << r2) | (hash >> (32 - r2));
+    hash = hash * m + n;
+
+    hash ^= 4; // Because the length of a 32-bit integer is 4 bytes
+    hash ^= (hash >> 16);
+    hash *= 0x85ebca6b;
+    hash ^= (hash >> 13);
+    hash *= 0xc2b2ae35;
+    hash ^= (hash >> 16);
+
+    return hash;
+}
 /* END NEWCODE */
