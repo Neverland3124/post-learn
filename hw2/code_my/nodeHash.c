@@ -31,14 +31,26 @@
 /* BEGIN NEWCODE */
 // Setup Some Static Variables
 static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
-static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
+static int BLOOMFILTER_HASHFUNCTION_COUNT = 6;
+// TODO: Static functioon declarations
+static unsigned int HashFunctionFNV(uint32 data);
+static unsigned int HashFunctionMurmur(uint32 data);
+static unsigned int HashFunctionPJW(uint32_t data);
+static unsigned int HashFunctionRS(uint32_t data);
+static unsigned int HashFunctionSDBM(uint32_t data);
+static unsigned int HashFunctionAP(uint32_t data);
+static void SetBit(char *bitArray, int index);
+static int GetBit(char *bitArray, int index);
+static void ExecBloomFilterInit(BloomFilter *bloomFilter);
+static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
+static void ExecBloomFilterFree(BloomFilter bloomFilter);
+
 // Define the type of the hash functions
 typedef int (*HashFunction)(uint32);
 // Define the array of hash functions
-static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionMurmur,/*...*/};
-
+static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
 /* END NEWCODE*/
-// TODO: Static functioon declarations
+
 /* ----------------------------------------------------------------
  *		ExecHash
  *
@@ -82,10 +94,6 @@ ExecHash(HashState *node)
 	 */
 	hashkeys = node->hashkeys;
 	econtext = node->ps.ps_ExprContext;
-
-	/* BEGIN NEWCODE */
-
-	/* END NEWCODE */
 
 	/*
 	 * get all inner tuples and insert into the hash table (or temp files)
@@ -209,7 +217,7 @@ ExecEndHash(HashState *node)
 	ExecEndNode(outerPlan);
 
 	/* BEGIN NEWCODE */
-	ExecBloomFilterFree(&node->bloomFilter);
+	ExecBloomFilterFree(node->bloomFilter);
 	/* END NEWCODE */
 }
 
@@ -725,6 +733,7 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 }
 
 /* BEGIN NEWCODE */
+/* --------------------- Bloom Filter --------------------------*/
 // Helper functions for Bloom Filter Operations
 void
 ExecBloomFilterInit(BloomFilter *bloomFilter)
@@ -882,6 +891,7 @@ ExecBloomFilterFree(BloomFilter bloomFilter)
 	pfree(bloomFilter.bitArray);
 }
 
+// https://www.partow.net/programming/hashfunctions/
 
 // https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
 // Fowler–Noll–Vo hash function
@@ -957,4 +967,89 @@ HashFunctionMurmur(uint32 data) {
 
     return hash;
 }
+
+// PJW hash function
+// https://en.wikipedia.org/wiki/PJW_hash_function
+// pseudo code from wikipedia
+// algorithm PJW_hash(s) is
+//     uint h := 0
+//     bits := uint size in bits
+//     for i := 1 to |S| do
+//         h := h << bits/8 + s[i]
+//         high := get top bits/8 bits of h from left
+//         if high ≠ 0 then
+//             h := h xor (high >> bits * 3/4)
+//             h := h & ~high
+//     return h
+/* ----------------------------------------------------------------
+ *		HashFunctionPJW
+ *
+ *		Second hash Function
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+HashFunctionPJW(uint32_t data) {
+    uint32_t h = 0;
+    uint32_t bits = sizeof(uint32_t) * 8; // uint32_t size in bits
+    uint32_t high;
+
+    for (int i = 0; i < bits; i += 8) {
+        h = (h << (bits / 8)) + ((data >> i) & 0xFF); // Extract byte i from data
+        high = h & (0xFF << (bits - bits / 8)); // Get top bits/8 bits of h from left
+        if (high != 0) {
+            h = h ^ (high >> (bits * 3 / 4));
+            h = h & ~high;
+        }
+    }
+
+    return h;
+}
+
+
+static unsigned int
+HashFunctionRS(uint32_t data)
+{
+    unsigned int b    = 378551;
+    unsigned int a    = 63689;
+    unsigned int hash = 0;
+    unsigned char *dataByte = (unsigned char *) &data;
+
+    for (int i = 0; i < sizeof(data); i++)
+    {
+        hash = hash * a + dataByte[i];
+        a    = a * b;
+    }
+
+    return hash;
+}
+
+static unsigned int
+HashFunctionSDBM(uint32_t data)
+{
+    unsigned int hash = 0;
+    unsigned char *dataByte = (unsigned char *) &data;
+
+    for (int i = 0; i < sizeof(data); i++)
+    {
+        hash = dataByte[i] + (hash << 6) + (hash << 16) - hash;
+    }
+
+    return hash;
+}
+
+static unsigned int
+HashFunctionAP(uint32_t data)
+{
+    unsigned int hash = 0xAAAAAAAA;
+    unsigned char *dataByte = (unsigned char *) &data;
+
+    for (int i = 0; i < sizeof(data); i++)
+    {
+        hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ dataByte[i] * (hash >> 3)) :
+                                  (~((hash << 11) + (dataByte[i] ^ (hash >> 5))));
+    }
+
+    return hash;
+}
+
 /* END NEWCODE */

@@ -163,7 +163,6 @@ ExecHashJoin(HashJoinState *node)
 			node->hj_MatchedOuter = false;
 
 			/* BEGIN NEWCODE */
-			// TODO: Test the content on the bloom filter
 			// Call ExecBloomFilterTest
 			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
 			if (!bloomFilterResult)
@@ -484,7 +483,7 @@ ExecEndHashJoin(HashJoinState *node)
 
 	/* BEGIN NEWCODE */
 	// Free Bloom Filter
-	// TODO: Call ExecBloomFilterDestroy
+	// TODO: Call ExecBloomFilterDestroy?
 	/* END NEWCODE */
 
 	/*

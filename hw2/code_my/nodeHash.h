@@ -39,4 +39,8 @@ extern void ExecChooseHashTableSize(double ntuples, int tupwidth,
 						int *physicalbuckets,
 						int *numbatches);
 
+/* BEGIN NEWCODE */
+extern bool ExecBloomFilterTest(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
+/* END NEWCODE */
+
 #endif   /* NODEHASH_H */
