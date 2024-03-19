@@ -32,6 +32,11 @@
 // Setup Some Static Variables
 static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
 static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
+// Define the type of the hash functions
+typedef int (*HashFunction)(int);
+// Define the array of hash functions
+static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionFNV,/*...*/};
+
 /* END NEWCODE*/
 // TODO: Static functioon declarations
 /* ----------------------------------------------------------------
@@ -728,21 +733,45 @@ ExecBloomFilterInit(BloomFilter *bloomFilter)
 	bloomFilter->numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
-	int bitArraySize = (BLOOMFILTER_SIZE + 7) / sizeof(char);
+	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
 	// printf("bitArraySize: %d\n", bitArraySize);
 	bloomFilter->bitArray = (char *) palloc(bitArraySize);
 	
 	memset(bloomFilter->bitArray, 0, bitArraySize);
 }
 
+/* ----------------------------------------------------------------
+ *		SetBit
+ *
+ * 		Set the bit at the given index
+ * ----------------------------------------------------------------
+ */
 static void
-SetBit() {
+SetBit(char *bitArray, int index) {
+    // Calculate the byte in the array where the bit needs to be set
+    int byteIndex = index / 8;
+    // Calculate the bit position within the byte
+    int bitPosition = index % 8;
 
+    // Set the bit at the given index
+    bitArray[byteIndex] |= 1 << bitPosition;
 }
 
+/* ----------------------------------------------------------------
+ *		GetBit
+ *
+ * 		Get the bit at the given index
+ * ----------------------------------------------------------------
+ */
 static int
-GetBit() {
-	return 0;
+GetBit(char *bitArray, int index) {
+    // Calculate the byte in the array where the bit is located
+    int byteIndex = index / 8;
+    // Calculate the bit position within the byte
+    int bitPosition = index % 8;
+
+    // Get the bit at the given index
+    return (bitArray[byteIndex] & (1 << bitPosition)) != 0;
 }
 
 /* ----------------------------------------------------------------
@@ -759,7 +788,6 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 {
 	uint32		hashkey = 0;
 	List	   *hk;
-	int			i = 0;
 	MemoryContext oldContext;
 
 	/*
@@ -770,11 +798,28 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 
 	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
 
+	// The idea is to loop over all hashkeys and apply the hash function to each of them
+	//  Insert the return result from the hash function into the bit array
 	foreach(hk, hashkeys)
 	{
 		Datum		keyval;
 		bool		isNull;
-		// TODO: what should be done in an insert
+
+		// Get the join attribute value of the tuple
+		keyval = ExecEvalExpr((ExprState *) lfirst(hk),
+							  econtext, &isNull, NULL);
+		uint32 hkey = DatumGetUInt32(keyval);
+
+		// Compute the hash function
+		if (!isNull)  // treat nulls as having hash key 0
+		{
+			for (int i = 0; i < bloomFilter.numHashes; i++) {
+				// Call the i-th hash function
+				int hashResult = hashFunctions[i](hkey);
+				// printf("hashResult: %d\n", hashResult);
+				SetBit(bloomFilter.bitArray, hashResult);
+			}
+		}
 	}
 	
 	MemoryContextSwitchTo(oldContext);
@@ -785,7 +830,49 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 					ExprContext *econtext,
 					List *hashkeys)
 {
-	return false;
+	uint32		hashkey = 0;
+	List	   *hk;
+	MemoryContext oldContext;
+
+	/*
+	 * We reset the eval context each time to reclaim any memory leaked in
+	 * the hashkey expressions.
+	 */
+	ResetExprContext(econtext);
+
+	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+	bool result = true;
+
+	foreach(hk, hashkeys)
+	{
+		Datum		keyval;
+		bool		isNull;
+
+		// Get the join attribute value of the tuple
+		keyval = ExecEvalExpr((ExprState *) lfirst(hk),
+							  econtext, &isNull, NULL);
+		uint32 hkey = DatumGetUInt32(keyval);
+
+		// Compute the hash function
+		if (!isNull)  // treat nulls as having hash key 0
+		{
+			for (int i = 0; i < bloomFilter.numHashes; i++) {
+				// Call the i-th hash function
+				int hashResult = hashFunctions[i](hkey);
+				// printf("hashResult: %d\n", hashResult);
+				if (!GetBit(bloomFilter.bitArray, hashResult)) {
+					// if the bit is not set, then the hashkey is not in the bloom filter
+					// therefore, the tuple is not in the hash table, return false
+					// printf("hashResult: %d\n", hashResult);
+					return false;
+				}
+			}
+		}
+	}
+	
+	MemoryContextSwitchTo(oldContext);
+	// if all bits are set, then the tuple might be in the hash table, return true
+	return true;
 }
 
 void
