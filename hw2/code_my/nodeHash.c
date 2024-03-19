@@ -33,7 +33,7 @@
 static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
 static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
 /* END NEWCODE*/
-
+// TODO: Static functioon declarations
 /* ----------------------------------------------------------------
  *		ExecHash
  *
