@@ -11,4 +11,3 @@ cat "/cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/code_original/nodeHashjoin
 # need to re gmake everything
 cd /cmshome/xuzhitao/cscd43/postgresql-7.4.13
 gmake clean && gmake uninstall && gmake && gmake install
-cd /cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/

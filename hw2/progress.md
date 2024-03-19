@@ -46,6 +46,28 @@ ideas:
 ## Commands
 ```shell
 # Zhitao Part
+# sql
+SET enable_nestloop TO off;
+SET enable_mergejoin TO off;
+
+CREATE TABLE R (ID INTEGER PRIMARY KEY, A INTEGER, B INTEGER, C INTEGER);
+CREATE TABLE S (ID INTEGER PRIMARY KEY, A INTEGER, B INTEGER, C INTEGER);
+
+copy R(ID, A, B, C) from '/cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/shell/data1.csv' delimiter ',';
+copy S(ID, A, B, C) from '/cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/shell/data2.csv' delimiter ',';
+
+select count(*) from R;
+select count(*) from S;
+
+SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000;
+vacuum analyze;
+
+
+./bin/postmaster -p 14324 -D ./data >logfile 2>&1 &
+./bin/createdb hw -p 14324
+./bin/psql hw -p 14324
+
+
 
 # Lianting Part
 
