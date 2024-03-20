@@ -29,27 +29,26 @@
 #include "utils/lsyscache.h"
 
 /* BEGIN NEWCODE */
-// Setup Some Static Variables
-static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
-static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
-// TODO: Static functioon declarations
+// Static variables
+static int BLOOMFILTER_SIZE = 81920; // 1024 bytes
+static int BLOOMFILTER_HASHFUNCTION_COUNT = 5;
+// Static functions
+// TODO: delete
+static unsigned int ELFHash(uint32_t data);
+static unsigned int BKDRHash(uint32_t data);
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionMurmur(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
-static unsigned int HashFunctionRS(uint32_t data);
 static unsigned int HashFunctionSDBM(uint32_t data);
 static unsigned int HashFunctionAP(uint32_t data);
 static void SetBit(char *bitArray, int index);
 static int GetBit(char *bitArray, int index);
 static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
-// TODO: delete
-static unsigned int ELFHash(uint32_t data);
-static unsigned int BKDRHash(uint32_t data);
 
 // Define the type of the hash functions
 typedef unsigned int (*HashFunction)(uint32_t);
 // Define the array of hash functions
-static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
+static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionSDBM, HashFunctionAP};
 /* END NEWCODE*/
 
 /* ----------------------------------------------------------------
@@ -110,8 +109,7 @@ ExecHash(HashState *node)
 
 		/* BEGIN NEWCODE */
 		// Insert into Bloom Filter after nodehashjoin call init
-		if (node->bloomFilter.isInitialized)
-		{
+		if (node->bloomFilter.isInitialized) {
 			ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
 		}
 		/* END NEWCODE */
@@ -149,9 +147,9 @@ ExecInitHash(Hash *node, EState *estate)
 	hashstate->hashtable = NULL;
 
 	/* BEGIN NEWCODE */
+	// Initialize the bloom filter to inactive state
 	hashstate->bloomFilter.isInitialized = false;
 	hashstate->bloomFilter.bitArray = NULL;
-	// hashstate->bloomFilter.bitArray = NULL;
 	/* END NEWCODE */
 
 	/*
@@ -737,21 +735,27 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 }
 
 /* BEGIN NEWCODE */
-/* --------------------- Bloom Filter --------------------------*/
-// Helper functions for Bloom Filter Operations
+/* --------------------- Bloom Filter Functions --------------------------*/
+/* ----------- Helper functions for Bloom Filter Operations --------------*/
+
+/* ----------------------------------------------------------------
+ *		ExecBloomFilterInit
+ *
+ * 		Initialize the bloom filter
+ * ----------------------------------------------------------------
+ */
 BloomFilter
 ExecBloomFilterInit()
 {
 	BloomFilter bloomFilter;
-	printf("zhitao123456 ExecBloomFilterInit\n");
 	bloomFilter.size = BLOOMFILTER_SIZE;
 	bloomFilter.numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
 	bloomFilter.isInitialized = true; 
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
 	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
-	printf("bitArraySize: %d\n", bitArraySize);
-	// 1024 bytes
+	printf("-----Init bitArraySize: %d-----\n", bitArraySize);
+	// 10240? bytes
 	bloomFilter.bitArray = (char *) palloc(bitArraySize);
 	memset(bloomFilter.bitArray, 0, bitArraySize);
 	return bloomFilter;
@@ -803,7 +807,7 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 					  ExprContext *econtext,
 					  List *hashkeys)
 {
-	printf("zhitao123456 ExecBloomFilterInsert\n");
+	printf("----- ExecBloomFilterInsert -----\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
@@ -828,17 +832,17 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 							  econtext, &isNull, NULL);
 		uint32 hkey = DatumGetUInt32(keyval);
 
-		// Compute the hash function
 		if (!isNull)  // treat nulls as having hash key 0
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
 				// Call the i-th hash function
-				printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
-				printf("zhitao i: %d\n", i);
+				// printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
+				// printf("zhitao i: %d\n", i);
 				int hashResult = hashFunctions[i](hkey) % 32;
 				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
+			// TODO: help debug, need delete
 			// int r3 = ELFHash(hkey) % 32;
 			// SetBit(bloomFilter.bitArray, r3);
 
@@ -855,9 +859,10 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 					ExprContext *econtext,
 					List *hashkeys)
 {
-	uint32		hashkey = 0;
+	uint32	    hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
+	bool result = true;
 
 	/*
 	 * We reset the eval context each time to reclaim any memory leaked in
@@ -866,7 +871,6 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 	ResetExprContext(econtext);
 
 	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
-	bool result = true;
 
 	foreach(hk, hashkeys)
 	{
@@ -878,17 +882,17 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 							  econtext, &isNull, NULL);
 		uint32 hkey = DatumGetUInt32(keyval);
 
-		// Compute the hash function
 		if (!isNull)  // treat nulls as having hash key 0
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
-				printf("test zhitao numHashes: %d\n", bloomFilter.numHashes);
-				printf("test zhitao i: %d\n", i);
+				// printf("test zhitao numHashes: %d\n", bloomFilter.numHashes);
+				// printf("test zhitao i: %d\n", i);
 				// Call the i-th hash function
 				int hashResult = hashFunctions[i](hkey) % 32;
 				// printf("hashResult: %d\n", hashResult);
 				result = result && GetBit(bloomFilter.bitArray, hashResult);
 			}
+			// TODO: help debug, need delete
 			// int r3 = ELFHash(hkey) % 32;
 			// is_member = is_member && GetBit(bloomFilter.bitArray, r3);
 
@@ -904,11 +908,11 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 void
 ExecBloomFilterFree(BloomFilter bloomFilter)
 {
-	printf("zhitao123456 ExecBloomFilterFree\n");
-	// TODO: is this correct?
+	printf("-----ExecBloomFilterFree\n-----");
 	pfree(bloomFilter.bitArray);
 }
 
+/* --------------------- Hash Functions --------------------------*/
 // https://www.partow.net/programming/hashfunctions/
 
 // https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
@@ -1023,24 +1027,6 @@ HashFunctionPJW(uint32_t data) {
     return h;
 }
 
-
-static unsigned int
-HashFunctionRS(uint32_t data)
-{
-    unsigned int b    = 378551;
-    unsigned int a    = 63689;
-    unsigned int hash = 0;
-    unsigned char *dataByte = (unsigned char *) &data;
-
-    for (int i = 0; i < sizeof(data); i++)
-    {
-        hash = hash * a + dataByte[i];
-        a    = a * b;
-    }
-
-    return hash;
-}
-
 static unsigned int
 HashFunctionSDBM(uint32_t data)
 {
@@ -1093,12 +1079,6 @@ ELFHash(uint32 key)
    return hash;
 }
 
-/* ----------------------------------------------------------------
- *		BKDRHash
- *
- *		BKD hash algorithm
- * ----------------------------------------------------------------
- */
 static unsigned int
 BKDRHash(uint32 key)
 {
@@ -1115,7 +1095,5 @@ BKDRHash(uint32 key)
 
    return hash;
 }
-
-
 
 /* END NEWCODE */
