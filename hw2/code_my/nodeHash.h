@@ -42,7 +42,7 @@ extern void ExecChooseHashTableSize(double ntuples, int tupwidth,
 /* BEGIN NEWCODE */
 extern bool ExecBloomFilterTest(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
 extern void ExecBloomFilterFree(BloomFilter bloomFilter);
-extern void ExecBloomFilterInit(BloomFilter *bloomFilter);
+extern BloomFilter ExecBloomFilterInit();
 /* END NEWCODE */
 
 #endif   /* NODEHASH_H */

@@ -121,7 +121,7 @@ ExecHashJoin(HashJoinState *node)
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
 		/* BEGIN NEWCODE*/
-		ExecBloomFilterInit(&hashNode->bloomFilter);
+		hashNode->bloomFilter = ExecBloomFilterInit();
 		printf("zhitao123456 Bloom Filter Created\n");
 		/* END NEWCODE */
 
@@ -168,13 +168,13 @@ ExecHashJoin(HashJoinState *node)
 
 			/* BEGIN NEWCODE */
 			// Call ExecBloomFilterTest
-			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
-			printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
-			if (!bloomFilterResult)
-			{
-				node->hj_NeedNewOuter = true;
-				continue;
-			}
+			// bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
+			// printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
+			// if (!bloomFilterResult)
+			// {
+			// 	node->hj_NeedNewOuter = true;
+			// 	continue;
+			// }
 			/* END NEWCODE */
 
 			/*
@@ -320,6 +320,7 @@ ExecHashJoin(HashJoinState *node)
 HashJoinState *
 ExecInitHashJoin(HashJoin *node, EState *estate)
 {
+	printf("zhitao123456 ExecInitHashJoin\n");
 	HashJoinState *hjstate;
 	Plan	   *outerNode;
 	Hash	   *hashNode;
@@ -477,6 +478,7 @@ ExecCountSlotsHashJoin(HashJoin *node)
 void
 ExecEndHashJoin(HashJoinState *node)
 {
+	printf("zhitao123456 ExecEndHashJoin\n");
 	/*
 	 * Free hash table
 	 */
@@ -489,7 +491,7 @@ ExecEndHashJoin(HashJoinState *node)
 	/* BEGIN NEWCODE */
 	// Free Bloom Filter
 	HashState *hashState = (HashState *) innerPlanState(node);
-	// ExecBloomFilterFree(hashState->bloomFilter);
+	ExecBloomFilterFree(hashState->bloomFilter);
 	/* END NEWCODE */
 
 	/*

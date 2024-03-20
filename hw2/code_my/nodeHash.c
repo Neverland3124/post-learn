@@ -62,6 +62,7 @@ static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashF
 TupleTableSlot *
 ExecHash(HashState *node)
 {
+	printf("zhitao123456 ExecHash\n");
 	EState	   *estate;
 	PlanState  *outerNode;
 	List	   *hashkeys;
@@ -108,8 +109,12 @@ ExecHash(HashState *node)
 		ExecHashTableInsert(hashtable, econtext, hashkeys);
 
 		/* BEGIN NEWCODE */
-		// Insert into Bloom Filter
-		ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		// Insert into Bloom Filter after nodehashjoin call init
+		if (node->bloomFilter.isInitialized)
+		{
+			printf("zhitao123456 ExecHash: Insert into Bloom Filter\n");
+			// ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		}
 		/* END NEWCODE */
 
 		ExecClearTuple(slot);
@@ -131,6 +136,7 @@ ExecHash(HashState *node)
 HashState *
 ExecInitHash(Hash *node, EState *estate)
 {
+	printf("zhitao123456 ExecInitHash\n");
 	HashState  *hashstate;
 
 	SO_printf("ExecInitHash: initializing hash node\n");
@@ -144,7 +150,9 @@ ExecInitHash(Hash *node, EState *estate)
 	hashstate->hashtable = NULL;
 
 	/* BEGIN NEWCODE */
-	// ExecBloomFilterInit(&hashstate->bloomFilter);
+	hashstate->bloomFilter.isInitialized = false;
+	hashstate->bloomFilter.bitArray = NULL;
+	// hashstate->bloomFilter.bitArray = NULL;
 	/* END NEWCODE */
 
 	/*
@@ -203,6 +211,7 @@ ExecCountSlotsHash(Hash *node)
 void
 ExecEndHash(HashState *node)
 {
+	printf("zhitao123456 ExecEndHash\n");
 	PlanState  *outerPlan;
 
 	/*
@@ -731,19 +740,21 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 /* BEGIN NEWCODE */
 /* --------------------- Bloom Filter --------------------------*/
 // Helper functions for Bloom Filter Operations
-void
-ExecBloomFilterInit(BloomFilter *bloomFilter)
+BloomFilter
+ExecBloomFilterInit()
 {
+	BloomFilter bloomFilter;
 	printf("zhitao123456 ExecBloomFilterInit\n");
-	bloomFilter->size = BLOOMFILTER_SIZE;
-	bloomFilter->numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
+	bloomFilter.size = BLOOMFILTER_SIZE;
+	bloomFilter.numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
+	bloomFilter.isInitialized = true; 
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
 	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
 	printf("bitArraySize: %d\n", bitArraySize);
-	bloomFilter->bitArray = (char *) palloc(bitArraySize);
-	
-	memset(bloomFilter->bitArray, 0, bitArraySize);
+	bloomFilter.bitArray = (char *) palloc(bitArraySize);
+	memset(bloomFilter.bitArray, 0, bitArraySize);
+	return bloomFilter;
 }
 
 /* ----------------------------------------------------------------

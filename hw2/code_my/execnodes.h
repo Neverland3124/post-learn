@@ -954,10 +954,6 @@ typedef struct HashJoinState
 	bool		hj_NeedNewOuter;
 	bool		hj_MatchedOuter;
 	bool		hj_hashdone;
-	/* BEGIN NEWCODE */
-	// A temp version, decide try not to use it.
-	// BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
-	/* END NEWCODE */
 } HashJoinState;
 
 
@@ -1074,6 +1070,7 @@ typedef struct BloomFilter
     char *bitArray;    /* One bit per position */
     int size;
     int numHashes;
+	bool isInitialized;
 } BloomFilter;
 /* END NEWCODE */
 
