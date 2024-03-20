@@ -30,7 +30,7 @@
 
 /* BEGIN NEWCODE */
 // Static variables
-const static int BLOOMFILTER_SIZE = 8192;
+const static int BLOOMFILTER_SIZE = 81920;
 const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8; // 1024
 const static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
 // Static functions
