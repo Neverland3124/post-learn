@@ -31,7 +31,7 @@
 /* BEGIN NEWCODE */
 // Setup Some Static Variables
 static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
-static int BLOOMFILTER_HASHFUNCTION_COUNT = 6;
+static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
 // TODO: Static functioon declarations
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionMurmur(uint32 data);
@@ -41,14 +41,15 @@ static unsigned int HashFunctionSDBM(uint32_t data);
 static unsigned int HashFunctionAP(uint32_t data);
 static void SetBit(char *bitArray, int index);
 static int GetBit(char *bitArray, int index);
-static void ExecBloomFilterInit(BloomFilter *bloomFilter);
 static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
-static void ExecBloomFilterFree(BloomFilter bloomFilter);
+// TODO: delete
+static unsigned int ELFHash(uint32_t data);
+static unsigned int BKDRHash(uint32_t data);
 
 // Define the type of the hash functions
 typedef int (*HashFunction)(uint32);
 // Define the array of hash functions
-static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
+static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
 /* END NEWCODE*/
 
 /* ----------------------------------------------------------------
@@ -138,13 +139,12 @@ ExecInitHash(Hash *node, EState *estate)
 	 * create state structure
 	 */
 	hashstate = makeNode(HashState); 
-	// TODO: DELETE: here make node to make the node type T_HashState
 	hashstate->ps.plan = (Plan *) node;
 	hashstate->ps.state = estate;
 	hashstate->hashtable = NULL;
 
 	/* BEGIN NEWCODE */
-	ExecBloomFilterInit(&hashstate->bloomFilter);
+	// ExecBloomFilterInit(&hashstate->bloomFilter);
 	/* END NEWCODE */
 
 	/*
@@ -215,10 +215,6 @@ ExecEndHash(HashState *node)
 	 */
 	outerPlan = outerPlanState(node);
 	ExecEndNode(outerPlan);
-
-	/* BEGIN NEWCODE */
-	ExecBloomFilterFree(node->bloomFilter);
-	/* END NEWCODE */
 }
 
 
@@ -738,12 +734,13 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 void
 ExecBloomFilterInit(BloomFilter *bloomFilter)
 {
+	printf("zhitao123456 ExecBloomFilterInit\n");
 	bloomFilter->size = BLOOMFILTER_SIZE;
 	bloomFilter->numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
 	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
-	// printf("bitArraySize: %d\n", bitArraySize);
+	printf("bitArraySize: %d\n", bitArraySize);
 	bloomFilter->bitArray = (char *) palloc(bitArraySize);
 	
 	memset(bloomFilter->bitArray, 0, bitArraySize);
@@ -795,6 +792,7 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 					  ExprContext *econtext,
 					  List *hashkeys)
 {
+	printf("zhitao123456 ExecBloomFilterInsert\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
@@ -839,6 +837,7 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 					ExprContext *econtext,
 					List *hashkeys)
 {
+	printf("zhitao123456 ExecBloomFilterTest\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
@@ -887,6 +886,7 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 void
 ExecBloomFilterFree(BloomFilter bloomFilter)
 {
+	printf("zhitao123456 ExecBloomFilterFree\n");
 	// TODO: is this correct?
 	pfree(bloomFilter.bitArray);
 }
@@ -1051,5 +1051,53 @@ HashFunctionAP(uint32_t data)
 
     return hash;
 }
+
+// TODO: delete rest
+static unsigned int
+ELFHash(uint32 key)
+{
+   unsigned int hash = 0;
+   unsigned int x    = 0;
+   unsigned int i    = 0;
+   char str[64];
+
+   sprintf(str, "%d", key);
+   for(i = 0; i < strlen(str); i++)
+   {
+      hash = (hash << 4) + str[i];
+      if((x = hash & 0xF0000000L) != 0)
+      {
+         hash ^= (x >> 24);
+      }
+      hash &= ~x;
+   }
+
+   return hash;
+}
+
+/* ----------------------------------------------------------------
+ *		BKDRHash
+ *
+ *		BKD hash algorithm
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+BKDRHash(uint32 key)
+{
+   unsigned int seed = 131; /* 31 131 1313 13131 131313 etc.. */
+   unsigned int hash = 0;
+   unsigned int i    = 0;
+   char str[64];
+
+   sprintf(str, "%d", key);
+   for(i = 0; i < strlen(str); i++)
+   {
+      hash = (hash * seed) + str[i];
+   }
+
+   return hash;
+}
+
+
 
 /* END NEWCODE */

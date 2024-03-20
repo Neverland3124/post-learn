@@ -120,6 +120,10 @@ ExecHashJoin(HashJoinState *node)
 		hashtable = ExecHashTableCreate((Hash *) hashNode->ps.plan,
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
+		/* BEGIN NEWCODE*/
+		ExecBloomFilterInit(&hashNode->bloomFilter);
+		printf("zhitao123456 Bloom Filter Created\n");
+		/* END NEWCODE */
 
 		/*
 		 * execute the Hash node, to build the hash table
@@ -165,6 +169,7 @@ ExecHashJoin(HashJoinState *node)
 			/* BEGIN NEWCODE */
 			// Call ExecBloomFilterTest
 			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
+			printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
 			if (!bloomFilterResult)
 			{
 				node->hj_NeedNewOuter = true;
@@ -483,7 +488,8 @@ ExecEndHashJoin(HashJoinState *node)
 
 	/* BEGIN NEWCODE */
 	// Free Bloom Filter
-	// TODO: Call ExecBloomFilterDestroy?
+	HashState *hashState = (HashState *) innerPlanState(node);
+	// ExecBloomFilterFree(hashState->bloomFilter);
 	/* END NEWCODE */
 
 	/*

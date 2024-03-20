@@ -60,6 +60,7 @@ select count(*) from R;
 select count(*) from S;
 
 SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000;
+EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000;
 vacuum analyze;
 
 
