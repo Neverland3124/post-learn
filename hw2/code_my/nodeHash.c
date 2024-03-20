@@ -110,9 +110,7 @@ ExecHash(HashState *node)
 
 		/* BEGIN NEWCODE */
 		// Insert into Bloom Filter after nodehashjoin call init
-		if (node->bloomFilter.isInitialized) {
-			ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
-		}
+		ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
 		/* END NEWCODE */
 
 		ExecClearTuple(slot);
@@ -150,8 +148,8 @@ ExecInitHash(Hash *node, EState *estate)
 	/* BEGIN NEWCODE */
 	// Initialize the bloom filter to inactive state
 	// TODO: delete or not
-	hashstate->bloomFilter.isInitialized = false;
-	hashstate->bloomFilter.bitArray = NULL;
+	// hashstate->bloomFilter.isInitialized = false;
+	// hashstate->bloomFilter.bitArray = NULL;
 	/* END NEWCODE */
 
 	/*
@@ -752,7 +750,6 @@ ExecBloomFilterInit()
 	BloomFilter bloomFilter;
 	bloomFilter.size = BLOOMFILTER_SIZE;
 	bloomFilter.numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
-	bloomFilter.isInitialized = true; 
 	bloomFilter.totalJoinedTuples = 0;
 	bloomFilter.totalDroppedTuples = 0;
 	bloomFilter.truePositives = 0; 
@@ -854,6 +851,10 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 				// printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
 				// printf("zhitao i: %d\n", i);
 				int hashResult = hashFunctions[i](hkey) % BLOOMFILTER_SIZE;
+				// hash function returns 00000000 00000000 00000000 00000000
+				// put result into bit array
+				// 1001111 % 8192 < 8192
+
 				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
