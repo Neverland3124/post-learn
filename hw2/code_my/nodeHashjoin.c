@@ -121,8 +121,8 @@ ExecHashJoin(HashJoinState *node)
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
 		/* BEGIN NEWCODE*/
-		hashNode->bloomFilter = ExecBloomFilterInit();
 		printf("zhitao123456 Bloom Filter Created\n");
+		hashNode->bloomFilter = ExecBloomFilterInit();
 		/* END NEWCODE */
 
 		/*
@@ -168,13 +168,13 @@ ExecHashJoin(HashJoinState *node)
 
 			/* BEGIN NEWCODE */
 			// Call ExecBloomFilterTest
-			// bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
-			// printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
-			// if (!bloomFilterResult)
-			// {
-			// 	node->hj_NeedNewOuter = true;
-			// 	continue;
-			// }
+			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
+			printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
+			if (!bloomFilterResult)
+			{
+				node->hj_NeedNewOuter = true;
+				continue;
+			}
 			/* END NEWCODE */
 
 			/*

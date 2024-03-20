@@ -112,7 +112,6 @@ ExecHash(HashState *node)
 		// Insert into Bloom Filter after nodehashjoin call init
 		if (node->bloomFilter.isInitialized)
 		{
-			printf("zhitao123456 ExecHash: Insert into Bloom Filter\n");
 			// ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
 		}
 		/* END NEWCODE */
@@ -752,6 +751,7 @@ ExecBloomFilterInit()
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
 	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
 	printf("bitArraySize: %d\n", bitArraySize);
+	// 1024 bytes
 	bloomFilter.bitArray = (char *) palloc(bitArraySize);
 	memset(bloomFilter.bitArray, 0, bitArraySize);
 	return bloomFilter;
@@ -848,7 +848,6 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 					ExprContext *econtext,
 					List *hashkeys)
 {
-	printf("zhitao123456 ExecBloomFilterTest\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
