@@ -30,9 +30,9 @@
 
 /* BEGIN NEWCODE */
 // Static variables
-const static int BLOOMFILTER_SIZE = 81920;
-const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8;
-const static int BLOOMFILTER_HASHFUNCTION_COUNT = 3;
+const static int BLOOMFILTER_SIZE = 8192;
+const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8; // 1024
+const static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
 // Static functions
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
@@ -1055,7 +1055,7 @@ HashFunctionSDBM(uint32_t data)
 //    return hash;
 // }
 /* ----------------------------------------------------------------
- *		HashFunctionSDBM
+ *		HashFunctionAP
  *
  *		Fourth hash Function
  * ----------------------------------------------------------------
@@ -1082,7 +1082,7 @@ HashFunctionAP(uint32_t data)
 // https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf
 // An algorithm proposed by Donald E. Knuth in The Art Of Computer Programming Volume 3, under the topic of sorting and search chapter 6.4.
 /* ----------------------------------------------------------------
- *		HashFunctionSDBM
+ *		HashFunctionDEK
  *
  *		Fifth hash Function
  * ----------------------------------------------------------------

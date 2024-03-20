@@ -1,0 +1,475 @@
+-- 5 hash functions
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-20 14:14:26 EDT
+LOG:  checkpoint record is at 0/E53408
+LOG:  redo record is at 0/E53408; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1191; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 28**********
+**********True Positives 2**********
+**********Total UnDropped Tuples: 2**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 0**********
+**********True Positives 30**********
+**********Total UnDropped Tuples: 30**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 6990**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2010**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 8000**********
+**********Total Dropped Tuples: 5983**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2017**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 7743**********
+**********Total Dropped Tuples: 2982**********
+**********True Positives 3999**********
+**********Total UnDropped Tuples: 4761**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 5983**********
+**********True Positives 2999**********
+**********Total UnDropped Tuples: 3017**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+
+-- 4 hash functions
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-20 18:18:29 EDT
+LOG:  checkpoint record is at 0/E8D250
+LOG:  redo record is at 0/E8D250; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1288; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 28**********
+**********True Positives 2**********
+**********Total UnDropped Tuples: 2**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 0**********
+**********True Positives 30**********
+**********Total UnDropped Tuples: 30**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 6999**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2001**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 8000**********
+**********Total Dropped Tuples: 5996**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2004**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 7894**********
+**********Total Dropped Tuples: 2985**********
+**********True Positives 3999**********
+**********Total UnDropped Tuples: 4909**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 5996**********
+**********True Positives 2999**********
+**********Total UnDropped Tuples: 3004**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+
+-- 3 hash functions
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-20 18:19:10 EDT
+LOG:  checkpoint record is at 0/EC6B30
+LOG:  redo record is at 0/EC6B30; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1385; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 28**********
+**********True Positives 2**********
+**********Total UnDropped Tuples: 2**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 0**********
+**********True Positives 30**********
+**********Total UnDropped Tuples: 30**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 6990**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2010**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 8000**********
+**********Total Dropped Tuples: 5983**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2017**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 7893**********
+**********Total Dropped Tuples: 2982**********
+**********True Positives 3999**********
+**********Total UnDropped Tuples: 4911**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 5983**********
+**********True Positives 2999**********
+**********Total UnDropped Tuples: 3017**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+
+-- 2 hash functions
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-20 18:22:19 EDT
+LOG:  checkpoint record is at 0/F007C0
+LOG:  redo record is at 0/F007C0; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1482; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 28**********
+**********True Positives 2**********
+**********Total UnDropped Tuples: 2**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 0**********
+**********True Positives 30**********
+**********Total UnDropped Tuples: 30**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 6987**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2013**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 8000**********
+**********Total Dropped Tuples: 5978**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 2022**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 7958**********
+**********Total Dropped Tuples: 2988**********
+**********True Positives 3999**********
+**********Total UnDropped Tuples: 4970**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 5978**********
+**********True Positives 2999**********
+**********Total UnDropped Tuples: 3022**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+
+
+-- 1 hash functions
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-20 18:25:02 EDT
+LOG:  checkpoint record is at 0/F3A228
+LOG:  redo record is at 0/F3A228; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 1579; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 28**********
+**********True Positives 2**********
+**********Total UnDropped Tuples: 2**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 30**********
+**********Total Dropped Tuples: 0**********
+**********True Positives 30**********
+**********Total UnDropped Tuples: 30**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 7001**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 1999**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 8000**********
+**********Total Dropped Tuples: 6001**********
+**********True Positives 1999**********
+**********Total UnDropped Tuples: 1999**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 7894**********
+**********Total Dropped Tuples: 3000**********
+**********True Positives 3999**********
+**********Total UnDropped Tuples: 4894**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
+zhitao123456 ExecInitHashJoin
+zhitao123456 ExecInitHash
+-----ExecHashJoin: Bloom Filter Created
+----------Init bitArraySize: 10240-----
+zhitao123456 ExecHash
+zhitao123456 ExecEndHashJoin
+**********Result**********
+**********Total Joined Tuples: 9000**********
+**********Total Dropped Tuples: 6001**********
+**********True Positives 2999**********
+**********Total UnDropped Tuples: 2999**********
+**********End Result**********
+-----ExecBloomFilterFree
+-----zhitao123456 ExecEndHash
