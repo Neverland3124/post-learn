@@ -14,6 +14,12 @@
 #ifndef NODEHASH_H
 #define NODEHASH_H
 
+/* START NEWCODE */
+#define NUM_HASHES 5;
+#define BF_FALSE_POSITIVE 0.02;
+#define BF_MAX_BITS 600000;
+/* END NEWCODE */
+
 #include "nodes/execnodes.h"
 
 extern int	ExecCountSlotsHash(Hash *node);
@@ -27,6 +33,18 @@ extern void ExecHashTableDestroy(HashJoinTable hashtable);
 extern void ExecHashTableInsert(HashJoinTable hashtable,
 					ExprContext *econtext,
 					List *hashkeys);
+
+/* START NEWCODE */
+extern BitArray ExecBloomFilterCreate(double est_rows);
+extern void ExecBloomFilterDestroy(BitArray bitarray);
+extern void ExecBloomFilterInsert(BitArray bitarray,
+					ExprContext *econtext,
+					List *hashkeys);
+extern bool ExecTestMembership(BitArray bitarray,
+			 	    ExprContext *econtext,
+				    List *hashkeys);
+/* END NEWCODE */
+
 extern int ExecHashGetBucket(HashJoinTable hashtable,
 				  ExprContext *econtext,
 				  List *hashkeys);
@@ -39,10 +57,5 @@ extern void ExecChooseHashTableSize(double ntuples, int tupwidth,
 						int *physicalbuckets,
 						int *numbatches);
 
-/* BEGIN NEWCODE */
-extern bool ExecBloomFilterTest(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
-extern void ExecBloomFilterFree(BloomFilter bloomFilter);
-extern void ExecBloomFilterInit(BloomFilter *bloomFilter);
-/* END NEWCODE */
-
 #endif   /* NODEHASH_H */
+

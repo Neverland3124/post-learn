@@ -29,6 +29,11 @@ static TupleTableSlot *ExecHashJoinGetSavedTuple(HashJoinState *hjstate,
 						  TupleTableSlot *tupleSlot);
 static int	ExecHashJoinNewBatch(HashJoinState *hjstate);
 
+/* START NEWCODE */
+static int Total_Positives = 0;
+static int True_Positives = 0;
+static int True_Negatives = 0;
+/* END NEWCODE */
 
 /* ----------------------------------------------------------------
  *		ExecHashJoin
@@ -54,6 +59,11 @@ ExecHashJoin(HashJoinState *node)
 	ExprContext *econtext;
 	ExprDoneCond isDone;
 	HashJoinTable hashtable;
+
+	/* START NEWCODE */
+	BitArray 	bitarray;
+	/* END NEWCODE */
+
 	HeapTuple	curtuple;
 	TupleTableSlot *outerTupleSlot;
 	int			i;
@@ -73,6 +83,11 @@ ExecHashJoin(HashJoinState *node)
 	 * get information from HashJoin state
 	 */
 	hashtable = node->hj_HashTable;
+
+	/* START NEWCODE */
+	bitarray = node->hj_bit_arr;
+	/* END NEWCODE */
+
 	outerkeys = node->hj_OuterHashKeys;
 	econtext = node->js.ps.ps_ExprContext;
 
@@ -120,15 +135,25 @@ ExecHashJoin(HashJoinState *node)
 		hashtable = ExecHashTableCreate((Hash *) hashNode->ps.plan,
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
-		/* BEGIN NEWCODE*/
-		ExecBloomFilterInit(&hashNode->bloomFilter);
-		printf("zhitao123456 Bloom Filter Created\n");
-		/* END NEWCODE */
 
 		/*
-		 * execute the Hash node, to build the hash table
+		 * START NEWCODE
+		 * create the bloom filter and reset the counts
 		 */
+		bitarray = ExecBloomFilterCreate(outerNode->plan->plan_rows);
+		node->hj_bit_arr = bitarray;
+		Total_Positives = 0;
+		True_Positives = 0;
+		True_Negatives = 0;
+
+		/* END STARTCODE */
+
 		hashNode->hashtable = hashtable;
+
+		/* START NEWCODE */
+		hashNode->bit_arr = bitarray;
+		/* END NEWCODE */
+
 		(void) ExecProcNode((PlanState *) hashNode);
 
 		/*
@@ -166,15 +191,18 @@ ExecHashJoin(HashJoinState *node)
 			node->hj_NeedNewOuter = false;
 			node->hj_MatchedOuter = false;
 
-			/* BEGIN NEWCODE */
-			// Call ExecBloomFilterTest
-			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
-			printf("zhitao123456 Bloom Filter Test Result: %d\n", bloomFilterResult);
-			if (!bloomFilterResult)
+			/*
+			 * START NEWCODE
+			 * before doing the regular hash join steps, do the
+			 * bloom filter test for the outerkeys here.
+			 */
+			if (!ExecTestMembership(bitarray, econtext, outerkeys))
 			{
+				True_Negatives++;
 				node->hj_NeedNewOuter = true;
 				continue;
 			}
+			Total_Positives++;
 			/* END NEWCODE */
 
 			/*
@@ -255,6 +283,9 @@ ExecHashJoin(HashJoinState *node)
 					{
 						node->js.ps.ps_TupFromTlist =
 							(isDone == ExprMultipleResult);
+						/* START NEWCODE */
+						True_Positives++;
+						/* END NEWCODE */
 						return result;
 					}
 				}
@@ -436,7 +467,6 @@ ExecInitHashJoin(HashJoin *node, EState *estate)
 	((HashState *) innerPlanState(hjstate))->hashkeys =
 		hjstate->hj_InnerHashKeys;
 
-
 	hclauses = NIL;
 	hoperators = NIL;
 	foreach(hcl, node->hashclauses)
@@ -486,10 +516,28 @@ ExecEndHashJoin(HashJoinState *node)
 		node->hj_HashTable = NULL;
 	}
 
-	/* BEGIN NEWCODE */
-	// Free Bloom Filter
-	HashState *hashState = (HashState *) innerPlanState(node);
-	// ExecBloomFilterFree(hashState->bloomFilter);
+	/*
+	 * START NEWCODE
+	 * Free bloom filter
+	 */
+	if (node->hj_bit_arr)
+	{
+		int False_Positives = Total_Positives - True_Positives;
+		int Total_Dropped = False_Positives + True_Negatives;
+		printf("+++\n\
++++Bloom Filter Passes:\n\
++++Total Positives: %d\n\
++++True Positives: %d\n\
++++False Positives: %d\n\
++++True Negatives: %d\n\
++++Total Dropped: %d\n\
++++False Positive Rate: %d/%d\n\
++++\n",
+				Total_Positives, True_Positives, False_Positives,
+				True_Negatives, Total_Dropped, False_Positives, Total_Dropped);
+		ExecBloomFilterDestroy(node->hj_bit_arr);
+		node->hj_bit_arr = NULL;
+	}
 	/* END NEWCODE */
 
 	/*

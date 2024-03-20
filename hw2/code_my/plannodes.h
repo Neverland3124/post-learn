@@ -18,6 +18,10 @@
 #include "nodes/bitmapset.h"
 #include "nodes/primnodes.h"
 
+/*
+ * KOBE: not quite sure what needs to be added here...
+ * maybe MACRO values like the size of the bit array??
+ */
 
 /* ----------------------------------------------------------------
  *						node definitions
@@ -380,5 +384,9 @@ typedef struct Limit
 	Node	   *limitOffset;	/* OFFSET parameter, or NULL if none */
 	Node	   *limitCount;		/* COUNT parameter, or NULL if none */
 } Limit;
+
+/* START NEWCODE */
+typedef char *BitArray;			/* encode the char array as the bit array */
+/* START NEWCODE */
 
 #endif   /* PLANNODES_H */

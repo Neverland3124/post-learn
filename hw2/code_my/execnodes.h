@@ -922,6 +922,7 @@ typedef struct MergeJoinState
  *	 HashJoinState information
  *
  *		hj_HashTable			hash table for the hashjoin
+ *		hj_bit_arr				associated bit array for bloom filter
  *		hj_CurBucketNo			bucket# for current outer tuple
  *		hj_CurTuple				last inner tuple matched to current outer
  *								tuple, or NULL if starting search
@@ -943,6 +944,11 @@ typedef struct HashJoinState
 	JoinState	js;				/* its first field is NodeTag */
 	List	   *hashclauses;	/* list of ExprState nodes */
 	HashJoinTable hj_HashTable;
+
+	/* START NEWCODE */
+	BitArray    hj_bit_arr;
+	/* END NEWCODE */
+
 	int			hj_CurBucketNo;
 	HashJoinTuple hj_CurTuple;
 	List	   *hj_OuterHashKeys;		/* list of ExprState nodes */
@@ -954,10 +960,6 @@ typedef struct HashJoinState
 	bool		hj_NeedNewOuter;
 	bool		hj_MatchedOuter;
 	bool		hj_hashdone;
-	/* BEGIN NEWCODE */
-	// A temp version, decide try not to use it.
-	// BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
-	/* END NEWCODE */
 } HashJoinState;
 
 
@@ -1060,23 +1062,6 @@ typedef struct UniqueState
 	MemoryContext tempContext;	/* short-term context for comparisons */
 } UniqueState;
 
-/* BEGIN NEWCODE */
-/* ----------------
- *	 BloomFilter information
- *
- *		bitArray		Pointer to the bit array used in the Bloom filter
- *		size			Size of the bit array
- *		numHashes		Number of hash functions
- * ----------------
- */
-typedef struct BloomFilter
-{
-    char *bitArray;    /* One bit per position */
-    int size;
-    int numHashes;
-} BloomFilter;
-/* END NEWCODE */
-
 /* ----------------
  *	 HashState information
  * ----------------
@@ -1087,9 +1072,11 @@ typedef struct HashState
 	HashJoinTable hashtable;	/* hash table for the hashjoin */
 	List	   *hashkeys;		/* list of ExprState nodes */
 	/* hashkeys is same as parent's hj_InnerHashKeys */
-	/* BEGIN NEWCODE */
-	BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
+
+	/* START NEWCODE */
+	BitArray    bit_arr;		/* associated bit array */
 	/* END NEWCODE */
+
 } HashState;
 
 /* ----------------

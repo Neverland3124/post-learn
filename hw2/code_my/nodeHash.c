@@ -28,29 +28,17 @@
 #include "utils/memutils.h"
 #include "utils/lsyscache.h"
 
-/* BEGIN NEWCODE */
-// Setup Some Static Variables
-static int BLOOMFILTER_SIZE = 8192; // 1024 bytes
-static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
-// TODO: Static functioon declarations
-static unsigned int HashFunctionFNV(uint32 data);
-static unsigned int HashFunctionMurmur(uint32 data);
-static unsigned int HashFunctionPJW(uint32_t data);
-static unsigned int HashFunctionRS(uint32_t data);
-static unsigned int HashFunctionSDBM(uint32_t data);
-static unsigned int HashFunctionAP(uint32_t data);
-static void SetBit(char *bitArray, int index);
-static int GetBit(char *bitArray, int index);
-static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
-// TODO: delete
-static unsigned int ELFHash(uint32_t data);
-static unsigned int BKDRHash(uint32_t data);
-
-// Define the type of the hash functions
-typedef int (*HashFunction)(uint32);
-// Define the array of hash functions
-static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
-/* END NEWCODE*/
+/* START NEWCODE */
+static int ExecBloomFilterSize(double est_rows);
+static unsigned int RSHash(uint32 key);
+static unsigned int JSHash(uint32 key);
+static unsigned int ELFHash(uint32 key);
+static unsigned int BKDRHash(uint32 key);
+static unsigned int FNVHash(uint32 key);
+static void SetBitMask(BitArray bitarr, int pos);
+static int GetBitMask(BitArray bitarr, int pos);
+static int nbits;
+/* END NEWCODE */
 
 /* ----------------------------------------------------------------
  *		ExecHash
@@ -66,6 +54,11 @@ ExecHash(HashState *node)
 	PlanState  *outerNode;
 	List	   *hashkeys;
 	HashJoinTable hashtable;
+
+	/* START NEWCODE */
+	BitArray    bitarray;
+	/* END NEWCODE */
+
 	TupleTableSlot *slot;
 	ExprContext *econtext;
 	int			nbatch;
@@ -78,6 +71,11 @@ ExecHash(HashState *node)
 	outerNode = outerPlanState(node);
 
 	hashtable = node->hashtable;
+
+	/* START NEWCODE */
+	bitarray = node->bit_arr;
+	/* END NEWCODE */
+
 	nbatch = hashtable->nbatch;
 
 	if (nbatch > 0)
@@ -107,9 +105,11 @@ ExecHash(HashState *node)
 		econtext->ecxt_innertuple = slot;
 		ExecHashTableInsert(hashtable, econtext, hashkeys);
 
-		/* BEGIN NEWCODE */
-		// Insert into Bloom Filter
-		ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		/*
+		 * START NEWCODE
+		 * flip the bit in bloom filter
+		 */
+		ExecBloomFilterInsert(bitarray, econtext, hashkeys);
 		/* END NEWCODE */
 
 		ExecClearTuple(slot);
@@ -138,13 +138,13 @@ ExecInitHash(Hash *node, EState *estate)
 	/*
 	 * create state structure
 	 */
-	hashstate = makeNode(HashState); 
+	hashstate = makeNode(HashState);
 	hashstate->ps.plan = (Plan *) node;
 	hashstate->ps.state = estate;
 	hashstate->hashtable = NULL;
 
-	/* BEGIN NEWCODE */
-	// ExecBloomFilterInit(&hashstate->bloomFilter);
+	/* START NEWCODE */
+	hashstate->bit_arr = NULL;
 	/* END NEWCODE */
 
 	/*
@@ -336,7 +336,6 @@ ExecHashTableCreate(Hash *node, List *hashOperators)
 
 	return hashtable;
 }
-
 
 /*
  * Compute appropriate size for hashtable given the estimated size of the
@@ -728,331 +727,231 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 		ExecReScan(((PlanState *) node)->lefttree, exprCtxt);
 }
 
-/* BEGIN NEWCODE */
-/* --------------------- Bloom Filter --------------------------*/
-// Helper functions for Bloom Filter Operations
-void
-ExecBloomFilterInit(BloomFilter *bloomFilter)
+/* START NEWCODE */
+
+/* ----------------------------------------------------------------
+ *		ExecBloomFilterCreate
+ *
+ *		create a bloomfilter in shared memory.
+ * ----------------------------------------------------------------
+ */
+BitArray
+ExecBloomFilterCreate(double est_rows)
 {
-	printf("zhitao123456 ExecBloomFilterInit\n");
-	bloomFilter->size = BLOOMFILTER_SIZE;
-	bloomFilter->numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
-	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
-    // we need to convert the size from bits to bytes. There are 8 bits in a byte.
-	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
-	printf("bitArraySize: %d\n", bitArraySize);
-	bloomFilter->bitArray = (char *) palloc(bitArraySize);
-	
-	memset(bloomFilter->bitArray, 0, bitArraySize);
+	BitArray bitarray;
+
+	nbits = ExecBloomFilterSize(est_rows);
+	bitarray = (BitArray) palloc0(nbits / sizeof(char));
+	memset(bitarray, 0, sizeof(bitarray));
+	return bitarray;
 }
 
 /* ----------------------------------------------------------------
- *		SetBit
+ *		ExecBloomFilterSize
  *
- * 		Set the bit at the given index
+ *		estimate the size of the bit array
  * ----------------------------------------------------------------
  */
-static void
-SetBit(char *bitArray, int index) {
-    // Calculate the byte in the array where the bit needs to be set
-    int byteIndex = index / 8;
-    // Calculate the bit position within the byte
-    int bitPosition = index % 8;
+int
+ExecBloomFilterSize(double est_rows)
+{
+	double d_nbits = 0;
+	double nhashes = NUM_HASHES;
+	double false_positive = BF_FALSE_POSITIVE;
+	double bf_max_bits = BF_MAX_BITS;
 
-    // Set the bit at the given index
-    bitArray[byteIndex] |= 1 << bitPosition;
+	/*
+	 * Since the estimated data is not accurate, we need the param to make
+	 * it approach the actual data. However, this is not necessary. We will
+	 * ignore the effect here.
+	 */
+//	est_rows *= 1.3;
+	d_nbits = (-(nhashes * est_rows) / log(1 - pow(false_positive, 1.0 / nhashes)));
+	if (d_nbits > bf_max_bits)
+	{
+		d_nbits = bf_max_bits;
+	}
+	return (int)d_nbits;
 }
 
 /* ----------------------------------------------------------------
- *		GetBit
+ *		ExecBloomFilterDestroy
  *
- * 		Get the bit at the given index
+ *		free up the space of bloomfilter in shared memory.
  * ----------------------------------------------------------------
  */
-static int
-GetBit(char *bitArray, int index) {
-    // Calculate the byte in the array where the bit is located
-    int byteIndex = index / 8;
-    // Calculate the bit position within the byte
-    int bitPosition = index % 8;
-
-    // Get the bit at the given index
-    return (bitArray[byteIndex] & (1 << bitPosition)) != 0;
+void
+ExecBloomFilterDestroy(BitArray bitarray)
+{
+	pfree(bitarray);
 }
 
 /* ----------------------------------------------------------------
  *		ExecBloomFilterInsert
  *
- *		Insert the hashkeys into the bloom filter
- *      Similar as ExecHashGetBucket
+ *		flip the corresponding bit in the bit array
  * ----------------------------------------------------------------
  */
 void
-ExecBloomFilterInsert(BloomFilter bloomFilter,
-					  ExprContext *econtext,
-					  List *hashkeys)
+ExecBloomFilterInsert( BitArray bitarray,
+					   ExprContext *econtext,
+					   List *hashkeys)
 {
-	printf("zhitao123456 ExecBloomFilterInsert\n");
-	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
 
-	/*
-	 * We reset the eval context each time to reclaim any memory leaked in
-	 * the hashkey expressions.
-	 */
 	ResetExprContext(econtext);
-
 	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
 
-	// The idea is to loop over all hashkeys and apply the hash function to each of them
-	//  Insert the return result from the hash function into the bit array
 	foreach(hk, hashkeys)
 	{
 		Datum		keyval;
 		bool		isNull;
+		uint32		intKey;
 
-		// Get the join attribute value of the tuple
+		/*
+		 * Get the join attribute value of the tuple
+		 */
 		keyval = ExecEvalExpr((ExprState *) lfirst(hk),
 							  econtext, &isNull, NULL);
-		uint32 hkey = DatumGetUInt32(keyval);
 
-		// Compute the hash function
-		if (!isNull)  // treat nulls as having hash key 0
+		intKey = DatumGetUInt32(keyval);
+
+		if (!isNull)			/* treat nulls as having hash key 0 */
 		{
-			for (int i = 0; i < bloomFilter.numHashes; i++) {
-				// Call the i-th hash function
-				int hashResult = hashFunctions[i](hkey);
-				// printf("hashResult: %d\n", hashResult);
-				SetBit(bloomFilter.bitArray, hashResult);
-			}
+			int r1 = RSHash(intKey) % nbits;
+			SetBitMask(bitarray, r1);
+
+			int r2 = JSHash(intKey) % nbits;
+			SetBitMask(bitarray, r2);
+
+			int r3 = ELFHash(intKey) % nbits;
+			SetBitMask(bitarray, r3);
+
+			int r4 = BKDRHash(intKey) % nbits;
+			SetBitMask(bitarray, r4);
+
+			int r5 = FNVHash(intKey) % nbits;
+			SetBitMask(bitarray, r5);
 		}
+
 	}
-	
+
 	MemoryContextSwitchTo(oldContext);
+
 }
 
+/* ----------------------------------------------------------------
+ *		ExecTestMembership
+ *
+ *		test the membership of the value
+ * ----------------------------------------------------------------
+ */
 bool
-ExecBloomFilterTest(BloomFilter bloomFilter,
-					ExprContext *econtext,
-					List *hashkeys)
+ExecTestMembership(BitArray bitarray,
+			 	   ExprContext *econtext,
+				   List *hashkeys)
 {
-	printf("zhitao123456 ExecBloomFilterTest\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
+	bool		is_member = true;
 
-	/*
-	 * We reset the eval context each time to reclaim any memory leaked in
-	 * the hashkey expressions.
-	 */
 	ResetExprContext(econtext);
 
 	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
-	bool result = true;
 
 	foreach(hk, hashkeys)
 	{
 		Datum		keyval;
 		bool		isNull;
+		uint32 		intKey;
 
-		// Get the join attribute value of the tuple
+		/*
+		 * Get the join attribute value of the tuple
+		 */
 		keyval = ExecEvalExpr((ExprState *) lfirst(hk),
 							  econtext, &isNull, NULL);
-		uint32 hkey = DatumGetUInt32(keyval);
+		intKey = DatumGetUInt32(keyval);
 
-		// Compute the hash function
-		if (!isNull)  // treat nulls as having hash key 0
+		if (!isNull)			/* treat nulls as having hash key 0 */
 		{
-			for (int i = 0; i < bloomFilter.numHashes; i++) {
-				// Call the i-th hash function
-				int hashResult = hashFunctions[i](hkey);
-				// printf("hashResult: %d\n", hashResult);
-				if (!GetBit(bloomFilter.bitArray, hashResult)) {
-					// if the bit is not set, then the hashkey is not in the bloom filter
-					// therefore, the tuple is not in the hash table, return false
-					// printf("hashResult: %d\n", hashResult);
-					return false;
-				}
-			}
+
+			int r1 = RSHash(intKey) % nbits;
+			is_member = is_member && GetBitMask(bitarray, r1);
+
+			int r2 = JSHash(intKey) % nbits;
+			is_member = is_member && GetBitMask(bitarray, r2);
+
+			int r3 = ELFHash(intKey) % nbits;
+			is_member = is_member && GetBitMask(bitarray, r3);
+
+			int r4 = BKDRHash(intKey) % nbits;
+			is_member = is_member && GetBitMask(bitarray, r4);
+
+			int r5 = FNVHash(intKey) % nbits;
+			is_member = is_member && GetBitMask(bitarray, r5);
 		}
+
 	}
-	
+
 	MemoryContextSwitchTo(oldContext);
-	// if all bits are set, then the tuple might be in the hash table, return true
-	return true;
-}
-
-void
-ExecBloomFilterFree(BloomFilter bloomFilter)
-{
-	printf("zhitao123456 ExecBloomFilterFree\n");
-	// TODO: is this correct?
-	pfree(bloomFilter.bitArray);
-}
-
-// https://www.partow.net/programming/hashfunctions/
-
-// https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
-// Fowler–Noll–Vo hash function
-
-// FNV_prime: hex: 0x811c9dc5
-// FNV_prime: dec: 2166136261
-//     var fnvPrime = 16777619;
-    // var hash = 2166136261;
-	// https://thimbleby.gitlab.io/algorithm-wiki-site/wiki/fowler-noll-vo_hash_function/
-    
-
-// pseudo code from wikipedia
-// algorithm fnv-1 is
-//     hash := FNV_offset_basis
-//     for each byte_of_data to be hashed do
-//         hash := hash × FNV_prime
-//         hash := hash XOR byte_of_data
-//     return hash
-
-/* ----------------------------------------------------------------
- *		HashFunctionFNV
- *
- *		First hash Function
- * ----------------------------------------------------------------
- */
-static unsigned int
-HashFunctionFNV(uint32 data) {
-	unsigned int FNVPrime = 16777619;
-	unsigned int hash = 2166136261;
-	unsigned char *dataByte = (unsigned char *) &data;
-
-	for (int i = 0; i < sizeof(data); i++) {
-		hash = hash * FNVPrime;
-		hash = hash ^ dataByte[i];
-	}
-
-	return hash;
+	return is_member;
 }
 
 /* ----------------------------------------------------------------
- *		HashFunctionMurmur
+ *		RSHash
  *
- *		Second hash Function
+ *		RS hash algorithm
  * ----------------------------------------------------------------
  */
 static unsigned int
-HashFunctionMurmur(uint32 data) {
-    const uint32_t c1 = 0xcc9e2d51;
-    const uint32_t c2 = 0x1b873593;
-    const uint32_t r1 = 15;
-    const uint32_t r2 = 13;
-    const uint32_t m = 5;
-    const uint32_t n = 0xe6546b64;
-    const uint32_t seed = 0; // Default seed value
+RSHash(uint32 key)
+{
+   unsigned int b    = 378551;
+   unsigned int a    = 63689;
+   unsigned int hash = 0;
+   unsigned int i    = 0;
+   char str[64];
 
-    uint32_t hash = seed;
-    uint32_t k = data;
+   sprintf(str, "%d", key);
+   for(i = 0; i < strlen(str); i++)
+   {
+      hash = hash * a + str[i];
+      a    = a * b;
+   }
 
-    k *= c1;
-    k = (k << r1) | (k >> (32 - r1));
-    k *= c2;
-
-    hash ^= k;
-    hash = (hash << r2) | (hash >> (32 - r2));
-    hash = hash * m + n;
-
-    hash ^= 4; // Because the length of a 32-bit integer is 4 bytes
-    hash ^= (hash >> 16);
-    hash *= 0x85ebca6b;
-    hash ^= (hash >> 13);
-    hash *= 0xc2b2ae35;
-    hash ^= (hash >> 16);
-
-    return hash;
+   return hash;
 }
 
-// PJW hash function
-// https://en.wikipedia.org/wiki/PJW_hash_function
-// pseudo code from wikipedia
-// algorithm PJW_hash(s) is
-//     uint h := 0
-//     bits := uint size in bits
-//     for i := 1 to |S| do
-//         h := h << bits/8 + s[i]
-//         high := get top bits/8 bits of h from left
-//         if high ≠ 0 then
-//             h := h xor (high >> bits * 3/4)
-//             h := h & ~high
-//     return h
 /* ----------------------------------------------------------------
- *		HashFunctionPJW
+ *		JSHash
  *
- *		Second hash Function
+ *		JS hash algorithm
  * ----------------------------------------------------------------
  */
 static unsigned int
-HashFunctionPJW(uint32_t data) {
-    uint32_t h = 0;
-    uint32_t bits = sizeof(uint32_t) * 8; // uint32_t size in bits
-    uint32_t high;
-
-    for (int i = 0; i < bits; i += 8) {
-        h = (h << (bits / 8)) + ((data >> i) & 0xFF); // Extract byte i from data
-        high = h & (0xFF << (bits - bits / 8)); // Get top bits/8 bits of h from left
-        if (high != 0) {
-            h = h ^ (high >> (bits * 3 / 4));
-            h = h & ~high;
-        }
-    }
-
-    return h;
-}
-
-
-static unsigned int
-HashFunctionRS(uint32_t data)
+JSHash(uint32 key)
 {
-    unsigned int b    = 378551;
-    unsigned int a    = 63689;
-    unsigned int hash = 0;
-    unsigned char *dataByte = (unsigned char *) &data;
+   unsigned int hash = 1315423911;
+   unsigned int i    = 0;
+   char str[64];
 
-    for (int i = 0; i < sizeof(data); i++)
-    {
-        hash = hash * a + dataByte[i];
-        a    = a * b;
-    }
+   sprintf(str, "%d", key);
+   for(i = 0; i < strlen(str); i++)
+   {
+      hash ^= ((hash << 5) + str[i] + (hash >> 2));
+   }
 
-    return hash;
+   return hash;
 }
 
-static unsigned int
-HashFunctionSDBM(uint32_t data)
-{
-    unsigned int hash = 0;
-    unsigned char *dataByte = (unsigned char *) &data;
-
-    for (int i = 0; i < sizeof(data); i++)
-    {
-        hash = dataByte[i] + (hash << 6) + (hash << 16) - hash;
-    }
-
-    return hash;
-}
-
-static unsigned int
-HashFunctionAP(uint32_t data)
-{
-    unsigned int hash = 0xAAAAAAAA;
-    unsigned char *dataByte = (unsigned char *) &data;
-
-    for (int i = 0; i < sizeof(data); i++)
-    {
-        hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ dataByte[i] * (hash >> 3)) :
-                                  (~((hash << 11) + (dataByte[i] ^ (hash >> 5))));
-    }
-
-    return hash;
-}
-
-// TODO: delete rest
+/* ----------------------------------------------------------------
+ *		ELFHash
+ *
+ *		ELF hash algorithm
+ * ----------------------------------------------------------------
+ */
 static unsigned int
 ELFHash(uint32 key)
 {
@@ -1098,6 +997,63 @@ BKDRHash(uint32 key)
    return hash;
 }
 
+/* ----------------------------------------------------------------
+ *		FNVHash
+ *
+ *		FNV hash algorithm
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+FNVHash(uint32 key)
+{
+   const unsigned int fnv_prime = 0x811C9DC5;
+   unsigned int hash      = 0;
+   unsigned int i         = 0;
+   char str[64];
 
+   sprintf(str, "%d", key);
+   for(i = 0; i < strlen(str); i++)
+   {
+      hash *= fnv_prime;
+      hash ^= str[i];
+   }
+
+   return hash;
+}
+
+/* ----------------------------------------------------------------
+ *		SetBitMask
+ *
+ *		set the corresponding bit to 1
+ * ----------------------------------------------------------------
+ */
+static void
+SetBitMask (BitArray bitarr, int pos)
+{
+	uint32 offset;
+	uint32 mask;
+
+	offset = (int) (pos / sizeof(char));
+	mask = 1 << (pos & (sizeof(char) - 1));
+	bitarr[offset] |= mask;
+}
+
+/* ----------------------------------------------------------------
+ *		GetBitMask
+ *
+ *		get the bit in the corresponding position
+ * ----------------------------------------------------------------
+ */
+static int
+GetBitMask (BitArray bitarr, int pos)
+{
+	uint32 offset;
+	uint32 mask;
+
+	offset = (int) (pos / sizeof(char));
+	mask = 1 << (pos & (sizeof(char) - 1));
+	return bitarr[offset] & mask;
+}
 
 /* END NEWCODE */
+
