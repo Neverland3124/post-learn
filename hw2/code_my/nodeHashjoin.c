@@ -169,11 +169,15 @@ ExecHashJoin(HashJoinState *node)
 			/* BEGIN NEWCODE */
 			// Call ExecBloomFilterTest
 			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
+			hashNode->bloomFilter.totalJoinedTuples++;
 			if (!bloomFilterResult)
 			{
+				// Didn't pass bloom filter, drop this tuple and continue with the next one
+				hashNode->bloomFilter.totalDroppedTuples++;
 				node->hj_NeedNewOuter = true;
 				continue;
 			}
+			hashNode->bloomFilter.totalUnDroppedTuples++;
 			/* END NEWCODE */
 
 			/*
@@ -254,6 +258,10 @@ ExecHashJoin(HashJoinState *node)
 					{
 						node->js.ps.ps_TupFromTlist =
 							(isDone == ExprMultipleResult);
+						
+						/* BEGIN NEWCODE */
+						hashNode->bloomFilter.truePositives++;
+						/* END NEWCODE */
 						return result;
 					}
 				}
@@ -491,6 +499,12 @@ ExecEndHashJoin(HashJoinState *node)
 	// Free Bloom Filter
 	// TODO: add information print of the whole process
 	HashState *hashState = (HashState *) innerPlanState(node);
+	printf("**********Result**********\n");
+	printf("**********Total Joined Tuples: %d**********\n", hashState->bloomFilter.totalJoinedTuples);
+	printf("**********Total Dropped Tuples: %d**********\n", hashState->bloomFilter.totalDroppedTuples);
+	printf("**********True Positives %d**********\n", hashState->bloomFilter.truePositives);
+	printf("**********Total UnDropped Tuples: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples);
+	printf("**********End Result**********\n");
 	ExecBloomFilterFree(hashState->bloomFilter);
 	/* END NEWCODE */
 

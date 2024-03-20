@@ -30,8 +30,9 @@
 
 /* BEGIN NEWCODE */
 // Static variables
-static int BLOOMFILTER_SIZE = 81920; // 1024 bytes
-static int BLOOMFILTER_HASHFUNCTION_COUNT = 5;
+const static int BLOOMFILTER_SIZE = 81920;
+const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8;
+const static int BLOOMFILTER_HASHFUNCTION_COUNT = 3;
 // Static functions
 // TODO: delete
 static unsigned int ELFHash(uint32_t data);
@@ -148,6 +149,7 @@ ExecInitHash(Hash *node, EState *estate)
 
 	/* BEGIN NEWCODE */
 	// Initialize the bloom filter to inactive state
+	// TODO: delete or not
 	hashstate->bloomFilter.isInitialized = false;
 	hashstate->bloomFilter.bitArray = NULL;
 	/* END NEWCODE */
@@ -751,9 +753,13 @@ ExecBloomFilterInit()
 	bloomFilter.size = BLOOMFILTER_SIZE;
 	bloomFilter.numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
 	bloomFilter.isInitialized = true; 
+	bloomFilter.totalJoinedTuples = 0;
+	bloomFilter.totalDroppedTuples = 0;
+	bloomFilter.truePositives = 0; 
+	bloomFilter.totalUnDroppedTuples = 0;
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
-	int bitArraySize = (BLOOMFILTER_SIZE + 7) / 8;
+	int bitArraySize = BLOOMFILTER_SIZE_BYTES; // BLOOMFILTER_SIZE / 8;
 	printf("-----Init bitArraySize: %d-----\n", bitArraySize);
 	// 10240? bytes
 	bloomFilter.bitArray = (char *) palloc(bitArraySize);
@@ -793,6 +799,16 @@ GetBit(char *bitArray, int index) {
 
     // Get the bit at the given index
     return (bitArray[byteIndex] & (1 << bitPosition)) != 0;
+}
+
+void printBitArray(char *bitArray, int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 7; j >= 0; j--) {
+            printf("%d", (bitArray[i] >> j) & 1);
+        }
+        printf(" ");
+    }
+    printf("\n");
 }
 
 /* ----------------------------------------------------------------
@@ -837,19 +853,21 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 				// Call the i-th hash function
 				// printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
 				// printf("zhitao i: %d\n", i);
-				int hashResult = hashFunctions[i](hkey) % 32;
+				int hashResult = hashFunctions[i](hkey) % BLOOMFILTER_SIZE;
 				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
-			// TODO: help debug, need delete
-			// int r3 = ELFHash(hkey) % 32;
+			// // TODO: help debug, need delete
+			// int r3 = ELFHash(hkey) % BLOOMFILTER_SIZE;
 			// SetBit(bloomFilter.bitArray, r3);
 
-			// int r4 = BKDRHash(hkey) % 32;
+			// int r4 = BKDRHash(hkey) % BLOOMFILTER_SIZE;
 			// SetBit(bloomFilter.bitArray, r4);
 		}
 	}
-	
+
+	// printf("-----ExecBloomFilterInsert\n-----");
+	// printBitArray(bloomFilter.bitArray, BLOOMFILTER_SIZE / 8);
 	MemoryContextSwitchTo(oldContext);
 }
 
@@ -887,20 +905,21 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 				// printf("test zhitao numHashes: %d\n", bloomFilter.numHashes);
 				// printf("test zhitao i: %d\n", i);
 				// Call the i-th hash function
-				int hashResult = hashFunctions[i](hkey) % 32;
+				int hashResult = hashFunctions[i](hkey) % BLOOMFILTER_SIZE;
 				// printf("hashResult: %d\n", hashResult);
 				result = result && GetBit(bloomFilter.bitArray, hashResult);
 			}
-			// TODO: help debug, need delete
-			// int r3 = ELFHash(hkey) % 32;
-			// is_member = is_member && GetBit(bloomFilter.bitArray, r3);
+			// // TODO: help debug, need delete
+			// int r3 = ELFHash(hkey) % BLOOMFILTER_SIZE;
+			// result = result && GetBit(bloomFilter.bitArray, r3);
 
-			// int r4 = BKDRHash(hkey) % 32;
-			// is_member = is_member && GetBit(bloomFilter.bitArray, r4);
+			// int r4 = BKDRHash(hkey) % BLOOMFILTER_SIZE;
+			// result = result && GetBit(bloomFilter.bitArray, r4);
 		}
 	}
 	
 	MemoryContextSwitchTo(oldContext);
+	// printf("-----ExecBloomFilterTest result: %d\n-----", result);
 	return result;
 }
 
