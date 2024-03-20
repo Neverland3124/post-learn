@@ -59,7 +59,11 @@ copy S(ID, A, B, C) from '/cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/shell
 select count(*) from R;
 select count(*) from S;
 
+SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3 AND S.ID > 1;
 SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000;
+SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4000 AND S.ID > 2000;
+SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4000 AND S.ID > 1000;
+SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7000 AND S.ID > 3000;
 EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000;
 vacuum analyze;
 

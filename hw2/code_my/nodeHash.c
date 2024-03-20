@@ -50,6 +50,7 @@ static int nbits;
 TupleTableSlot *
 ExecHash(HashState *node)
 {
+	printf("zhitao - ExecHash\n");
 	EState	   *estate;
 	PlanState  *outerNode;
 	List	   *hashkeys;
@@ -131,6 +132,7 @@ ExecHash(HashState *node)
 HashState *
 ExecInitHash(Hash *node, EState *estate)
 {
+	printf("zhitao - ExecInitHash\n");
 	HashState  *hashstate;
 
 	SO_printf("ExecInitHash: initializing hash node\n");
@@ -203,6 +205,7 @@ ExecCountSlotsHash(Hash *node)
 void
 ExecEndHash(HashState *node)
 {
+	printf("zhitao - ExecEndHash\n");
 	PlanState  *outerPlan;
 
 	/*

@@ -351,6 +351,7 @@ ExecHashJoin(HashJoinState *node)
 HashJoinState *
 ExecInitHashJoin(HashJoin *node, EState *estate)
 {
+	printf("zhitao - ExecInitHashJoin\n");
 	HashJoinState *hjstate;
 	Plan	   *outerNode;
 	Hash	   *hashNode;
@@ -507,6 +508,7 @@ ExecCountSlotsHashJoin(HashJoin *node)
 void
 ExecEndHashJoin(HashJoinState *node)
 {
+	printf("zhitao - ExecEndHashJoin\n");
 	/*
 	 * Free hash table
 	 */
@@ -516,6 +518,7 @@ ExecEndHashJoin(HashJoinState *node)
 		node->hj_HashTable = NULL;
 	}
 
+	HashState *hashNode = (HashState *) innerPlanState(node);
 	/*
 	 * START NEWCODE
 	 * Free bloom filter

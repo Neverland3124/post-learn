@@ -1,0 +1,87 @@
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-19 20:05:29 EDT
+LOG:  checkpoint record is at 0/DE4A70
+LOG:  redo record is at 0/DE4A70; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 687; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
++++
++++Bloom Filter Passes:
++++Total Positives: 32
++++True Positives: 32
++++False Positives: 0
++++True Negatives: 28
++++Total Dropped: 28
++++False Positive Rate: 0/28
++++
++++
++++Bloom Filter Passes:
++++Total Positives: 32
++++True Positives: 32
++++False Positives: 0
++++True Negatives: 28
++++Total Dropped: 28
++++False Positive Rate: 0/28
++++
++++
++++Bloom Filter Passes:
++++Total Positives: 2000
++++True Positives: 1999
++++False Positives: 1
++++True Negatives: 7000
++++Total Dropped: 7001
++++False Positive Rate: 1/7001
++++
++++
++++Bloom Filter Passes:
++++Total Positives: 2000
++++True Positives: 1999
++++False Positives: 1
++++True Negatives: 7000
++++Total Dropped: 7001
++++False Positive Rate: 1/7001
++++
+
+
+
+
+
+
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-03-19 20:16:59 EDT
+LOG:  checkpoint record is at 0/DE4AB8
+LOG:  redo record is at 0/DE4AB8; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 696; next OID: 53535
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
++++
++++Bloom Filter Passes:
++++Total Positives: 32
++++True Positives: 32
++++False Positives: 0
++++True Negatives: 28
++++Total Dropped: 28
++++False Positive Rate: 0/28
++++
++++
++++Bloom Filter Passes:
++++Total Positives: 32
++++True Positives: 32
++++False Positives: 0
++++True Negatives: 28
++++Total Dropped: 28
++++False Positive Rate: 0/28
++++
++++
++++Bloom Filter Passes:
++++Total Positives: 2000
++++True Positives: 1999
++++False Positives: 1
++++True Negatives: 7000
++++Total Dropped: 7001
++++False Positive Rate: 1/7001
++++
