@@ -807,7 +807,6 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 					  ExprContext *econtext,
 					  List *hashkeys)
 {
-	printf("----- ExecBloomFilterInsert -----\n");
 	uint32		hashkey = 0;
 	List	   *hk;
 	MemoryContext oldContext;
