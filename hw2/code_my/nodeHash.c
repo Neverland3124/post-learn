@@ -34,14 +34,11 @@ const static int BLOOMFILTER_SIZE = 81920;
 const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8;
 const static int BLOOMFILTER_HASHFUNCTION_COUNT = 3;
 // Static functions
-// TODO: delete
-static unsigned int ELFHash(uint32_t data);
-static unsigned int BKDRHash(uint32_t data);
 static unsigned int HashFunctionFNV(uint32 data);
-static unsigned int HashFunctionMurmur(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
 static unsigned int HashFunctionSDBM(uint32_t data);
 static unsigned int HashFunctionAP(uint32_t data);
+static unsigned int HashFunctionDEK(uint32 data);
 static void SetBit(char *bitArray, int index);
 static int GetBit(char *bitArray, int index);
 static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext, List *hashkeys);
@@ -49,7 +46,7 @@ static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext
 // Define the type of the hash functions
 typedef unsigned int (*HashFunction)(uint32_t);
 // Define the array of hash functions
-static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionSDBM, HashFunctionAP};
+static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionPJW, HashFunctionSDBM, HashFunctionAP, HashFunctionDEK};
 /* END NEWCODE*/
 
 /* ----------------------------------------------------------------
@@ -942,7 +939,6 @@ ExecBloomFilterFree(BloomFilter bloomFilter)
 //     var fnvPrime = 16777619;
     // var hash = 2166136261;
 	// https://thimbleby.gitlab.io/algorithm-wiki-site/wiki/fowler-noll-vo_hash_function/
-    
 
 // pseudo code from wikipedia
 // algorithm fnv-1 is
@@ -970,43 +966,6 @@ HashFunctionFNV(uint32 data) {
 	}
 
 	return hash;
-}
-
-/* ----------------------------------------------------------------
- *		HashFunctionMurmur
- *
- *		Second hash Function
- * ----------------------------------------------------------------
- */
-static unsigned int
-HashFunctionMurmur(uint32 data) {
-    const uint32_t c1 = 0xcc9e2d51;
-    const uint32_t c2 = 0x1b873593;
-    const uint32_t r1 = 15;
-    const uint32_t r2 = 13;
-    const uint32_t m = 5;
-    const uint32_t n = 0xe6546b64;
-    const uint32_t seed = 0; // Default seed value
-
-    uint32_t hash = seed;
-    uint32_t k = data;
-
-    k *= c1;
-    k = (k << r1) | (k >> (32 - r1));
-    k *= c2;
-
-    hash ^= k;
-    hash = (hash << r2) | (hash >> (32 - r2));
-    hash = hash * m + n;
-
-    hash ^= 4; // Because the length of a 32-bit integer is 4 bytes
-    hash ^= (hash >> 16);
-    hash *= 0x85ebca6b;
-    hash ^= (hash >> 13);
-    hash *= 0xc2b2ae35;
-    hash ^= (hash >> 16);
-
-    return hash;
 }
 
 // PJW hash function
@@ -1046,73 +1005,102 @@ HashFunctionPJW(uint32_t data) {
     return h;
 }
 
+// SDNM hash function
+// http://www.cse.yorku.ca/~oz/hash.html#sdbm
+// this algorithm was created for sdbm (a public-domain reimplementation of ndbm) database library. it was found to do well in scrambling bits, causing better distribution of the keys and fewer splits. it also happens to be a good general hashing function with good distribution. the actual function is hash(i) = hash(i - 1) * 65599 + str[i]; what is included below is the faster version used in gawk. [there is even a faster, duff-device version] the magic constant 65599 was picked out of thin air while experimenting with different constants, and turns out to be a prime. this is one of the algorithms used in berkeley db (see sleepycat) and elsewhere.
+// static unsigned long
+// sdbm(str)
+// unsigned char *str;
+// {
+// 		unsigned long hash = 0;
+// 		int c;
+// 		while (c = *str++)
+// 				hash = c + (hash << 6) + (hash << 16) - hash;
+// 		return hash;
+// }
+/* ----------------------------------------------------------------
+ *		HashFunctionSDBM
+ *
+ *	Third hash Function
+ * ----------------------------------------------------------------
+ */
 static unsigned int
 HashFunctionSDBM(uint32_t data)
 {
-    unsigned int hash = 0;
-    unsigned char *dataByte = (unsigned char *) &data;
+   unsigned int hash = 0;
+   for (int i = 0; i < 4; ++i) // Process each of the 4 bytes in the uint32_t
+   {
+      // Extract each byte from the uint32_t data, starting from the least significant byte
+      unsigned char byte = (data >> (i * 8)) & 0xFF;
+      hash = byte + (hash << 6) + (hash << 16) - hash;
+   }
 
-    for (int i = 0; i < sizeof(data); i++)
-    {
-        hash = dataByte[i] + (hash << 6) + (hash << 16) - hash;
-    }
-
-    return hash;
+   return hash;
 }
 
+// AP hash function
+// https://www.partow.net/programming/hashfunctions/#APHashFunction
+// A hybrid rotative and additive hash function algorithm produced by Arash Partow. An empirical result which demonstrated the distributive abilities of the hash algorithm was obtained using a hash-table with 100003 buckets, hashing The Project Gutenberg Etext of Webster's Unabridged Dictionary, the longest encountered chain length was 7, the average chain length was 2, the number of empty buckets was 4579.
+// unsigned int APHash(const char* str, unsigned int length)
+// {
+//    unsigned int hash = 0xAAAAAAAA;
+//    unsigned int i    = 0;
+
+//    for (i = 0; i < length; ++str, ++i)
+//    {
+//       hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ (*str) * (hash >> 3)) :
+//                                (~((hash << 11) + ((*str) ^ (hash >> 5))));
+//    }
+
+//    return hash;
+// }
+/* ----------------------------------------------------------------
+ *		HashFunctionSDBM
+ *
+ *		Fourth hash Function
+ * ----------------------------------------------------------------
+ */
 static unsigned int
 HashFunctionAP(uint32_t data)
 {
-    unsigned int hash = 0xAAAAAAAA;
-    unsigned char *dataByte = (unsigned char *) &data;
+   unsigned int hash = 0xAAAAAAAA;
+   unsigned int i    = 0;
 
-    for (int i = 0; i < sizeof(data); i++)
+   for (i = 0; i < 32; i += 8) // Process each byte of the uint32_t
+   {
+      uint8_t byte = (data >> i) & 0xFF; // Extract a byte
+
+      // Adjusted hashing logic for a single byte at a time
+      hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ byte * (hash >> 3)) :
+                               (~((hash << 11) + (byte ^ (hash >> 5))));
+   }
+
+   return hash;
+}
+
+// AP hash function
+// https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf
+// An algorithm proposed by Donald E. Knuth in The Art Of Computer Programming Volume 3, under the topic of sorting and search chapter 6.4.
+/* ----------------------------------------------------------------
+ *		HashFunctionSDBM
+ *
+ *		Fifth hash Function
+ * ----------------------------------------------------------------
+ */
+static unsigned int
+HashFunctionDEK(uint32_t data)
+{
+    unsigned int hash = data; // Initialize hash with the input data
+
+    // Since we're dealing with a single 32-bit integer now,
+    // we can directly manipulate it instead of iterating over characters.
+    // Below is a simple example of manipulating the bits in 'data'.
+    for (unsigned int i = 0; i < 32; ++i)
     {
-        hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ dataByte[i] * (hash >> 3)) :
-                                  (~((hash << 11) + (dataByte[i] ^ (hash >> 5))));
+        // Similar pattern to the original, but applied directly to the integer data
+        hash = ((hash << 5) ^ (hash >> 27)) ^ (data & 0x1F); // Example manipulation
+        data >>= 5; // Shift data to get new bits for next operation
     }
 
     return hash;
 }
-
-// TODO: delete rest
-static unsigned int
-ELFHash(uint32 key)
-{
-   unsigned int hash = 0;
-   unsigned int x    = 0;
-   unsigned int i    = 0;
-   char str[64];
-
-   sprintf(str, "%d", key);
-   for(i = 0; i < strlen(str); i++)
-   {
-      hash = (hash << 4) + str[i];
-      if((x = hash & 0xF0000000L) != 0)
-      {
-         hash ^= (x >> 24);
-      }
-      hash &= ~x;
-   }
-
-   return hash;
-}
-
-static unsigned int
-BKDRHash(uint32 key)
-{
-   unsigned int seed = 131; /* 31 131 1313 13131 131313 etc.. */
-   unsigned int hash = 0;
-   unsigned int i    = 0;
-   char str[64];
-
-   sprintf(str, "%d", key);
-   for(i = 0; i < strlen(str); i++)
-   {
-      hash = (hash * seed) + str[i];
-   }
-
-   return hash;
-}
-
-/* END NEWCODE */
