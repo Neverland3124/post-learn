@@ -68,9 +68,7 @@ EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1
 vacuum analyze;
 
 
-SET enable_nestloop TO off; SET enable_mergejoin TO off;
-
-SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4000 AND S.ID > 2000;
+SET enable_nestloop TO off; SET enable_mergejoin TO off; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4000 AND S.ID > 2000;
 
 ./bin/postmaster -p 14324 -D ./data >logfile 2>&1 &
 ./bin/createdb hw -p 14324

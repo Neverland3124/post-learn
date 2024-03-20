@@ -47,7 +47,7 @@ static unsigned int ELFHash(uint32_t data);
 static unsigned int BKDRHash(uint32_t data);
 
 // Define the type of the hash functions
-typedef int (*HashFunction)(uint32);
+typedef unsigned int (*HashFunction)(uint32_t);
 // Define the array of hash functions
 static HashFunction hashFunctions[] = {ELFHash, BKDRHash, HashFunctionFNV, HashFunctionMurmur, HashFunctionPJW, HashFunctionRS, HashFunctionSDBM, HashFunctionAP};
 /* END NEWCODE*/
@@ -112,7 +112,7 @@ ExecHash(HashState *node)
 		// Insert into Bloom Filter after nodehashjoin call init
 		if (node->bloomFilter.isInitialized)
 		{
-			// ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+			ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
 		}
 		/* END NEWCODE */
 
@@ -833,10 +833,17 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
 				// Call the i-th hash function
-				int hashResult = hashFunctions[i](hkey);
+				printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
+				printf("zhitao i: %d\n", i);
+				int hashResult = hashFunctions[i](hkey) % 32;
 				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
+			// int r3 = ELFHash(hkey) % 32;
+			// SetBit(bloomFilter.bitArray, r3);
+
+			// int r4 = BKDRHash(hkey) % 32;
+			// SetBit(bloomFilter.bitArray, r4);
 		}
 	}
 	
@@ -875,22 +882,23 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 		if (!isNull)  // treat nulls as having hash key 0
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
+				printf("test zhitao numHashes: %d\n", bloomFilter.numHashes);
+				printf("test zhitao i: %d\n", i);
 				// Call the i-th hash function
-				int hashResult = hashFunctions[i](hkey);
+				int hashResult = hashFunctions[i](hkey) % 32;
 				// printf("hashResult: %d\n", hashResult);
-				if (!GetBit(bloomFilter.bitArray, hashResult)) {
-					// if the bit is not set, then the hashkey is not in the bloom filter
-					// therefore, the tuple is not in the hash table, return false
-					// printf("hashResult: %d\n", hashResult);
-					return false;
-				}
+				result = result && GetBit(bloomFilter.bitArray, hashResult);
 			}
+			// int r3 = ELFHash(hkey) % 32;
+			// is_member = is_member && GetBit(bloomFilter.bitArray, r3);
+
+			// int r4 = BKDRHash(hkey) % 32;
+			// is_member = is_member && GetBit(bloomFilter.bitArray, r4);
 		}
 	}
 	
 	MemoryContextSwitchTo(oldContext);
-	// if all bits are set, then the tuple might be in the hash table, return true
-	return true;
+	return result;
 }
 
 void
