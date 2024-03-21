@@ -496,19 +496,29 @@ ExecEndHashJoin(HashJoinState *node)
 	}
 
 	/* BEGIN NEWCODE */
-	// Free Bloom Filter
-	// TODO: add information print of the whole process
+	// Note:
+	// true positive: final join tuples
+	// true negative: total dropped tuples 2481
+	// false positive: pass but finally not join 8174 - 6499 (total undropped tuples - true positive)
+	// false negative: 0
+	// fpr = fp / (fp + tn)
+	// = 8174 - 6499 / (8174 - 6499 + 2481)
+
 	HashState *hashState = (HashState *) innerPlanState(node);
 	// If the bloom filter is not initialized, then we don't need to print anything
 	if (hashState->bloomFilter.isInitialized) {
 		printf("**********Result**********\n");
 		printf("**********Total Joined Tuples: %d**********\n", hashState->bloomFilter.totalJoinedTuples);
-		printf("**********Total Dropped Tuples: %d**********\n", hashState->bloomFilter.totalDroppedTuples);
+		printf("**********Total Dropped Tuples (true negative): %d**********\n", hashState->bloomFilter.totalDroppedTuples);
 		printf("**********True Positives %d**********\n", hashState->bloomFilter.truePositives);
 		printf("**********Total UnDropped Tuples: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples);
-		printf("**********False Positives: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples - hashState->bloomFilter.truePositives);
-		printf("**********False Positives Rate: %d**********\n", (hashState->bloomFilter.totalUnDroppedTuples - hashState->bloomFilter.truePositives) / hashState->bloomFilter.totalUnDroppedTuples);
+		int falsePositives = hashState->bloomFilter.totalUnDroppedTuples - hashState->bloomFilter.truePositives;
+		printf("**********False Positives: %d**********\n", falsePositives);
+		// FPR = FP / (FP + TN)
+		float falsePositivesRate = (float) falsePositives / ((float)falsePositives + (float) hashState->bloomFilter.totalDroppedTuples);
+		printf("**********False Positives Rate: %f**********\n", falsePositivesRate);
 		printf("**********End Result**********\n");
+		// Free Bloom Filter
 		ExecBloomFilterFree(hashState->bloomFilter);
 	}
 	/* END NEWCODE */
