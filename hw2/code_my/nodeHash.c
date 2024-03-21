@@ -754,11 +754,12 @@ static int calculateBloomFilterSize (double estimatedSize) {
 static int calculateBloomFilterHashFunctionSize(double estimatedSize) {
 	// k = (m/n) * ln(2)
 	double function_count = (BLOOMFILTER_SIZE / estimatedSize) * log(2);
-	printf("---function_count: %f---", function_count);
-	if (function_count >= MAX_HASHFUNCTIONS) {
-		function_count = MAX_HASHFUNCTIONS;
+	int flooringFuctionCount = floor(function_count);
+	printf("---function_count: %f, flooring: %d---\n", function_count, flooringFuctionCount);
+	if (flooringFuctionCount >= MAX_HASHFUNCTIONS) {
+		flooringFuctionCount = MAX_HASHFUNCTIONS;
 	}
-	return (int) function_count;
+	return flooringFuctionCount;
 }
 /* ----------------------------------------------------------------
  *		ExecBloomFilterInit
