@@ -499,13 +499,18 @@ ExecEndHashJoin(HashJoinState *node)
 	// Free Bloom Filter
 	// TODO: add information print of the whole process
 	HashState *hashState = (HashState *) innerPlanState(node);
-	printf("**********Result**********\n");
-	printf("**********Total Joined Tuples: %d**********\n", hashState->bloomFilter.totalJoinedTuples);
-	printf("**********Total Dropped Tuples: %d**********\n", hashState->bloomFilter.totalDroppedTuples);
-	printf("**********True Positives %d**********\n", hashState->bloomFilter.truePositives);
-	printf("**********Total UnDropped Tuples: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples);
-	printf("**********End Result**********\n");
-	ExecBloomFilterFree(hashState->bloomFilter);
+	// If the bloom filter is not initialized, then we don't need to print anything
+	if (hashState->bloomFilter.isInitialized) {
+		printf("**********Result**********\n");
+		printf("**********Total Joined Tuples: %d**********\n", hashState->bloomFilter.totalJoinedTuples);
+		printf("**********Total Dropped Tuples: %d**********\n", hashState->bloomFilter.totalDroppedTuples);
+		printf("**********True Positives %d**********\n", hashState->bloomFilter.truePositives);
+		printf("**********Total UnDropped Tuples: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples);
+		printf("**********False Positives: %d**********\n", hashState->bloomFilter.totalUnDroppedTuples - hashState->bloomFilter.truePositives);
+		printf("**********False Positives Rate: %d**********\n", (hashState->bloomFilter.totalUnDroppedTuples - hashState->bloomFilter.truePositives) / hashState->bloomFilter.totalUnDroppedTuples);
+		printf("**********End Result**********\n");
+		ExecBloomFilterFree(hashState->bloomFilter);
+	}
 	/* END NEWCODE */
 
 	/*

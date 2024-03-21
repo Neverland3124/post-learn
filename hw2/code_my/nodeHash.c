@@ -32,7 +32,7 @@
 // Static variables
 const static int BLOOMFILTER_SIZE = 81920;
 const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8; // 1024
-const static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
+const static int BLOOMFILTER_HASHFUNCTION_COUNT = 5;
 // Static functions
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
