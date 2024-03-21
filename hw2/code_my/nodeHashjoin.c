@@ -122,7 +122,9 @@ ExecHashJoin(HashJoinState *node)
 		node->hj_HashTable = hashtable;
 		/* BEGIN NEWCODE*/
 		printf("-----ExecHashJoin: Bloom Filter Created\n-----");
-		hashNode->bloomFilter = ExecBloomFilterInit();
+		Plan *planNode = outerNode->plan;
+		double estimatedSize = planNode->plan_rows;
+		hashNode->bloomFilter = ExecBloomFilterInit(estimatedSize);
 		/* END NEWCODE */
 
 		/*

@@ -30,9 +30,11 @@
 
 /* BEGIN NEWCODE */
 // Static variables
-const static int BLOOMFILTER_SIZE = 81920;
-const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8; // 1024
-const static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
+static int BLOOMFILTER_SIZE;
+static int BLOOMFILTER_HASHFUNCTION_COUNT;
+const static int MAX_BLOOMFILTER_SIZE = 81920;
+const static double EXPECTED_FPR = 0.05;
+const static int MAX_HASHFUNCTIONS = 4;
 // Static functions
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
@@ -736,7 +738,28 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 /* BEGIN NEWCODE */
 /* --------------------- Bloom Filter Functions --------------------------*/
 /* ----------- Helper functions for Bloom Filter Operations --------------*/
+// https://cs.stackexchange.com/questions/149136/optimal-parameters-for-a-bloom-filter
+static int calculateBloomFilterSize (double estimatedSize) {
+	// There will be estimatedSize number of tuples in the outer relation
+	// Every tuple will have 4 hash results to be inserted into the bloom filter
+	// Every hash result will be used to set a bit in the bloom filter
+	// m=−nlogϵ/log(2)^2
+	double size = -1 * estimatedSize * log(EXPECTED_FPR) / (log(2) * log(2));
+	if (size >= MAX_BLOOMFILTER_SIZE) {
+		size = MAX_BLOOMFILTER_SIZE;
+	}
+	return (int) size;
+}
 
+static int calculateBloomFilterHashFunctionSize(double estimatedSize) {
+	// k = (m/n) * ln(2)
+	double function_count = (BLOOMFILTER_SIZE / estimatedSize) * log(2);
+	printf("---function_count: %f---", function_count);
+	if (function_count >= MAX_HASHFUNCTIONS) {
+		function_count = MAX_HASHFUNCTIONS;
+	}
+	return (int) function_count;
+}
 /* ----------------------------------------------------------------
  *		ExecBloomFilterInit
  *
@@ -744,8 +767,13 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
  * ----------------------------------------------------------------
  */
 BloomFilter
-ExecBloomFilterInit()
+ExecBloomFilterInit(double estimatedSize)
 {
+	BLOOMFILTER_SIZE = calculateBloomFilterSize(estimatedSize);
+	BLOOMFILTER_HASHFUNCTION_COUNT = calculateBloomFilterHashFunctionSize(estimatedSize);
+
+	printf("-----Init BLOOMFILTER_SIZE: %f, calculated: %d, hashfunctions: %d-----\n", estimatedSize, BLOOMFILTER_SIZE, BLOOMFILTER_HASHFUNCTION_COUNT);
+
 	BloomFilter bloomFilter;
 	bloomFilter.isInitialized = true;
 	bloomFilter.size = BLOOMFILTER_SIZE;
@@ -756,9 +784,7 @@ ExecBloomFilterInit()
 	bloomFilter.totalUnDroppedTuples = 0;
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
-	int bitArraySize = BLOOMFILTER_SIZE_BYTES; // BLOOMFILTER_SIZE / 8;
-	printf("-----Init bitArraySize: %d-----\n", bitArraySize);
-	// 10240? bytes
+	int bitArraySize = BLOOMFILTER_SIZE / 8;
 	bloomFilter.bitArray = (char *) palloc(bitArraySize);
 	memset(bloomFilter.bitArray, 0, bitArraySize);
 	return bloomFilter;
