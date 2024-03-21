@@ -89,6 +89,16 @@ SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE; EXPLAIN
 
 # Lianting Part
 
+CREATE TABLE R (ID INTEGER PRIMARY KEY, A INTEGER, B INTEGER, C INTEGER);
+CREATE TABLE S (ID INTEGER PRIMARY KEY, A INTEGER, B INTEGER, C INTEGER);
+
+copy R(ID, A, B, C) from '/cmshome/wangl157/cscd43w24_space/hw/hw2/shell/data1.csv' delimiter ',';
+copy S(ID, A, B, C) from '/cmshome/wangl157/cscd43w24_space/hw/hw2/shell/data2.csv' delimiter ',';
+
+SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4500 AND S.ID > 1000; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000; SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000;
+
+SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE; EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 3000 AND S.ID > 1000; EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4500 AND S.ID > 1000; EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000; EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000;
+
 ```
 
 ## Code

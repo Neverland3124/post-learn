@@ -13,6 +13,8 @@ cd /cmshome/wangl157/postgresql-7.4.13
 gmake clean && gmake uninstall && gmake && gmake install
 cd /cmshome/wangl157/cscd43w24_space/hw/hw2/
 
-/cmshome/wangl157/postgresql-7.4.13/bin/postmaster -p 54323 -D /cmshome/wangl157/postgresql-7.4.13/data > /cmshome/wangl157/cscd43w24_space/hw/hw2/logfile 2>&1 &
+# /cmshome/wangl157/postgresql-7.4.13/bin/postmaster -p 54323 -D /cmshome/wangl157/postgresql-7.4.13/data > /cmshome/wangl157/cscd43w24_space/hw/hw2/logfile 2>&1 &
+
+# /cmshome/wangl157/postgresql-7.4.13/bin/psql test -p 54323
 
 # /cmshome/wangl157/postgresql-7.4.13/bin/pg_ctl stop -p 54323 -D /cmshome/wangl157/postgresql-7.4.13/data
