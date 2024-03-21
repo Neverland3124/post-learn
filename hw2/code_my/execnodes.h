@@ -1067,9 +1067,10 @@ typedef struct UniqueState
  */
 typedef struct BloomFilter
 {
-    char *bitArray;    /* One bit per position */
-    int size;          /* Size of the bit array */
-    int numHashes;     /* Number of hash functions */
+	bool isInitialized;    /* True if the bloom filter has been initialized */
+    char *bitArray;         /* One bit per position */
+    int size;               /* Size of the bit array */
+    int numHashes;          /* Number of hash functions */
 	int totalJoinedTuples;  /* Total number of tuples joined */
 	int totalDroppedTuples; /* Total number of tuples dropped */
 	int truePositives;      /* Numer of tuples actually joined at last */

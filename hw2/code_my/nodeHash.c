@@ -32,7 +32,7 @@
 // Static variables
 const static int BLOOMFILTER_SIZE = 81920;
 const static int BLOOMFILTER_SIZE_BYTES = BLOOMFILTER_SIZE / 8; // 1024
-const static int BLOOMFILTER_HASHFUNCTION_COUNT = 2;
+const static int BLOOMFILTER_HASHFUNCTION_COUNT = 4;
 // Static functions
 static unsigned int HashFunctionFNV(uint32 data);
 static unsigned int HashFunctionPJW(uint32_t data);
@@ -107,7 +107,9 @@ ExecHash(HashState *node)
 
 		/* BEGIN NEWCODE */
 		// Insert into Bloom Filter after nodehashjoin call init
-		ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		if (node->bloomFilter.isInitialized) {
+			ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
+		}
 		/* END NEWCODE */
 
 		ExecClearTuple(slot);
@@ -145,8 +147,8 @@ ExecInitHash(Hash *node, EState *estate)
 	/* BEGIN NEWCODE */
 	// Initialize the bloom filter to inactive state
 	// TODO: delete or not
-	// hashstate->bloomFilter.isInitialized = false;
-	// hashstate->bloomFilter.bitArray = NULL;
+	hashstate->bloomFilter.isInitialized = false;
+	hashstate->bloomFilter.bitArray = NULL;
 	/* END NEWCODE */
 
 	/*
@@ -745,6 +747,7 @@ BloomFilter
 ExecBloomFilterInit()
 {
 	BloomFilter bloomFilter;
+	bloomFilter.isInitialized = true;
 	bloomFilter.size = BLOOMFILTER_SIZE;
 	bloomFilter.numHashes = BLOOMFILTER_HASHFUNCTION_COUNT;
 	bloomFilter.totalJoinedTuples = 0;
