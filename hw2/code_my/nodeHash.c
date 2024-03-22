@@ -28,7 +28,7 @@
 #include "utils/memutils.h"
 #include "utils/lsyscache.h"
 
-/* BEGIN NEWCODE */
+// BEGIN NEWCODE
 // Static variables
 static int BLOOMFILTER_SIZE;
 static int BLOOMFILTER_HASHFUNCTION_COUNT;
@@ -49,7 +49,7 @@ static void ExecBloomFilterInsert(BloomFilter bloomFilter, ExprContext *econtext
 typedef unsigned int (*HashFunction)(uint32_t);
 // Define the array of hash functions
 static HashFunction hashFunctions[] = {HashFunctionFNV, HashFunctionPJW, HashFunctionSDBM, HashFunctionAP, HashFunctionDEK};
-/* END NEWCODE*/
+// END NEWCODE
 
 /* ----------------------------------------------------------------
  *		ExecHash
@@ -107,12 +107,12 @@ ExecHash(HashState *node)
 		econtext->ecxt_innertuple = slot;
 		ExecHashTableInsert(hashtable, econtext, hashkeys);
 
-		/* BEGIN NEWCODE */
+		// BEGIN NEWCODE
 		// Insert into Bloom Filter after nodehashjoin call init
 		if (node->bloomFilter.isInitialized) {
 			ExecBloomFilterInsert(node->bloomFilter, econtext, hashkeys);
 		}
-		/* END NEWCODE */
+		// END NEWCODE
 
 		ExecClearTuple(slot);
 	}
@@ -146,12 +146,11 @@ ExecInitHash(Hash *node, EState *estate)
 	hashstate->ps.state = estate;
 	hashstate->hashtable = NULL;
 
-	/* BEGIN NEWCODE */
+	// BEGIN NEWCODE
 	// Initialize the bloom filter to inactive state
-	// TODO: delete or not
 	hashstate->bloomFilter.isInitialized = false;
 	hashstate->bloomFilter.bitArray = NULL;
-	/* END NEWCODE */
+	// END NEWCODE
 
 	/*
 	 * Miscellaneous initialization
@@ -735,7 +734,7 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 		ExecReScan(((PlanState *) node)->lefttree, exprCtxt);
 }
 
-/* BEGIN NEWCODE */
+// BEGIN NEWCODE
 /* --------------------- Bloom Filter Functions --------------------------*/
 /* ----------- Helper functions for Bloom Filter Operations --------------*/
 // https://cs.stackexchange.com/questions/149136/optimal-parameters-for-a-bloom-filter
@@ -885,12 +884,6 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
-			// // TODO: help debug, need delete
-			// int r3 = ELFHash(hkey) % BLOOMFILTER_SIZE;
-			// SetBit(bloomFilter.bitArray, r3);
-
-			// int r4 = BKDRHash(hkey) % BLOOMFILTER_SIZE;
-			// SetBit(bloomFilter.bitArray, r4);
 		}
 	}
 
@@ -937,12 +930,6 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 				// printf("hashResult: %d\n", hashResult);
 				result = result && GetBit(bloomFilter.bitArray, hashResult);
 			}
-			// // TODO: help debug, need delete
-			// int r3 = ELFHash(hkey) % BLOOMFILTER_SIZE;
-			// result = result && GetBit(bloomFilter.bitArray, r3);
-
-			// int r4 = BKDRHash(hkey) % BLOOMFILTER_SIZE;
-			// result = result && GetBit(bloomFilter.bitArray, r4);
 		}
 	}
 	
@@ -1134,3 +1121,5 @@ HashFunctionDEK(uint32_t data)
 
     return hash;
 }
+
+// END NEWCODE

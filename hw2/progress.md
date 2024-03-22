@@ -115,7 +115,7 @@ SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE;  EXPLAI
 ## Code
 ```c
 
-	/* BEGIN NEWCODE */
+	// BEGIN NEWCODE
 	
-	/* END NEWCODE */
+	// END NEWCODE
 ```

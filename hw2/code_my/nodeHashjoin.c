@@ -120,12 +120,12 @@ ExecHashJoin(HashJoinState *node)
 		hashtable = ExecHashTableCreate((Hash *) hashNode->ps.plan,
 										node->hj_HashOperators);
 		node->hj_HashTable = hashtable;
-		/* BEGIN NEWCODE*/
+		// BEGIN NEWCODE
 		printf("-----ExecHashJoin: Bloom Filter Created\n-----");
 		Plan *planNode = outerNode->plan;
 		double estimatedSize = planNode->plan_rows;
 		hashNode->bloomFilter = ExecBloomFilterInit(estimatedSize);
-		/* END NEWCODE */
+		// END NEWCODE
 
 		/*
 		 * execute the Hash node, to build the hash table
@@ -168,7 +168,7 @@ ExecHashJoin(HashJoinState *node)
 			node->hj_NeedNewOuter = false;
 			node->hj_MatchedOuter = false;
 
-			/* BEGIN NEWCODE */
+			// BEGIN NEWCODE
 			// Call ExecBloomFilterTest
 			bool bloomFilterResult = ExecBloomFilterTest(hashNode->bloomFilter, econtext, outerkeys);
 			hashNode->bloomFilter.totalJoinedTuples++;
@@ -180,7 +180,7 @@ ExecHashJoin(HashJoinState *node)
 				continue;
 			}
 			hashNode->bloomFilter.totalUnDroppedTuples++;
-			/* END NEWCODE */
+			// END NEWCODE
 
 			/*
 			 * now we have an outer tuple, find the corresponding bucket
@@ -261,9 +261,9 @@ ExecHashJoin(HashJoinState *node)
 						node->js.ps.ps_TupFromTlist =
 							(isDone == ExprMultipleResult);
 						
-						/* BEGIN NEWCODE */
+						// BEGIN NEWCODE
 						hashNode->bloomFilter.truePositives++;
-						/* END NEWCODE */
+						// END NEWCODE
 						return result;
 					}
 				}
@@ -497,7 +497,7 @@ ExecEndHashJoin(HashJoinState *node)
 		node->hj_HashTable = NULL;
 	}
 
-	/* BEGIN NEWCODE */
+	// BEGIN NEWCODE
 	// Note:
 	// true positive: final join tuples
 	// true negative: total dropped tuples 2481
@@ -523,7 +523,7 @@ ExecEndHashJoin(HashJoinState *node)
 		// Free Bloom Filter
 		ExecBloomFilterFree(hashState->bloomFilter);
 	}
-	/* END NEWCODE */
+	// END NEWCODE
 
 	/*
 	 * Free the exprcontext

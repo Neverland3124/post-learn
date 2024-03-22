@@ -1056,7 +1056,7 @@ typedef struct UniqueState
 	MemoryContext tempContext;	/* short-term context for comparisons */
 } UniqueState;
 
-/* BEGIN NEWCODE */
+// BEGIN NEWCODE
 /* ----------------
  *	 BloomFilter information
  *
@@ -1076,7 +1076,7 @@ typedef struct BloomFilter
 	int truePositives;      /* Numer of tuples actually joined at last */
 	int totalUnDroppedTuples; /* Total number of tuples that were not dropped */
 } BloomFilter;
-/* END NEWCODE */
+// END NEWCODE
 
 /* ----------------
  *	 HashState information
@@ -1088,9 +1088,9 @@ typedef struct HashState
 	HashJoinTable hashtable;	/* hash table for the hashjoin */
 	List	   *hashkeys;		/* list of ExprState nodes */
 	/* hashkeys is same as parent's hj_InnerHashKeys */
-	/* BEGIN NEWCODE */
+	// BEGIN NEWCODE
 	BloomFilter bloomFilter;     /* Bloom Filter for a hash node */
-	/* END NEWCODE */
+	// END NEWCODE
 } HashState;
 
 /* ----------------
