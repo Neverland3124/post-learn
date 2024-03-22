@@ -28,22 +28,22 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9664",
+                    "Total Joined Tuples": "9854",
                     "Total Dropped Tuples (true negative)": "0",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "9664",
-                    "False Positives": "4665",
+                    "Total UnDropped Tuples": "9854",
+                    "False Positives": "4855",
                     "False Positives Rate": "1.000000"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11425",
+                    "Total Joined Tuples": "11442",
                     "Total Dropped Tuples (true negative)": "0",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "11425",
-                    "False Positives": "4926",
+                    "Total UnDropped Tuples": "11442",
+                    "False Positives": "4943",
                     "False Positives Rate": "1.000000"
                 }
             }
@@ -78,22 +78,22 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9840",
+                    "Total Joined Tuples": "9752",
                     "Total Dropped Tuples (true negative)": "0",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "9840",
-                    "False Positives": "4841",
+                    "Total UnDropped Tuples": "9752",
+                    "False Positives": "4753",
                     "False Positives Rate": "1.000000"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11502",
+                    "Total Joined Tuples": "11448",
                     "Total Dropped Tuples (true negative)": "0",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "11502",
-                    "False Positives": "5003",
+                    "Total UnDropped Tuples": "11448",
+                    "False Positives": "4949",
                     "False Positives Rate": "1.000000"
                 }
             }
@@ -128,11 +128,11 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9632",
+                    "Total Joined Tuples": "9696",
                     "Total Dropped Tuples (true negative)": "0",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "9632",
-                    "False Positives": "4633",
+                    "Total UnDropped Tuples": "9696",
+                    "False Positives": "4697",
                     "False Positives Rate": "1.000000"
                 }
             },
@@ -178,23 +178,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9741",
+                    "Total Joined Tuples": "9691",
                     "Total Dropped Tuples (true negative)": "1382",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "8359",
-                    "False Positives": "3360",
-                    "False Positives Rate": "0.708562"
+                    "Total UnDropped Tuples": "8309",
+                    "False Positives": "3310",
+                    "False Positives Rate": "0.705456"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11295",
+                    "Total Joined Tuples": "11061",
                     "Total Dropped Tuples (true negative)": "894",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "10401",
-                    "False Positives": "3902",
-                    "False Positives Rate": "0.813595"
+                    "Total UnDropped Tuples": "10167",
+                    "False Positives": "3668",
+                    "False Positives Rate": "0.804033"
                 }
             }
         ]
@@ -228,23 +228,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9668",
+                    "Total Joined Tuples": "9766",
                     "Total Dropped Tuples (true negative)": "1404",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "8264",
-                    "False Positives": "3265",
-                    "False Positives Rate": "0.699293"
+                    "Total UnDropped Tuples": "8362",
+                    "False Positives": "3363",
+                    "False Positives Rate": "0.705475"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11175",
+                    "Total Joined Tuples": "11332",
                     "Total Dropped Tuples (true negative)": "733",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "10442",
-                    "False Positives": "3943",
-                    "False Positives Rate": "0.843242"
+                    "Total UnDropped Tuples": "10599",
+                    "False Positives": "4100",
+                    "False Positives Rate": "0.848334"
                 }
             }
         ]
@@ -278,23 +278,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9656",
+                    "Total Joined Tuples": "9807",
                     "Total Dropped Tuples (true negative)": "592",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "9064",
-                    "False Positives": "4065",
-                    "False Positives Rate": "0.872880"
+                    "Total UnDropped Tuples": "9215",
+                    "False Positives": "4216",
+                    "False Positives Rate": "0.876872"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11387",
+                    "Total Joined Tuples": "11281",
                     "Total Dropped Tuples (true negative)": "184",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "11203",
-                    "False Positives": "4704",
-                    "False Positives Rate": "0.962357"
+                    "Total UnDropped Tuples": "11097",
+                    "False Positives": "4598",
+                    "False Positives Rate": "0.961522"
                 }
             }
         ]
@@ -328,23 +328,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9667",
+                    "Total Joined Tuples": "9406",
                     "Total Dropped Tuples (true negative)": "2444",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "7223",
-                    "False Positives": "2224",
-                    "False Positives Rate": "0.476435"
+                    "Total UnDropped Tuples": "6962",
+                    "False Positives": "1963",
+                    "False Positives Rate": "0.445428"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11021",
+                    "Total Joined Tuples": "11026",
                     "Total Dropped Tuples (true negative)": "1533",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "9488",
-                    "False Positives": "2989",
-                    "False Positives Rate": "0.660991"
+                    "Total UnDropped Tuples": "9493",
+                    "False Positives": "2994",
+                    "False Positives Rate": "0.661365"
                 }
             }
         ]
@@ -378,23 +378,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9572",
+                    "Total Joined Tuples": "9558",
                     "Total Dropped Tuples (true negative)": "2388",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "7184",
-                    "False Positives": "2185",
-                    "False Positives Rate": "0.477805"
+                    "Total UnDropped Tuples": "7170",
+                    "False Positives": "2171",
+                    "False Positives Rate": "0.476201"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11089",
+                    "Total Joined Tuples": "11094",
                     "Total Dropped Tuples (true negative)": "1288",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "9801",
-                    "False Positives": "3302",
-                    "False Positives Rate": "0.719390"
+                    "Total UnDropped Tuples": "9806",
+                    "False Positives": "3307",
+                    "False Positives Rate": "0.719695"
                 }
             }
         ]
@@ -428,23 +428,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9568",
+                    "Total Joined Tuples": "9600",
                     "Total Dropped Tuples (true negative)": "1830",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "7738",
-                    "False Positives": "2739",
-                    "False Positives Rate": "0.599475"
+                    "Total UnDropped Tuples": "7770",
+                    "False Positives": "2771",
+                    "False Positives Rate": "0.602260"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11314",
+                    "Total Joined Tuples": "11171",
                     "Total Dropped Tuples (true negative)": "814",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "10500",
-                    "False Positives": "4001",
-                    "False Positives Rate": "0.830945"
+                    "Total UnDropped Tuples": "10357",
+                    "False Positives": "3858",
+                    "False Positives Rate": "0.825771"
                 }
             }
         ]
@@ -478,23 +478,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9571",
+                    "Total Joined Tuples": "9545",
                     "Total Dropped Tuples (true negative)": "2959",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "6612",
-                    "False Positives": "1613",
-                    "False Positives Rate": "0.352800"
+                    "Total UnDropped Tuples": "6586",
+                    "False Positives": "1587",
+                    "False Positives Rate": "0.349098"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10927",
+                    "Total Joined Tuples": "10891",
                     "Total Dropped Tuples (true negative)": "1895",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "9032",
-                    "False Positives": "2533",
-                    "False Positives Rate": "0.572042"
+                    "Total UnDropped Tuples": "8996",
+                    "False Positives": "2497",
+                    "False Positives Rate": "0.568534"
                 }
             }
         ]
@@ -528,23 +528,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9661",
+                    "Total Joined Tuples": "9519",
                     "Total Dropped Tuples (true negative)": "3251",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "6410",
-                    "False Positives": "1411",
-                    "False Positives Rate": "0.302660"
+                    "Total UnDropped Tuples": "6268",
+                    "False Positives": "1269",
+                    "False Positives Rate": "0.280752"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10923",
+                    "Total Joined Tuples": "10910",
                     "Total Dropped Tuples (true negative)": "1913",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "9010",
-                    "False Positives": "2511",
-                    "False Positives Rate": "0.567586"
+                    "Total UnDropped Tuples": "8997",
+                    "False Positives": "2498",
+                    "False Positives Rate": "0.566311"
                 }
             }
         ]
@@ -578,23 +578,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9707",
+                    "Total Joined Tuples": "9503",
                     "Total Dropped Tuples (true negative)": "3197",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "6510",
-                    "False Positives": "1511",
-                    "False Positives Rate": "0.320943"
+                    "Total UnDropped Tuples": "6306",
+                    "False Positives": "1307",
+                    "False Positives Rate": "0.290186"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10901",
+                    "Total Joined Tuples": "11022",
                     "Total Dropped Tuples (true negative)": "1738",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "9163",
-                    "False Positives": "2664",
-                    "False Positives Rate": "0.605179"
+                    "Total UnDropped Tuples": "9284",
+                    "False Positives": "2785",
+                    "False Positives Rate": "0.615742"
                 }
             }
         ]
@@ -628,23 +628,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9561",
+                    "Total Joined Tuples": "9460",
                     "Total Dropped Tuples (true negative)": "3921",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5640",
-                    "False Positives": "641",
-                    "False Positives Rate": "0.140509"
+                    "Total UnDropped Tuples": "5539",
+                    "False Positives": "540",
+                    "False Positives Rate": "0.121049"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10852",
+                    "Total Joined Tuples": "10913",
                     "Total Dropped Tuples (true negative)": "2442",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8410",
-                    "False Positives": "1911",
-                    "False Positives Rate": "0.439008"
+                    "Total UnDropped Tuples": "8471",
+                    "False Positives": "1972",
+                    "False Positives Rate": "0.446760"
                 }
             }
         ]
@@ -678,23 +678,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9507",
+                    "Total Joined Tuples": "9376",
                     "Total Dropped Tuples (true negative)": "3843",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5664",
-                    "False Positives": "665",
-                    "False Positives Rate": "0.147516"
+                    "Total UnDropped Tuples": "5533",
+                    "False Positives": "534",
+                    "False Positives Rate": "0.122001"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10712",
+                    "Total Joined Tuples": "10645",
                     "Total Dropped Tuples (true negative)": "2349",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8363",
-                    "False Positives": "1864",
-                    "False Positives Rate": "0.442440"
+                    "Total UnDropped Tuples": "8296",
+                    "False Positives": "1797",
+                    "False Positives Rate": "0.433430"
                 }
             }
         ]
@@ -728,23 +728,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9432",
+                    "Total Joined Tuples": "9493",
                     "Total Dropped Tuples (true negative)": "3856",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5576",
-                    "False Positives": "577",
-                    "False Positives Rate": "0.130160"
+                    "Total UnDropped Tuples": "5637",
+                    "False Positives": "638",
+                    "False Positives Rate": "0.141967"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "11011",
+                    "Total Joined Tuples": "11003",
                     "Total Dropped Tuples (true negative)": "2329",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8682",
-                    "False Positives": "2183",
-                    "False Positives Rate": "0.483821"
+                    "Total UnDropped Tuples": "8674",
+                    "False Positives": "2175",
+                    "False Positives Rate": "0.482904"
                 }
             }
         ]
@@ -778,23 +778,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9408",
+                    "Total Joined Tuples": "9466",
                     "Total Dropped Tuples (true negative)": "3985",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5423",
-                    "False Positives": "424",
-                    "False Positives Rate": "0.096167"
+                    "Total UnDropped Tuples": "5481",
+                    "False Positives": "482",
+                    "False Positives Rate": "0.107902"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10968",
+                    "Total Joined Tuples": "10844",
                     "Total Dropped Tuples (true negative)": "2491",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8477",
-                    "False Positives": "1978",
-                    "False Positives Rate": "0.442605"
+                    "Total UnDropped Tuples": "8353",
+                    "False Positives": "1854",
+                    "False Positives Rate": "0.426697"
                 }
             }
         ]
@@ -828,23 +828,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9396",
+                    "Total Joined Tuples": "9465",
                     "Total Dropped Tuples (true negative)": "3978",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5418",
-                    "False Positives": "419",
-                    "False Positives Rate": "0.095292"
+                    "Total UnDropped Tuples": "5487",
+                    "False Positives": "488",
+                    "False Positives Rate": "0.109270"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10834",
+                    "Total Joined Tuples": "11036",
                     "Total Dropped Tuples (true negative)": "2481",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8353",
-                    "False Positives": "1854",
-                    "False Positives Rate": "0.427682"
+                    "Total UnDropped Tuples": "8555",
+                    "False Positives": "2056",
+                    "False Positives Rate": "0.453163"
                 }
             }
         ]
@@ -878,23 +878,23 @@
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 6000 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "9433",
+                    "Total Joined Tuples": "9467",
                     "Total Dropped Tuples (true negative)": "3988",
                     "True Positives": "4999",
-                    "Total UnDropped Tuples": "5445",
-                    "False Positives": "446",
-                    "False Positives Rate": "0.100586"
+                    "Total UnDropped Tuples": "5479",
+                    "False Positives": "480",
+                    "False Positives Rate": "0.107431"
                 }
             },
             {
                 "SQL Command": "SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 7500 AND S.ID > 1000",
                 "Metrics": {
-                    "Total Joined Tuples": "10803",
+                    "Total Joined Tuples": "10612",
                     "Total Dropped Tuples (true negative)": "2482",
                     "True Positives": "6499",
-                    "Total UnDropped Tuples": "8321",
-                    "False Positives": "1822",
-                    "False Positives Rate": "0.423327"
+                    "Total UnDropped Tuples": "8130",
+                    "False Positives": "1631",
+                    "False Positives Rate": "0.396548"
                 }
             }
         ]
