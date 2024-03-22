@@ -111,11 +111,3 @@ SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE; SELECT 
 
 SET enable_nestloop TO off; SET enable_mergejoin TO off; VACUUM ANALYZE;  EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 5500 AND S.ID > 4000; EXPLAIN SELECT COUNT(*) FROM R, S WHERE R.ID = S.ID AND R.ID < 4500 AND S.ID > 4000;
 ```
-
-## Code
-```c
-
-	// BEGIN NEWCODE
-	
-	// END NEWCODE
-```

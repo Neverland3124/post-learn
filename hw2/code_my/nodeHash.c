@@ -32,8 +32,8 @@
 // Static variables
 static int BLOOMFILTER_SIZE;
 static int BLOOMFILTER_HASHFUNCTION_COUNT;
-const static int MAX_BLOOMFILTER_SIZE = 81920;
-const static double EXPECTED_FPR = 0.05;
+const static int MAX_BLOOMFILTER_SIZE = 81920; // 10kb
+const static double EXPECTED_FPR = 0.05; // 5%
 const static int MAX_HASHFUNCTIONS = 4;
 // Static functions
 static unsigned int HashFunctionFNV(uint32 data);
@@ -735,9 +735,9 @@ ExecReScanHash(HashState *node, ExprContext *exprCtxt)
 }
 
 // BEGIN NEWCODE
-/* --------------------- Bloom Filter Functions --------------------------*/
 /* ----------- Helper functions for Bloom Filter Operations --------------*/
-// https://cs.stackexchange.com/questions/149136/optimal-parameters-for-a-bloom-filter
+// Compute Optimal BloomFilter size
+// Source: https://cs.stackexchange.com/questions/149136/optimal-parameters-for-a-bloom-filter
 static int calculateBloomFilterSize (double estimatedSize) {
 	// There will be estimatedSize number of tuples in the outer relation
 	// Every tuple will have 4 hash results to be inserted into the bloom filter
@@ -760,6 +760,9 @@ static int calculateBloomFilterHashFunctionSize(double estimatedSize) {
 	}
 	return flooringFuctionCount;
 }
+
+/* --------------------- Bloom Filter Functions --------------------------*/
+
 /* ----------------------------------------------------------------
  *		ExecBloomFilterInit
  *
@@ -772,6 +775,7 @@ ExecBloomFilterInit(double estimatedSize)
 	BLOOMFILTER_SIZE = calculateBloomFilterSize(estimatedSize);
 	BLOOMFILTER_HASHFUNCTION_COUNT = calculateBloomFilterHashFunctionSize(estimatedSize);
 
+	// Print information
 	printf("-----Init BLOOMFILTER_SIZE: %f, calculated: %d, hashfunctions: %d-----\n", estimatedSize, BLOOMFILTER_SIZE, BLOOMFILTER_HASHFUNCTION_COUNT);
 
 	BloomFilter bloomFilter;
@@ -782,6 +786,7 @@ ExecBloomFilterInit(double estimatedSize)
 	bloomFilter.totalDroppedTuples = 0;
 	bloomFilter.truePositives = 0; 
 	bloomFilter.totalUnDroppedTuples = 0;
+
 	// Allocate memory for the bit array. Since we're working with bits but allocate in bytes,
     // we need to convert the size from bits to bytes. There are 8 bits in a byte.
 	int bitArraySize = BLOOMFILTER_SIZE / 8;
@@ -824,15 +829,16 @@ GetBit(char *bitArray, int index) {
     return (bitArray[byteIndex] & (1 << bitPosition)) != 0;
 }
 
-void printBitArray(char *bitArray, int size) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 7; j >= 0; j--) {
-            printf("%d", (bitArray[i] >> j) & 1);
-        }
-        printf(" ");
-    }
-    printf("\n");
-}
+// Debug use
+// void printBitArray(char *bitArray, int size) {
+//     for (int i = 0; i < size; i++) {
+//         for (int j = 7; j >= 0; j--) {
+//             printf("%d", (bitArray[i] >> j) & 1);
+//         }
+//         printf(" ");
+//     }
+//     printf("\n");
+// }
 
 /* ----------------------------------------------------------------
  *		ExecBloomFilterInsert
@@ -846,8 +852,8 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 					  ExprContext *econtext,
 					  List *hashkeys)
 {
-	uint32		hashkey = 0;
-	List	   *hk;
+	uint32		  hashkey = 0;
+	List	     *hk;
 	MemoryContext oldContext;
 
 	/*
@@ -859,7 +865,7 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 	oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
 
 	// The idea is to loop over all hashkeys and apply the hash function to each of them
-	//  Insert the return result from the hash function into the bit array
+	// Insert the return result from the hash function into the bit array
 	foreach(hk, hashkeys)
 	{
 		Datum		keyval;
@@ -874,14 +880,9 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
 				// Call the i-th hash function
-				// printf("zhitao numHashes: %d\n", bloomFilter.numHashes);
-				// printf("zhitao i: %d\n", i);
 				int hashResult = hashFunctions[i](hkey) % BLOOMFILTER_SIZE;
-				// hash function returns 00000000 00000000 00000000 00000000
 				// put result into bit array
 				// 1001111 % 8192 < 8192
-
-				// printf("hashResult: %d\n", hashResult);
 				SetBit(bloomFilter.bitArray, hashResult);
 			}
 		}
@@ -892,15 +893,21 @@ ExecBloomFilterInsert(BloomFilter bloomFilter,
 	MemoryContextSwitchTo(oldContext);
 }
 
+/* ----------------------------------------------------------------
+ *		ExecBloomFilterTest
+ *
+ *		Test if the tuple with the BloomFilter
+ * ----------------------------------------------------------------
+ */
 bool
 ExecBloomFilterTest(BloomFilter bloomFilter,
 					ExprContext *econtext,
 					List *hashkeys)
 {
-	uint32	    hashkey = 0;
-	List	   *hk;
+	uint32	      hashkey = 0;
+	List	     *hk;
 	MemoryContext oldContext;
-	bool result = true;
+	bool          result = true;
 
 	/*
 	 * We reset the eval context each time to reclaim any memory leaked in
@@ -923,21 +930,23 @@ ExecBloomFilterTest(BloomFilter bloomFilter,
 		if (!isNull)  // treat nulls as having hash key 0
 		{
 			for (int i = 0; i < bloomFilter.numHashes; i++) {
-				// printf("test zhitao numHashes: %d\n", bloomFilter.numHashes);
-				// printf("test zhitao i: %d\n", i);
 				// Call the i-th hash function
 				int hashResult = hashFunctions[i](hkey) % BLOOMFILTER_SIZE;
-				// printf("hashResult: %d\n", hashResult);
 				result = result && GetBit(bloomFilter.bitArray, hashResult);
 			}
 		}
 	}
 	
 	MemoryContextSwitchTo(oldContext);
-	// printf("-----ExecBloomFilterTest result: %d\n-----", result);
 	return result;
 }
 
+/* ----------------------------------------------------------------
+ *		ExecBloomFilterFree
+ *
+ *		Free the palloc memory
+ * ----------------------------------------------------------------
+ */
 void
 ExecBloomFilterFree(BloomFilter bloomFilter)
 {
@@ -1095,7 +1104,7 @@ HashFunctionAP(uint32_t data)
    return hash;
 }
 
-// AP hash function
+// DEK hash function
 // https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf
 // An algorithm proposed by Donald E. Knuth in The Art Of Computer Programming Volume 3, under the topic of sorting and search chapter 6.4.
 /* ----------------------------------------------------------------
@@ -1121,5 +1130,4 @@ HashFunctionDEK(uint32_t data)
 
     return hash;
 }
-
 // END NEWCODE
