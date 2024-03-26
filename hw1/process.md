@@ -289,7 +289,7 @@ test=#
 - try executing these queries in PostgreSQL , and
 - check, using the EXPLAIN command in psql, that they are indeed executed using Sequential Scans or Index Scans, as specified
 - Some use index scans, some use sequential scans
-- TODO: which use what?
+
 
 ## postgres in backend mode
 - 
