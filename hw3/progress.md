@@ -423,12 +423,22 @@ EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
 ## 3.4
 - MultiColumn Range Queries
 ```sql
+SET default_statistics_target = 10;
+vacuum analyze;
+SHOW default_statistics_target;
+
+
 -- sample
 SELECT COUNT(*) FROM One
 WHERE c > value1 AND c < value2 AND
 d > value3 AND d < value4;
 
 -- init sql
+-- for queries that return very few or no values
 SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 5 AND d < 45;
 EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 5 AND d < 45;
+
+-- for queries that return many values
+SELECT COUNT(*) FROM One WHERE c > 125 AND c < 400 AND d > 25 AND d < 80;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 125 AND c < 400 AND d > 25 AND d < 80;
 ```
