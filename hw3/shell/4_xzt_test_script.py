@@ -6,15 +6,21 @@ import subprocess
 
 json_output = []
 
-default_statistics_target_size = [10, 200]
-# default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
+# default_statistics_target_size = [10, 200]
+default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
 # Adjusted pattern for estimated rows that works with both Seq Scan and Index Scan
-estimated_pattern = re.compile(r'->\s+(?:Seq Scan|Index Scan) on one\s+\(cost=[\d.]+..[\d.]+ rows=(\d+) width=\d+\)')
+# not working
+# estimated_pattern = re.compile(r'->\s+(?:Seq Scan|Index Scan) on one\s+\(cost=[\d.]+..[\d.]+ rows=(\d+) width=\d+\)')
+# estimated_pattern = re.compile(r'->\s+(?:Seq Scan|Index Scan)\s+\(cost=\d+\.\d+\.\.\d+\.\d+\s+rows=(\d+) width=\d+\)')
 
+estimated_pattern = re.compile(
+	r'->\s+(?:Seq Scan|Index Scan).*?\(cost=\d+\.\d+..\d+\.\d+\s+rows=(\d+) width=\d+\)',
+	re.DOTALL  # This flag allows '.' to match newlines
+)
 
-directory = "result_1"
+directory = "result_2"
 os.makedirs(directory, exist_ok=True)
 
 
@@ -55,16 +61,16 @@ for sizes in default_statistics_target_size:
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250 AND d > 55 AND d < 70",
 		"SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460 AND d > 30 AND d < 90",
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460 AND d > 30 AND d < 90",
-		"SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 100 AND d < 110",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 100 AND d < 110",
+		"SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 50 AND d < 120",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 50 AND d < 120",
 		"SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 20 AND d < 120",
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 20 AND d < 120",
-		"SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490 AND d > 32 AND d < 99",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490 AND d > 32 AND d < 99",
-		"SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 65",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 65",
-		"SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100 AND d > 85 AND d < 110",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100 AND d > 85 AND d < 110",
+		"SELECT COUNT(*) FROM One WHERE c > 300 AND c < 490 AND d > 32 AND d < 99",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 490 AND d > 32 AND d < 99",
+		"SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115",
+		"SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110",
 		"SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80",
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80"
 	]
@@ -99,7 +105,9 @@ for sizes in default_statistics_target_size:
 			
 		# also append to the json file
 		actual_counts = actual_pattern.findall(result.stdout)
+		# print(actual_counts)
 		estimated_rows = estimated_pattern.findall(result.stdout)
+		# print(estimated_rows)
         
         # Combine the actual and estimated counts into a list of dictionaries
 		command_results = []

@@ -1,0 +1,91 @@
+xuzhitao@mathlab:~/cscd43/cscd43-personal-hws/hw3/shell$ python3 4_xzt_test_script.py 
+Iteration: (1 / 15)
+Expected additional running time: 32 minutes
+Postgresql Running Successful
+Average estimation error for size 10: unround:0.698257
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (2 / 15)
+Expected additional running time: 3.0 minutes
+Postgresql Running Successful
+Average estimation error for size 20: unround:0.694137
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (3 / 15)
+Expected additional running time: 3.0 minutes
+Postgresql Running Successful
+Average estimation error for size 30: unround:0.672071
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (4 / 15)
+Expected additional running time: 2.0 minutes
+Postgresql Running Successful
+Average estimation error for size 50: unround:0.674328
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (5 / 15)
+Expected additional running time: 2.0 minutes
+Postgresql Running Successful
+Average estimation error for size 100: unround:0.667692
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (6 / 15)
+Expected additional running time: 2.0 minutes
+Postgresql Running Successful
+Average estimation error for size 128: unround:0.666884
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (7 / 15)
+Expected additional running time: 2.0 minutes
+Postgresql Running Successful
+Average estimation error for size 150: unround:0.667861
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (8 / 15)
+Expected additional running time: 1.0 minutes
+Postgresql Running Successful
+Average estimation error for size 200: unround:0.670597
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (9 / 15)
+Expected additional running time: 1.0 minutes
+Postgresql Running Successful
+Average estimation error for size 250: unround:0.668038
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (10 / 15)
+Expected additional running time: 1.0 minutes
+Postgresql Running Successful
+Average estimation error for size 256: unround:0.671812
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (11 / 15)
+Expected additional running time: 1.0 minutes
+Postgresql Running Successful
+Average estimation error for size 300: unround:0.668216
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (12 / 15)
+Expected additional running time: 0.0 minutes
+Postgresql Running Successful
+Average estimation error for size 350: unround:0.667959
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (13 / 15)
+Expected additional running time: 0.0 minutes
+Postgresql Running Successful
+Average estimation error for size 400: unround:0.668240
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (14 / 15)
+Expected additional running time: 0.0 minutes
+Postgresql Running Successful
+Average estimation error for size 450: unround:0.667802
+waiting for postmaster to shut down.......done
+postmaster successfully shut down
+Iteration: (15 / 15)
+Expected additional running time: 0.0 minutes
+Postgresql Running Successful
+Average estimation error for size 500: unround:0.667774
+waiting for postmaster to shut down.......done
+postmaster successfully shut down

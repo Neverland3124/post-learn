@@ -1,0 +1,123 @@
+SET
+VACUUM
+ count 
+-------
+   277
+(1 row)
+
+                            QUERY PLAN                             
+-------------------------------------------------------------------
+ Aggregate  (cost=264.96..264.96 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=382 width=0)
+         Filter: ((c > 10) AND (c < 60) AND (d > 25) AND (d < 80))
+(3 rows)
+
+ count 
+-------
+  7859
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=282.24..282.24 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=7293 width=0)
+         Filter: ((c > 90) AND (c < 320) AND (d > 45) AND (d < 120))
+(3 rows)
+
+ count 
+-------
+  5971
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=273.81..273.81 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=3923 width=0)
+         Filter: ((c > 200) AND (c < 250) AND (d > 55) AND (d < 70))
+(3 rows)
+
+ count 
+-------
+  4198
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=274.42..274.42 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=4166 width=0)
+         Filter: ((c > 240) AND (c < 460) AND (d > 30) AND (d < 90))
+(3 rows)
+
+ count 
+-------
+   286
+(1 row)
+
+                                  QUERY PLAN                                   
+-------------------------------------------------------------------------------
+ Aggregate  (cost=264.44..264.44 rows=1 width=0)
+   ->  Index Scan using one_c_idx on one  (cost=0.00..263.84 rows=241 width=0)
+         Index Cond: ((c > 300) AND (c < 350))
+         Filter: ((d > 50) AND (d < 120))
+(4 rows)
+
+ count 
+-------
+   391
+(1 row)
+
+                              QUERY PLAN                              
+----------------------------------------------------------------------
+ Aggregate  (cost=264.99..264.99 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=394 width=0)
+         Filter: ((c > 325) AND (c < 400) AND (d > 20) AND (d < 120))
+(3 rows)
+
+ count 
+-------
+   518
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=266.12..266.12 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=848 width=0)
+         Filter: ((c > 300) AND (c < 490) AND (d > 32) AND (d < 99))
+(3 rows)
+
+ count 
+-------
+   401
+(1 row)
+
+                              QUERY PLAN                              
+----------------------------------------------------------------------
+ Aggregate  (cost=264.99..264.99 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=395 width=0)
+         Filter: ((c > 380) AND (c < 500) AND (d > 57) AND (d < 115))
+(3 rows)
+
+ count 
+-------
+   278
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=268.19..268.19 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=1676 width=0)
+         Filter: ((c > 50) AND (c < 200) AND (d > 57) AND (d < 110))
+(3 rows)
+
+ count 
+-------
+  8094
+(1 row)
+
+                             QUERY PLAN                              
+---------------------------------------------------------------------
+ Aggregate  (cost=283.57..283.57 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=7828 width=0)
+         Filter: ((c > 100) AND (c < 455) AND (d > 25) AND (d < 80))
+(3 rows)
+
