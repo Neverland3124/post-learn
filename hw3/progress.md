@@ -301,4 +301,123 @@ hw=# EXPLAIN SELECT * FROM One WHERE d = 60;
 ```sql
 SELECT COUNT(*) FROM One WHERE c > value1 AND c < value2;
 
+SELECT COUNT(*) FROM One WHERE c > 50 AND c < 250;
+
+
+SELECT c, COUNT(c) AS frequency
+FROM One
+GROUP BY  c
+ORDER BY frequency DESC;
+
+
+
+  c  | frequency 
+-----+-----------
+ 249 |      1103
+ 248 |       638
+ 247 |       446
+ 246 |       314
+ 245 |       277
+ 244 |       248
+ 243 |       204
+ 242 |       177
+ 241 |       174
+ 240 |       135
+ 238 |       124
+ 237 |       109
+ 236 |       104
+ 239 |       102
+ 235 |        94
+ 234 |        88
+ ...
+ 273 |         3
+ 266 |         3
+  67 |         3
+  53 |         3
+ 469 |         2
+ 458 |         2
+ 439 |         2
+ 410 |         2
+ 404 |         2
+ 400 |         2
+ 377 |         2
+ 375 |         2
+ 368 |         2
+ 359 |         2
+ 344 |         2
+ 334 |         2
+ 316 |         2
+  79 |         2
+   1 |         2
+ 500 |         1
+ 493 |         1
+ 491 |         1
+ 490 |         1
+ 467 |         1
+ 449 |         1
+ 443 |         1
+ 437 |         1
+ 390 |         1
+ 336 |         1
+(496 rows)
+
+SET default_statistics_target = 200;
+vacuum analyze;
+SHOW default_statistics_target;
+
+SELECT COUNT(*) FROM One WHERE c > 50 AND c < 250;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 250;
+
+
+
+-- Very broad range covering a large portion of the spectrum
+SELECT COUNT(*) FROM One WHERE c > 50 AND c < 450;
+
+-- on way
+SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60;
+SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320;
+SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250;
+SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460;
+SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350;
+SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400;
+SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490;
+SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500;
+SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100;
+SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
+
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
+
+-- another way
+SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60;
+SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320;
+SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250;
+SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460;
+SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350;
+SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400;
+SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490;
+SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500;
+SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100;
+SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
+
 ```
+
+
