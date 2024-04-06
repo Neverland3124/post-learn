@@ -4,93 +4,38 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 463,
-                "error": 0.08430913348946135
+                "estimated": 429,
+                "error": 0.00468384074941452
             },
             {
                 "actual": 8332,
-                "estimated": 8284,
-                "error": 0.005760921747479597
+                "estimated": 8349,
+                "error": 0.0020403264522323573
             },
             {
                 "actual": 5971,
-                "estimated": 5795,
-                "error": 0.029475799698542957
+                "estimated": 6082,
+                "error": 0.01858985094624016
             },
             {
                 "actual": 4709,
-                "estimated": 5018,
-                "error": 0.06561902739435124
+                "estimated": 4679,
+                "error": 0.006370779358674878
             },
             {
                 "actual": 286,
-                "estimated": 338,
-                "error": 0.18181818181818182
+                "estimated": 261,
+                "error": 0.08741258741258741
             },
             {
                 "actual": 391,
-                "estimated": 406,
-                "error": 0.03836317135549872
+                "estimated": 363,
+                "error": 0.07161125319693094
             },
             {
                 "actual": 399,
-                "estimated": 396,
-                "error": 0.007518796992481203
-            },
-            {
-                "actual": 520,
-                "estimated": 527,
-                "error": 0.013461538461538462
-            },
-            {
-                "actual": 903,
-                "estimated": 942,
-                "error": 0.04318936877076412
-            },
-            {
-                "actual": 8874,
-                "estimated": 8860,
-                "error": 0.0015776425512733828
-            }
-        ]
-    },
-    {
-        "default_statistics_target": 20,
-        "results": [
-            {
-                "actual": 427,
-                "estimated": 442,
-                "error": 0.0351288056206089
-            },
-            {
-                "actual": 8332,
-                "estimated": 8311,
-                "error": 0.0025204032645223234
-            },
-            {
-                "actual": 5971,
-                "estimated": 5915,
-                "error": 0.009378663540445486
-            },
-            {
-                "actual": 4709,
-                "estimated": 4863,
-                "error": 0.032703334041197706
-            },
-            {
-                "actual": 286,
-                "estimated": 296,
-                "error": 0.03496503496503497
-            },
-            {
-                "actual": 391,
-                "estimated": 412,
-                "error": 0.05370843989769821
-            },
-            {
-                "actual": 399,
-                "estimated": 401,
-                "error": 0.005012531328320802
+                "estimated": 405,
+                "error": 0.015037593984962405
             },
             {
                 "actual": 520,
@@ -99,13 +44,68 @@
             },
             {
                 "actual": 903,
-                "estimated": 930,
-                "error": 0.029900332225913623
+                "estimated": 938,
+                "error": 0.03875968992248062
             },
             {
                 "actual": 8874,
-                "estimated": 8873,
-                "error": 0.0001126887536623845
+                "estimated": 8865,
+                "error": 0.0010141987829614604
+            }
+        ]
+    },
+    {
+        "default_statistics_target": 20,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 435,
+                "error": 0.01873536299765808
+            },
+            {
+                "actual": 8332,
+                "estimated": 8332,
+                "error": 0.0
+            },
+            {
+                "actual": 5971,
+                "estimated": 5965,
+                "error": 0.0010048568079048736
+            },
+            {
+                "actual": 4709,
+                "estimated": 4800,
+                "error": 0.019324697387980462
+            },
+            {
+                "actual": 286,
+                "estimated": 290,
+                "error": 0.013986013986013986
+            },
+            {
+                "actual": 391,
+                "estimated": 393,
+                "error": 0.005115089514066497
+            },
+            {
+                "actual": 399,
+                "estimated": 423,
+                "error": 0.06015037593984962
+            },
+            {
+                "actual": 520,
+                "estimated": 568,
+                "error": 0.09230769230769231
+            },
+            {
+                "actual": 903,
+                "estimated": 877,
+                "error": 0.028792912513842746
+            },
+            {
+                "actual": 8874,
+                "estimated": 8922,
+                "error": 0.005409060175794456
             }
         ]
     },
@@ -114,53 +114,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 436,
-                "error": 0.02107728337236534
+                "estimated": 439,
+                "error": 0.02810304449648712
             },
             {
                 "actual": 8332,
-                "estimated": 8321,
-                "error": 0.0013202112337974076
+                "estimated": 8335,
+                "error": 0.0003600576092174748
             },
             {
                 "actual": 5971,
-                "estimated": 6000,
-                "error": 0.004856807904873556
+                "estimated": 6033,
+                "error": 0.01038352034835036
             },
             {
                 "actual": 4709,
-                "estimated": 4729,
-                "error": 0.004247186239116585
+                "estimated": 4749,
+                "error": 0.00849437247823317
             },
             {
                 "actual": 286,
-                "estimated": 284,
-                "error": 0.006993006993006993
+                "estimated": 298,
+                "error": 0.04195804195804196
             },
             {
                 "actual": 391,
-                "estimated": 410,
-                "error": 0.04859335038363171
+                "estimated": 399,
+                "error": 0.020460358056265986
             },
             {
                 "actual": 399,
-                "estimated": 400,
-                "error": 0.002506265664160401
+                "estimated": 387,
+                "error": 0.03007518796992481
             },
             {
                 "actual": 520,
-                "estimated": 550,
-                "error": 0.057692307692307696
+                "estimated": 532,
+                "error": 0.023076923076923078
             },
             {
                 "actual": 903,
-                "estimated": 915,
-                "error": 0.013289036544850499
+                "estimated": 911,
+                "error": 0.008859357696566999
             },
             {
                 "actual": 8874,
-                "estimated": 8872,
-                "error": 0.000225377507324769
+                "estimated": 8879,
+                "error": 0.0005634437683119225
             }
         ]
     },
@@ -275,6 +275,116 @@
         ]
     },
     {
+        "default_statistics_target": 128,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 437,
+                "error": 0.0234192037470726
+            },
+            {
+                "actual": 8332,
+                "estimated": 8349,
+                "error": 0.0020403264522323573
+            },
+            {
+                "actual": 5971,
+                "estimated": 5991,
+                "error": 0.0033495226930162453
+            },
+            {
+                "actual": 4709,
+                "estimated": 4701,
+                "error": 0.0016988744956466342
+            },
+            {
+                "actual": 286,
+                "estimated": 296,
+                "error": 0.03496503496503497
+            },
+            {
+                "actual": 391,
+                "estimated": 398,
+                "error": 0.017902813299232736
+            },
+            {
+                "actual": 399,
+                "estimated": 395,
+                "error": 0.010025062656641603
+            },
+            {
+                "actual": 520,
+                "estimated": 531,
+                "error": 0.021153846153846155
+            },
+            {
+                "actual": 903,
+                "estimated": 911,
+                "error": 0.008859357696566999
+            },
+            {
+                "actual": 8874,
+                "estimated": 8888,
+                "error": 0.0015776425512733828
+            }
+        ]
+    },
+    {
+        "default_statistics_target": 150,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 433,
+                "error": 0.01405152224824356
+            },
+            {
+                "actual": 8332,
+                "estimated": 8341,
+                "error": 0.0010801728276524244
+            },
+            {
+                "actual": 5971,
+                "estimated": 5985,
+                "error": 0.0023446658851113715
+            },
+            {
+                "actual": 4709,
+                "estimated": 4703,
+                "error": 0.0012741558717349756
+            },
+            {
+                "actual": 286,
+                "estimated": 296,
+                "error": 0.03496503496503497
+            },
+            {
+                "actual": 391,
+                "estimated": 396,
+                "error": 0.01278772378516624
+            },
+            {
+                "actual": 399,
+                "estimated": 401,
+                "error": 0.005012531328320802
+            },
+            {
+                "actual": 520,
+                "estimated": 529,
+                "error": 0.01730769230769231
+            },
+            {
+                "actual": 903,
+                "estimated": 914,
+                "error": 0.012181616832779624
+            },
+            {
+                "actual": 8874,
+                "estimated": 8886,
+                "error": 0.001352265043948614
+            }
+        ]
+    },
+    {
         "default_statistics_target": 200,
         "results": [
             {
@@ -326,6 +436,116 @@
                 "actual": 8874,
                 "estimated": 8879,
                 "error": 0.0005634437683119225
+            }
+        ]
+    },
+    {
+        "default_statistics_target": 250,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 433,
+                "error": 0.01405152224824356
+            },
+            {
+                "actual": 8332,
+                "estimated": 8341,
+                "error": 0.0010801728276524244
+            },
+            {
+                "actual": 5971,
+                "estimated": 5985,
+                "error": 0.0023446658851113715
+            },
+            {
+                "actual": 4709,
+                "estimated": 4703,
+                "error": 0.0012741558717349756
+            },
+            {
+                "actual": 286,
+                "estimated": 289,
+                "error": 0.01048951048951049
+            },
+            {
+                "actual": 391,
+                "estimated": 394,
+                "error": 0.0076726342710997444
+            },
+            {
+                "actual": 399,
+                "estimated": 401,
+                "error": 0.005012531328320802
+            },
+            {
+                "actual": 520,
+                "estimated": 527,
+                "error": 0.013461538461538462
+            },
+            {
+                "actual": 903,
+                "estimated": 909,
+                "error": 0.006644518272425249
+            },
+            {
+                "actual": 8874,
+                "estimated": 8890,
+                "error": 0.001803020058598152
+            }
+        ]
+    },
+    {
+        "default_statistics_target": 256,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 437,
+                "error": 0.0234192037470726
+            },
+            {
+                "actual": 8332,
+                "estimated": 8347,
+                "error": 0.001800288046087374
+            },
+            {
+                "actual": 5971,
+                "estimated": 5971,
+                "error": 0.0
+            },
+            {
+                "actual": 4709,
+                "estimated": 4714,
+                "error": 0.0010617965597791463
+            },
+            {
+                "actual": 286,
+                "estimated": 292,
+                "error": 0.02097902097902098
+            },
+            {
+                "actual": 391,
+                "estimated": 391,
+                "error": 0.0
+            },
+            {
+                "actual": 399,
+                "estimated": 401,
+                "error": 0.005012531328320802
+            },
+            {
+                "actual": 520,
+                "estimated": 521,
+                "error": 0.0019230769230769232
+            },
+            {
+                "actual": 903,
+                "estimated": 916,
+                "error": 0.014396456256921373
+            },
+            {
+                "actual": 8874,
+                "estimated": 8883,
+                "error": 0.0010141987829614604
             }
         ]
     },
@@ -385,6 +605,61 @@
         ]
     },
     {
+        "default_statistics_target": 350,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 433,
+                "error": 0.01405152224824356
+            },
+            {
+                "actual": 8332,
+                "estimated": 8341,
+                "error": 0.0010801728276524244
+            },
+            {
+                "actual": 5971,
+                "estimated": 5975,
+                "error": 0.000669904538603249
+            },
+            {
+                "actual": 4709,
+                "estimated": 4712,
+                "error": 0.0006370779358674878
+            },
+            {
+                "actual": 286,
+                "estimated": 292,
+                "error": 0.02097902097902098
+            },
+            {
+                "actual": 391,
+                "estimated": 396,
+                "error": 0.01278772378516624
+            },
+            {
+                "actual": 399,
+                "estimated": 401,
+                "error": 0.005012531328320802
+            },
+            {
+                "actual": 520,
+                "estimated": 526,
+                "error": 0.011538461538461539
+            },
+            {
+                "actual": 903,
+                "estimated": 907,
+                "error": 0.004429678848283499
+            },
+            {
+                "actual": 8874,
+                "estimated": 8882,
+                "error": 0.000901510029299076
+            }
+        ]
+    },
+    {
         "default_statistics_target": 400,
         "results": [
             {
@@ -436,6 +711,61 @@
                 "actual": 8874,
                 "estimated": 8881,
                 "error": 0.0007888212756366914
+            }
+        ]
+    },
+    {
+        "default_statistics_target": 450,
+        "results": [
+            {
+                "actual": 427,
+                "estimated": 433,
+                "error": 0.01405152224824356
+            },
+            {
+                "actual": 8332,
+                "estimated": 8344,
+                "error": 0.0014402304368698992
+            },
+            {
+                "actual": 5971,
+                "estimated": 5975,
+                "error": 0.000669904538603249
+            },
+            {
+                "actual": 4709,
+                "estimated": 4707,
+                "error": 0.00042471862391165854
+            },
+            {
+                "actual": 286,
+                "estimated": 294,
+                "error": 0.027972027972027972
+            },
+            {
+                "actual": 391,
+                "estimated": 393,
+                "error": 0.005115089514066497
+            },
+            {
+                "actual": 399,
+                "estimated": 403,
+                "error": 0.010025062656641603
+            },
+            {
+                "actual": 520,
+                "estimated": 528,
+                "error": 0.015384615384615385
+            },
+            {
+                "actual": 903,
+                "estimated": 912,
+                "error": 0.009966777408637873
+            },
+            {
+                "actual": 8874,
+                "estimated": 8880,
+                "error": 0.000676132521974307
             }
         ]
     },

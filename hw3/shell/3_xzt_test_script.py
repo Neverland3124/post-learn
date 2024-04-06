@@ -7,7 +7,7 @@ import subprocess
 json_output = []
 
 # default_statistics_target_size = [10, 200]
-default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
+default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
 # Adjusted pattern for estimated rows that works with both Seq Scan and Index Scan

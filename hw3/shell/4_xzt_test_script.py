@@ -6,8 +6,8 @@ import subprocess
 
 json_output = []
 
-# default_statistics_target_size = [10, 200]
-default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
+default_statistics_target_size = [10, 200]
+# default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
 # Adjusted pattern for estimated rows that works with both Seq Scan and Index Scan
@@ -47,27 +47,28 @@ for sizes in default_statistics_target_size:
 
 	# Your SQL commands, for mapping purposes
 	sql_commands = [
-		"SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60",
-		"SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320",
-		"SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250",
-		"SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460",
-		"SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350",
-		"SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400",
-		"SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490",
-		"SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500",
-		"SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100",
-		"SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455"
+		"SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60 AND d > 25 AND d < 80",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60 AND d > 25 AND d < 80",
+		"SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320 AND d > 45 AND d < 120",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320 AND d > 45 AND d < 120",
+		"SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250 AND d > 55 AND d < 70",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250 AND d > 55 AND d < 70",
+		"SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460 AND d > 30 AND d < 90",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 240 AND c < 460 AND d > 30 AND d < 90",
+		"SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 100 AND d < 110",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 350 AND d > 100 AND d < 110",
+		"SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 20 AND d < 120",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 20 AND d < 120",
+		"SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490 AND d > 32 AND d < 99",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 400 AND c < 490 AND d > 32 AND d < 99",
+		"SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 65",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 65",
+		"SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100 AND d > 85 AND d < 110",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 1 AND c < 100 AND d > 85 AND d < 110",
+		"SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80"
 	]
+
 
 	# Prepare the SQL commands to be executed
 	all_sql_commands = f"""
