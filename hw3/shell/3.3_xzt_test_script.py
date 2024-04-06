@@ -6,8 +6,13 @@ import subprocess
 
 json_output = []
 
-# default_statistics_target_size = [10, 200]
-default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
+default_statistics_target_size = [10, 200]
+# default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
+actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
+
+# Adjusted pattern for estimated rows that works with both Seq Scan and Index Scan
+estimated_pattern = re.compile(r'->\s+(?:Seq Scan|Index Scan) on one\s+\(cost=[\d.]+..[\d.]+ rows=(\d+) width=\d+\)')
+
 
 directory = "result_1"
 os.makedirs(directory, exist_ok=True)
@@ -85,10 +90,28 @@ for sizes in default_statistics_target_size:
 	# Print the output and errors
 	if result.returncode == 0:
 		print("Postgresql Running Successful")
+		# write to sql_output_#.txt
 		filename = f"sql_output_{new_default_statistics_target}.txt"
 		filepath = os.path.join(directory, filename)
 		with open(filepath, "w") as output_file:
 			output_file.write(result.stdout)
+			
+		# also append to the json file
+		actual_counts = actual_pattern.findall(result.stdout)
+		estimated_rows = estimated_pattern.findall(result.stdout)
+        
+        # Combine the actual and estimated counts into a list of dictionaries
+		command_results = []
+		for actual, estimated in zip(actual_counts, estimated_rows):
+			command_results.append({'actual': int(actual), 'estimated': int(estimated)})
+        
+        # Append the results for this default_statistics_target_size
+		json_output.append({
+			'default_statistics_target': sizes,
+			'results': command_results
+		})
+
+
 	else:
 		print("Error in Postgresql Running")
 		print("Error Output:", result.stderr)
@@ -101,58 +124,9 @@ for sizes in default_statistics_target_size:
 	subprocess.run(stop_command, shell=True)
 
 
-
-
-	# # Read the new content from the logfile
-	# logfile_path = "/cmshome/xuzhitao/cscd43/cscd43-personal-hws/hw2/logfile"
-	# with open(logfile_path, "r") as file:
-	# 	logfile_content = file.read()
-
-	# # Delete the logfile after reading its contents
-	# os.remove(logfile_path)
-
-	# # Regex pattern to extract the results blocks
-	# pattern = r"\*\*+Result\*\*+(.*?)\*\*+End Result\*\*+"
-	# results = re.findall(pattern, logfile_content, re.DOTALL)
-
-	# # Assuming each result block corresponds to a SQL command in order
-	# # Parse and map the results to the SQL commands
-	# mapped_results = []
-	# for sql_command, result_block in zip(sql_commands, results):
-	# 	# Extract the metrics from the result block
-	# 	metrics = {
-	# 		"Total Joined Tuples": re.search(r"Total Joined Tuples: (\d+)", result_block).group(1),
-	# 		"Total Dropped Tuples (true negative)": re.search(r"Total Dropped Tuples \(true negative\): (\d+)", result_block).group(1),
-	# 		"True Positives": re.search(r"True Positives (\d+)", result_block).group(1),
-	# 		"Total UnDropped Tuples": re.search(r"Total UnDropped Tuples: (\d+)", result_block).group(1),
-	# 		"False Positives": re.search(r"False Positives: (\d+)", result_block).group(1),
-	# 		"False Positives Rate": re.search(r"False Positives Rate: ([\d.]+)", result_block).group(1),
-	# 	}
-	# 	# Map the SQL command to its extracted metrics
-	# 	mapped_results.append({
-	# 		"SQL Command": sql_command,
-	# 		"Metrics": metrics
-	# 	})
-
-	# # Convert the mapped results to JSON
-	# json_output.append({
-	# 	"Bloomfilter size": new_bloomfilter_size, 
-	# 	"Hashfunction count": new_bloomfilter_hashfunction_count,
-	# 	"results": mapped_results
-	# })
-
-	# temp_json_output_str = json.dumps(json_output, indent=4)
-
-	# # Write the results to a JSON file
-	# with open("temp_results_q3.json", "w") as file:
-	# 	file.write(temp_json_output_str)
-
 	end_time = time.time()  # end time
 
-# json_output_str = json.dumps(json_output, indent=4)
+json_filepath = os.path.join(directory, "summary_results.json")
+with open(json_filepath, "w") as json_file:
+	json.dump(json_output, json_file, indent=4)
 
-# # Write the results to a JSON file
-# with open("results_q3.json", "w") as file:
-# 	file.write(json_output_str)
-
-# os.remove("temp_results_q3.json")
