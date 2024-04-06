@@ -7,8 +7,8 @@ VACUUM
 
                             QUERY PLAN                             
 -------------------------------------------------------------------
- Aggregate  (cost=264.94..264.94 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=377 width=0)
+ Aggregate  (cost=265.01..265.01 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=404 width=0)
          Filter: ((c > 10) AND (c < 60) AND (d > 25) AND (d < 80))
 (3 rows)
 
@@ -19,8 +19,8 @@ VACUUM
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=282.30..282.30 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=7320 width=0)
+ Aggregate  (cost=282.02..282.02 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=7206 width=0)
          Filter: ((c > 90) AND (c < 320) AND (d > 45) AND (d < 120))
 (3 rows)
 
@@ -31,8 +31,8 @@ VACUUM
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=274.19..274.19 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=4077 width=0)
+ Aggregate  (cost=273.49..273.49 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=3795 width=0)
          Filter: ((c > 200) AND (c < 250) AND (d > 55) AND (d < 70))
 (3 rows)
 
@@ -43,8 +43,8 @@ VACUUM
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=274.70..274.70 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=4279 width=0)
+ Aggregate  (cost=275.58..275.58 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=4633 width=0)
          Filter: ((c > 240) AND (c < 460) AND (d > 30) AND (d < 90))
 (3 rows)
 
@@ -53,13 +53,12 @@ VACUUM
    286
 (1 row)
 
-                                  QUERY PLAN                                   
--------------------------------------------------------------------------------
- Aggregate  (cost=264.52..264.52 rows=1 width=0)
-   ->  Index Scan using one_c_idx on one  (cost=0.00..263.92 rows=237 width=0)
-         Index Cond: ((c > 300) AND (c < 350))
-         Filter: ((d > 50) AND (d < 120))
-(4 rows)
+                              QUERY PLAN                              
+----------------------------------------------------------------------
+ Aggregate  (cost=264.65..264.65 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=260 width=0)
+         Filter: ((c > 300) AND (c < 350) AND (d > 50) AND (d < 120))
+(3 rows)
 
  count 
 -------
@@ -68,8 +67,8 @@ VACUUM
 
                               QUERY PLAN                              
 ----------------------------------------------------------------------
- Aggregate  (cost=264.84..264.84 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=335 width=0)
+ Aggregate  (cost=265.00..265.00 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=397 width=0)
          Filter: ((c > 325) AND (c < 400) AND (d > 20) AND (d < 120))
 (3 rows)
 
@@ -80,8 +79,8 @@ VACUUM
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=265.92..265.92 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=767 width=0)
+ Aggregate  (cost=266.15..266.15 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=861 width=0)
          Filter: ((c > 300) AND (c < 490) AND (d > 32) AND (d < 99))
 (3 rows)
 
@@ -92,21 +91,21 @@ VACUUM
 
                               QUERY PLAN                              
 ----------------------------------------------------------------------
- Aggregate  (cost=264.89..264.89 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=357 width=0)
+ Aggregate  (cost=265.00..265.00 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=400 width=0)
          Filter: ((c > 380) AND (c < 500) AND (d > 57) AND (d < 115))
 (3 rows)
 
  count 
 -------
-   278
+  1021
 (1 row)
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=268.38..268.38 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=1749 width=0)
-         Filter: ((c > 50) AND (c < 200) AND (d > 57) AND (d < 110))
+ Aggregate  (cost=268.65..268.65 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=1861 width=0)
+         Filter: ((c > 50) AND (c < 200) AND (d > 50) AND (d < 110))
 (3 rows)
 
  count 
@@ -116,8 +115,8 @@ VACUUM
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=283.83..283.83 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=7931 width=0)
+ Aggregate  (cost=283.44..283.44 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=7774 width=0)
          Filter: ((c > 100) AND (c < 455) AND (d > 25) AND (d < 80))
 (3 rows)
 

@@ -460,8 +460,39 @@ SELECT COUNT(*) FROM One WHERE c > 300 AND c < 490 AND d > 32 AND d < 99;
 EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 490 AND d > 32 AND d < 99;
 SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115;
 EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115;
-SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110;
-EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110;
+SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 50 AND d < 110;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 50 AND d < 110;
 SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80;
 EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80;
 ```
+
+
+## 3.5
+- simple joins
+```sql
+
+SET default_statistics_target = 10;
+vacuum analyze;
+SHOW default_statistics_target;
+
+-- sample
+SELECT COUNT(*) FROM One, Two
+WHERE One.id = Two.id AND
+<some selectivity conditions on One> AND
+<some selectivity conditions on Two>;
+
+-- first
+SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80;
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80;
+
+SET enable_mergejoin TO off;
+SET enable_hashjoin TO off;
+vacuum analyze;
+
+-- find one that flip the inner and outer with different size of statistics
+-- explain
+
+
+SET enable_nestloop TO off;
+```
+- result

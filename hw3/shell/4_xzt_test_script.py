@@ -69,8 +69,8 @@ for sizes in default_statistics_target_size:
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 300 AND c < 490 AND d > 32 AND d < 99",
 		"SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115",
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 380 AND c < 500 AND d > 57 AND d < 115",
-		"SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110",
-		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 57 AND d < 110",
+		"SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 50 AND d < 110",
+		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 200 AND d > 50 AND d < 110",
 		"SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80",
 		"EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455 AND d > 25 AND d < 80"
 	]

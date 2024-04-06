@@ -99,14 +99,14 @@ VACUUM
 
  count 
 -------
-   278
+  1021
 (1 row)
 
                              QUERY PLAN                              
 ---------------------------------------------------------------------
- Aggregate  (cost=268.18..268.18 rows=1 width=0)
-   ->  Seq Scan on one  (cost=0.00..264.00 rows=1669 width=0)
-         Filter: ((c > 50) AND (c < 200) AND (d > 57) AND (d < 110))
+ Aggregate  (cost=268.60..268.60 rows=1 width=0)
+   ->  Seq Scan on one  (cost=0.00..264.00 rows=1837 width=0)
+         Filter: ((c > 50) AND (c < 200) AND (d > 50) AND (d < 110))
 (3 rows)
 
  count 
