@@ -1,0 +1,13 @@
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  database system was shut down at 2024-04-06 15:04:09 EDT
+LOG:  checkpoint record is at 0/3CCB0B0
+LOG:  redo record is at 0/3CCB0B0; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 16849; next OID: 37870
+LOG:  database system is ready
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  received smart shutdown request
+postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
+LOG:  shutting down
+LOG:  database system is shut down
