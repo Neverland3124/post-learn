@@ -420,4 +420,15 @@ EXPLAIN SELECT COUNT(*) FROM One WHERE c > 100 AND c < 455;
 
 ```
 
+## 3.4
+- MultiColumn Range Queries
+```sql
+-- sample
+SELECT COUNT(*) FROM One
+WHERE c > value1 AND c < value2 AND
+d > value3 AND d < value4;
 
+-- init sql
+SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 5 AND d < 45;
+EXPLAIN SELECT COUNT(*) FROM One WHERE c > 325 AND c < 400 AND d > 5 AND d < 45;
+```

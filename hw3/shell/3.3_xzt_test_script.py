@@ -6,8 +6,8 @@ import subprocess
 
 json_output = []
 
-default_statistics_target_size = [10, 200]
-# default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
+# default_statistics_target_size = [10, 200]
+default_statistics_target_size = [10, 20, 30, 50, 100, 200, 300, 400, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
 # Adjusted pattern for estimated rows that works with both Seq Scan and Index Scan
@@ -103,7 +103,20 @@ for sizes in default_statistics_target_size:
         # Combine the actual and estimated counts into a list of dictionaries
 		command_results = []
 		for actual, estimated in zip(actual_counts, estimated_rows):
-			command_results.append({'actual': int(actual), 'estimated': int(estimated)})
+			actual = int(actual)
+			estimated = int(estimated)
+			error = abs(estimated - actual) / actual if actual != 0 else 0
+			command_results.append({'actual': actual, 'estimated': estimated, 'error': error})
+
+		# print(command_results)
+		
+		set_estimation_errors = [result['error'] for result in command_results]
+		if set_estimation_errors:
+			avg_set_error = sum(set_estimation_errors) / len(set_estimation_errors)
+			# print(f"Average estimation error for size {sizes}: round: {avg_set_error:.4f}")
+			print(f"Average estimation error for size {sizes}: unround:{avg_set_error:f}")
+		else:
+			print(f"No estimation errors calculated for size {sizes}.")
         
         # Append the results for this default_statistics_target_size
 		json_output.append({

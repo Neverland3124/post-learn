@@ -4,43 +4,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 456
+                "estimated": 463,
+                "error": 0.08430913348946135
             },
             {
                 "actual": 8332,
-                "estimated": 8289
+                "estimated": 8284,
+                "error": 0.005760921747479597
             },
             {
                 "actual": 5971,
-                "estimated": 5938
+                "estimated": 5795,
+                "error": 0.029475799698542957
             },
             {
                 "actual": 4709,
-                "estimated": 5141
+                "estimated": 5018,
+                "error": 0.06561902739435124
             },
             {
                 "actual": 286,
-                "estimated": 285
+                "estimated": 338,
+                "error": 0.18181818181818182
             },
             {
                 "actual": 391,
-                "estimated": 385
+                "estimated": 406,
+                "error": 0.03836317135549872
             },
             {
                 "actual": 399,
-                "estimated": 410
+                "estimated": 396,
+                "error": 0.007518796992481203
             },
             {
                 "actual": 520,
-                "estimated": 542
+                "estimated": 527,
+                "error": 0.013461538461538462
             },
             {
                 "actual": 903,
-                "estimated": 956
+                "estimated": 942,
+                "error": 0.04318936877076412
             },
             {
                 "actual": 8874,
-                "estimated": 8844
+                "estimated": 8860,
+                "error": 0.0015776425512733828
             }
         ]
     },
@@ -49,43 +59,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 431
+                "estimated": 442,
+                "error": 0.0351288056206089
             },
             {
                 "actual": 8332,
-                "estimated": 8350
+                "estimated": 8311,
+                "error": 0.0025204032645223234
             },
             {
                 "actual": 5971,
-                "estimated": 6052
+                "estimated": 5915,
+                "error": 0.009378663540445486
             },
             {
                 "actual": 4709,
-                "estimated": 4743
+                "estimated": 4863,
+                "error": 0.032703334041197706
             },
             {
                 "actual": 286,
-                "estimated": 299
+                "estimated": 296,
+                "error": 0.03496503496503497
             },
             {
                 "actual": 391,
-                "estimated": 392
+                "estimated": 412,
+                "error": 0.05370843989769821
             },
             {
                 "actual": 399,
-                "estimated": 398
+                "estimated": 401,
+                "error": 0.005012531328320802
             },
             {
                 "actual": 520,
-                "estimated": 530
+                "estimated": 535,
+                "error": 0.028846153846153848
             },
             {
                 "actual": 903,
-                "estimated": 909
+                "estimated": 930,
+                "error": 0.029900332225913623
             },
             {
                 "actual": 8874,
-                "estimated": 8893
+                "estimated": 8873,
+                "error": 0.0001126887536623845
             }
         ]
     },
@@ -94,43 +114,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 426
+                "estimated": 436,
+                "error": 0.02107728337236534
             },
             {
                 "actual": 8332,
-                "estimated": 8363
+                "estimated": 8321,
+                "error": 0.0013202112337974076
             },
             {
                 "actual": 5971,
-                "estimated": 6025
+                "estimated": 6000,
+                "error": 0.004856807904873556
             },
             {
                 "actual": 4709,
-                "estimated": 4762
+                "estimated": 4729,
+                "error": 0.004247186239116585
             },
             {
                 "actual": 286,
-                "estimated": 298
+                "estimated": 284,
+                "error": 0.006993006993006993
             },
             {
                 "actual": 391,
-                "estimated": 390
+                "estimated": 410,
+                "error": 0.04859335038363171
             },
             {
                 "actual": 399,
-                "estimated": 390
+                "estimated": 400,
+                "error": 0.002506265664160401
             },
             {
                 "actual": 520,
-                "estimated": 530
+                "estimated": 550,
+                "error": 0.057692307692307696
             },
             {
                 "actual": 903,
-                "estimated": 892
+                "estimated": 915,
+                "error": 0.013289036544850499
             },
             {
                 "actual": 8874,
-                "estimated": 8913
+                "estimated": 8872,
+                "error": 0.000225377507324769
             }
         ]
     },
@@ -139,43 +169,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 435
+                "estimated": 435,
+                "error": 0.01873536299765808
             },
             {
                 "actual": 8332,
-                "estimated": 8345
+                "estimated": 8345,
+                "error": 0.0015602496399423908
             },
             {
                 "actual": 5971,
-                "estimated": 6011
+                "estimated": 6011,
+                "error": 0.0066990453860324905
             },
             {
                 "actual": 4709,
-                "estimated": 4694
+                "estimated": 4694,
+                "error": 0.003185389679337439
             },
             {
                 "actual": 286,
-                "estimated": 295
+                "estimated": 295,
+                "error": 0.03146853146853147
             },
             {
                 "actual": 391,
-                "estimated": 388
+                "estimated": 388,
+                "error": 0.0076726342710997444
             },
             {
                 "actual": 399,
-                "estimated": 402
+                "estimated": 402,
+                "error": 0.007518796992481203
             },
             {
                 "actual": 520,
-                "estimated": 530
+                "estimated": 530,
+                "error": 0.019230769230769232
             },
             {
                 "actual": 903,
-                "estimated": 900
+                "estimated": 900,
+                "error": 0.0033222591362126247
             },
             {
                 "actual": 8874,
-                "estimated": 8898
+                "estimated": 8898,
+                "error": 0.002704530087897228
             }
         ]
     },
@@ -184,43 +224,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 433
+                "estimated": 433,
+                "error": 0.01405152224824356
             },
             {
                 "actual": 8332,
-                "estimated": 8341
+                "estimated": 8341,
+                "error": 0.0010801728276524244
             },
             {
                 "actual": 5971,
-                "estimated": 5984
+                "estimated": 5984,
+                "error": 0.0021771897504605595
             },
             {
                 "actual": 4709,
-                "estimated": 4707
+                "estimated": 4707,
+                "error": 0.00042471862391165854
             },
             {
                 "actual": 286,
-                "estimated": 295
+                "estimated": 295,
+                "error": 0.03146853146853147
             },
             {
                 "actual": 391,
-                "estimated": 395
+                "estimated": 395,
+                "error": 0.010230179028132993
             },
             {
                 "actual": 399,
-                "estimated": 398
+                "estimated": 398,
+                "error": 0.002506265664160401
             },
             {
                 "actual": 520,
-                "estimated": 532
+                "estimated": 532,
+                "error": 0.023076923076923078
             },
             {
                 "actual": 903,
-                "estimated": 914
+                "estimated": 914,
+                "error": 0.012181616832779624
             },
             {
                 "actual": 8874,
-                "estimated": 8886
+                "estimated": 8886,
+                "error": 0.001352265043948614
             }
         ]
     },
@@ -229,43 +279,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 433
+                "estimated": 433,
+                "error": 0.01405152224824356
             },
             {
                 "actual": 8332,
-                "estimated": 8341
+                "estimated": 8341,
+                "error": 0.0010801728276524244
             },
             {
                 "actual": 5971,
-                "estimated": 5976
+                "estimated": 5976,
+                "error": 0.0008373806732540613
             },
             {
                 "actual": 4709,
-                "estimated": 4704
+                "estimated": 4704,
+                "error": 0.0010617965597791463
             },
             {
                 "actual": 286,
-                "estimated": 294
+                "estimated": 294,
+                "error": 0.027972027972027972
             },
             {
                 "actual": 391,
-                "estimated": 396
+                "estimated": 396,
+                "error": 0.01278772378516624
             },
             {
                 "actual": 399,
-                "estimated": 398
+                "estimated": 398,
+                "error": 0.002506265664160401
             },
             {
                 "actual": 520,
-                "estimated": 523
+                "estimated": 523,
+                "error": 0.0057692307692307696
             },
             {
                 "actual": 903,
-                "estimated": 920
+                "estimated": 920,
+                "error": 0.018826135105204873
             },
             {
                 "actual": 8874,
-                "estimated": 8879
+                "estimated": 8879,
+                "error": 0.0005634437683119225
             }
         ]
     },
@@ -274,43 +334,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 433
+                "estimated": 433,
+                "error": 0.01405152224824356
             },
             {
                 "actual": 8332,
-                "estimated": 8341
+                "estimated": 8341,
+                "error": 0.0010801728276524244
             },
             {
                 "actual": 5971,
-                "estimated": 5968
+                "estimated": 5968,
+                "error": 0.0005024284039524368
             },
             {
                 "actual": 4709,
-                "estimated": 4714
+                "estimated": 4714,
+                "error": 0.0010617965597791463
             },
             {
                 "actual": 286,
-                "estimated": 294
+                "estimated": 294,
+                "error": 0.027972027972027972
             },
             {
                 "actual": 391,
-                "estimated": 397
+                "estimated": 397,
+                "error": 0.015345268542199489
             },
             {
                 "actual": 399,
-                "estimated": 398
+                "estimated": 398,
+                "error": 0.002506265664160401
             },
             {
                 "actual": 520,
-                "estimated": 529
+                "estimated": 529,
+                "error": 0.01730769230769231
             },
             {
                 "actual": 903,
-                "estimated": 914
+                "estimated": 914,
+                "error": 0.012181616832779624
             },
             {
                 "actual": 8874,
-                "estimated": 8886
+                "estimated": 8886,
+                "error": 0.001352265043948614
             }
         ]
     },
@@ -319,43 +389,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 434
+                "estimated": 434,
+                "error": 0.01639344262295082
             },
             {
                 "actual": 8332,
-                "estimated": 8336
+                "estimated": 8336,
+                "error": 0.00048007681228996637
             },
             {
                 "actual": 5971,
-                "estimated": 5977
+                "estimated": 5977,
+                "error": 0.0010048568079048736
             },
             {
                 "actual": 4709,
-                "estimated": 4707
+                "estimated": 4707,
+                "error": 0.00042471862391165854
             },
             {
                 "actual": 286,
-                "estimated": 294
+                "estimated": 294,
+                "error": 0.027972027972027972
             },
             {
                 "actual": 391,
-                "estimated": 392
+                "estimated": 392,
+                "error": 0.0025575447570332483
             },
             {
                 "actual": 399,
-                "estimated": 401
+                "estimated": 401,
+                "error": 0.005012531328320802
             },
             {
                 "actual": 520,
-                "estimated": 524
+                "estimated": 524,
+                "error": 0.007692307692307693
             },
             {
                 "actual": 903,
-                "estimated": 910
+                "estimated": 910,
+                "error": 0.007751937984496124
             },
             {
                 "actual": 8874,
-                "estimated": 8881
+                "estimated": 8881,
+                "error": 0.0007888212756366914
             }
         ]
     },
@@ -364,43 +444,53 @@
         "results": [
             {
                 "actual": 427,
-                "estimated": 438
+                "estimated": 438,
+                "error": 0.02576112412177986
             },
             {
                 "actual": 8332,
-                "estimated": 8335
+                "estimated": 8335,
+                "error": 0.0003600576092174748
             },
             {
                 "actual": 5971,
-                "estimated": 5979
+                "estimated": 5979,
+                "error": 0.001339809077206498
             },
             {
                 "actual": 4709,
-                "estimated": 4710
+                "estimated": 4710,
+                "error": 0.00021235931195582927
             },
             {
                 "actual": 286,
-                "estimated": 290
+                "estimated": 290,
+                "error": 0.013986013986013986
             },
             {
                 "actual": 391,
-                "estimated": 396
+                "estimated": 396,
+                "error": 0.01278772378516624
             },
             {
                 "actual": 399,
-                "estimated": 400
+                "estimated": 400,
+                "error": 0.002506265664160401
             },
             {
                 "actual": 520,
-                "estimated": 525
+                "estimated": 525,
+                "error": 0.009615384615384616
             },
             {
                 "actual": 903,
-                "estimated": 911
+                "estimated": 911,
+                "error": 0.008859357696566999
             },
             {
                 "actual": 8874,
-                "estimated": 8880
+                "estimated": 8880,
+                "error": 0.000676132521974307
             }
         ]
     }
