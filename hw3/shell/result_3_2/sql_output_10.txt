@@ -1,1040 +1,1195 @@
 SET
 VACUUM
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=598.00..598.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..573.16 rows=9933 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9933 width=4)
-               Filter: (b > 1)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=485.75..485.75 rows=1 width=0)
-   ->  Hash Join  (cost=195.96..478.79 rows=2783 width=0)
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=435.04..435.04 rows=1 width=0)
+   ->  Hash Join  (cost=206.99..434.57 rows=187 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=2783 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=2783 width=4)
-                     Filter: (b < 798)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=500.08..500.08 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..491.56 rows=3405 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=3405 width=4)
-               Filter: (b < 1197)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=547.91..547.91 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..531.42 rows=6594 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=6594 width=4)
-               Filter: (b > 1198)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=515.90..515.90 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..504.75 rows=4460 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=4460 width=4)
-               Filter: (b < 1995)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=532.10..532.10 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..518.25 rows=5540 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=5540 width=4)
-               Filter: (b > 1996)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=525.58..525.58 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..512.81 rows=5105 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=5105 width=4)
-               Filter: (b > 2395)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=519.41..519.41 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..507.68 rows=4694 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=4694 width=4)
-               Filter: (b > 2794)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=539.68..539.68 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..524.56 rows=6045 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=6045 width=4)
-               Filter: (b < 3591)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=508.33..508.33 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..498.44 rows=3955 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=3955 width=4)
-               Filter: (b > 3592)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=544.36..544.36 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..528.46 rows=6357 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=6357 width=4)
-               Filter: (b < 3993)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=503.66..503.66 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..494.55 rows=3644 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=3644 width=4)
-               Filter: (b > 3994)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=548.72..548.72 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..532.10 rows=6648 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=6648 width=4)
-               Filter: (b < 4393)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=489.93..489.93 rows=1 width=0)
-   ->  Hash Join  (cost=196.66..482.27 rows=3062 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=3062 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=3062 width=4)
-                     Filter: (b > 4792)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=557.35..557.35 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..539.29 rows=7223 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=7223 width=4)
-               Filter: (b < 5191)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=481.53..481.53 rows=1 width=0)
-   ->  Hash Join  (cost=195.25..475.27 rows=2502 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=2502 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=2502 width=4)
-                     Filter: (b > 5590)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=565.61..565.61 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..546.17 rows=7774 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=7774 width=4)
-               Filter: (b < 5989)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=448.27..448.27 rows=1 width=0)
-   ->  Hash Join  (cost=193.88..443.39 rows=1951 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1951 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1951 width=4)
-                     Filter: (b > 6388)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=573.16..573.16 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..552.46 rows=8277 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8277 width=4)
-               Filter: (b < 6787)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=441.50..441.50 rows=1 width=0)
-   ->  Hash Join  (cost=192.75..437.75 rows=1500 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1500 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1500 width=4)
-                     Filter: (b > 7186)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=579.88..579.88 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.06 rows=8725 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8725 width=4)
-               Filter: (b < 7585)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=409.78..409.78 rows=1 width=0)
-   ->  Hash Join  (cost=191.63..407.15 rows=1052 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1052 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1052 width=4)
-                     Filter: (b > 7984)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=586.43..586.43 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..563.52 rows=9162 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9162 width=4)
-               Filter: (b < 8383)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2343 width=4)
+               Filter: ((b > 1035) AND (b < 3034))
+         ->  Hash  (cost=205.00..205.00 rows=795 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=795 width=4)
+                     Filter: ((a > 96) AND (a < 115))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=403.48..403.48 rows=1 width=0)
-   ->  Hash Join  (cost=190.58..401.90 rows=632 width=0)
+ Aggregate  (cost=431.42..431.42 rows=1 width=0)
+   ->  Hash Join  (cost=207.46..431.02 rows=158 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=632 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=632 width=4)
-                     Filter: (b > 8782)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=592.64..592.64 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..568.70 rows=9576 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9576 width=4)
-               Filter: (b < 9181)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=397.27..397.27 rows=1 width=0)
-   ->  Hash Join  (cost=189.54..396.73 rows=218 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=218 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=218 width=4)
-                     Filter: (b > 9580)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=598.85..598.85 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..573.88 rows=9990 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9990 width=4)
-               Filter: (b < 9979)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=599.00..599.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..574.00 rows=10000 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=10000 width=4)
-               Filter: (c > 1)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=396.61..396.61 rows=1 width=0)
-   ->  Hash Join  (cost=189.44..396.18 rows=174 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=174 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=174 width=4)
-                     Filter: (c < 21)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=593.81..593.81 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..569.67 rows=9654 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9654 width=4)
-               Filter: (c > 41)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=401.80..401.80 rows=1 width=0)
-   ->  Hash Join  (cost=190.30..400.50 rows=520 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=520 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=520 width=4)
-                     Filter: (c < 61)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=588.19..588.19 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..564.99 rows=9279 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9279 width=4)
-               Filter: (c > 81)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=408.49..408.49 rows=1 width=0)
-   ->  Hash Join  (cost=191.41..406.07 rows=966 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=966 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=966 width=4)
-                     Filter: (c < 101)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=580.87..580.87 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.89 rows=8791 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8791 width=4)
-               Filter: (c > 121)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1595 width=4)
+               Filter: ((b > 3049) AND (b < 5048))
+         ->  Hash  (cost=205.00..205.00 rows=985 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=985 width=4)
+                     Filter: ((a > 71) AND (a < 90))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=441.49..441.49 rows=1 width=0)
-   ->  Hash Join  (cost=192.75..437.74 rows=1499 width=0)
+ Aggregate  (cost=436.40..436.40 rows=1 width=0)
+   ->  Hash Join  (cost=208.14..435.90 rows=198 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1499 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1499 width=4)
-                     Filter: (c < 141)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=572.08..572.08 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..551.56 rows=8205 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8205 width=4)
-               Filter: (c > 161)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=477.66..477.66 rows=1 width=0)
-   ->  Hash Join  (cost=194.61..472.05 rows=2244 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=2244 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=2244 width=4)
-                     Filter: (c < 181)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=556.94..556.94 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..538.95 rows=7196 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=7196 width=4)
-               Filter: (c > 201)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=502.43..502.43 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..493.52 rows=3562 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=3562 width=4)
-               Filter: (c < 221)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=526.18..526.18 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..513.31 rows=5145 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=5145 width=4)
-               Filter: (c > 241)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=579.98..579.98 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.15 rows=8732 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8732 width=4)
-               Filter: (c < 261)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=436.04..436.04 rows=1 width=0)
-   ->  Hash Join  (cost=191.84..433.20 rows=1136 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1136 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1136 width=4)
-                     Filter: (c > 281)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=583.72..583.72 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..561.26 rows=8981 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8981 width=4)
-               Filter: (c < 301)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1570 width=4)
+               Filter: ((b > 3146) AND (b < 5145))
+         ->  Hash  (cost=205.00..205.00 rows=1257 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1257 width=4)
+                     Filter: ((a > 54) AND (a < 73))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=407.55..407.55 rows=1 width=0)
-   ->  Hash Join  (cost=191.26..405.29 rows=903 width=0)
+ Aggregate  (cost=427.77..427.77 rows=1 width=0)
+   ->  Hash Join  (cost=206.98..427.55 rows=90 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=903 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=903 width=4)
-                     Filter: (c > 321)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=587.21..587.21 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..564.18 rows=9214 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9214 width=4)
-               Filter: (c < 341)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1133 width=4)
+               Filter: ((b > 5999) AND (b < 7998))
+         ->  Hash  (cost=205.00..205.00 rows=792 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=792 width=4)
+                     Filter: ((a > 97) AND (a < 116))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=404.05..404.05 rows=1 width=0)
-   ->  Hash Join  (cost=190.68..402.38 rows=670 width=0)
+ Aggregate  (cost=428.16..428.16 rows=1 width=0)
+   ->  Hash Join  (cost=207.17..427.90 rows=100 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=670 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=670 width=4)
-                     Filter: (c > 361)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=590.53..590.53 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..566.94 rows=9435 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9435 width=4)
-               Filter: (c < 381)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=401.05..401.05 rows=1 width=0)
-   ->  Hash Join  (cost=190.18..399.88 rows=470 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=470 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=470 width=4)
-                     Filter: (c > 401)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=593.41..593.41 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..569.34 rows=9627 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9627 width=4)
-               Filter: (c < 421)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=398.19..398.19 rows=1 width=0)
-   ->  Hash Join  (cost=189.70..397.49 rows=279 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=279 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=279 width=4)
-                     Filter: (c > 441)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=596.27..596.27 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..571.73 rows=9818 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9818 width=4)
-               Filter: (c < 461)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                               
-------------------------------------------------------------------------
- Aggregate  (cost=395.31..395.31 rows=1 width=0)
-   ->  Hash Join  (cost=189.22..395.09 rows=87 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=87 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=87 width=4)
-                     Filter: (c > 481)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=599.00..599.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..574.00 rows=10000 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=10000 width=4)
-               Filter: (d > 19)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=593.68..593.68 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..569.56 rows=9645 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9645 width=4)
-               Filter: (d > 28)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=402.27..402.27 rows=1 width=0)
-   ->  Hash Join  (cost=190.38..400.89 rows=551 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=551 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=551 width=4)
-                     Filter: (d < 32)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=587.75..587.75 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..564.62 rows=9250 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9250 width=4)
-               Filter: (d > 36)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                                
--------------------------------------------------------------------------
- Aggregate  (cost=408.60..408.60 rows=1 width=0)
-   ->  Hash Join  (cost=191.43..406.16 rows=973 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=973 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=973 width=4)
-                     Filter: (d < 40)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=580.99..580.99 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.99 rows=8799 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8799 width=4)
-               Filter: (d > 44)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1147 width=4)
+               Filter: ((b > 5923) AND (b < 7922))
+         ->  Hash  (cost=205.00..205.00 rows=867 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=867 width=4)
+                     Filter: ((a > 78) AND (a < 97))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=443.03..443.03 rows=1 width=0)
-   ->  Hash Join  (cost=193.00..439.02 rows=1602 width=0)
+ Aggregate  (cost=438.08..438.08 rows=1 width=0)
+   ->  Hash Join  (cost=217.53..437.49 rows=237 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1602 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1602 width=4)
-                     Filter: (d < 48)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=570.98..570.98 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..550.65 rows=8132 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8132 width=4)
-               Filter: (d > 52)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=478.04..478.04 rows=1 width=0)
-   ->  Hash Join  (cost=194.67..472.36 rows=2269 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=2269 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=2269 width=4)
-                     Filter: (d < 56)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=558.80..558.80 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..540.50 rows=7320 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=7320 width=4)
-               Filter: (d > 60)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=499.37..499.37 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..490.97 rows=3358 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=3358 width=4)
-               Filter: (d < 64)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=510.80..510.80 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..500.50 rows=4120 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=4120 width=4)
-               Filter: (d > 68)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=580.61..580.61 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.67 rows=8774 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=8774 width=4)
-               Filter: (d < 72)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=435.74..435.74 rows=1 width=0)
-   ->  Hash Join  (cost=191.79..432.95 rows=1116 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=1116 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=1116 width=4)
-                     Filter: (d > 76)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=584.00..584.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..561.50 rows=9000 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9000 width=4)
-               Filter: (d < 80)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1679 width=4)
+               Filter: ((a > 40) AND (a < 59))
+         ->  Hash  (cost=214.00..214.00 rows=1410 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1410 width=4)
+                     Filter: ((b > 4484) AND (b < 6483))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=407.31..407.31 rows=1 width=0)
-   ->  Hash Join  (cost=191.22..405.09 rows=887 width=0)
+ Aggregate  (cost=430.25..430.25 rows=1 width=0)
+   ->  Hash Join  (cost=207.09..429.94 rows=127 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=887 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=887 width=4)
-                     Filter: (d > 84)
-(7 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1516 width=4)
+               Filter: ((b > 3351) AND (b < 5350))
+         ->  Hash  (cost=205.00..205.00 rows=834 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=834 width=4)
+                     Filter: ((a > 87) AND (a < 106))
+(8 rows)
 
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=587.35..587.35 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..564.29 rows=9223 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9223 width=4)
-               Filter: (d < 88)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=450.64..450.64 rows=1 width=0)
+   ->  Hash Join  (cost=217.56..449.56 rows=432 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=3023 width=4)
+               Filter: ((a > 25) AND (a < 44))
+         ->  Hash  (cost=214.00..214.00 rows=1426 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1426 width=4)
+                     Filter: ((b > 3930) AND (b < 5929))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=428.87..428.87 rows=1 width=0)
+   ->  Hash Join  (cost=207.64..428.56 rows=121 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1143 width=4)
+               Filter: ((b > 5947) AND (b < 7946))
+         ->  Hash  (cost=205.00..205.00 rows=1055 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1055 width=4)
+                     Filter: ((a > 66) AND (a < 85))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=439.42..439.42 rows=1 width=0)
+   ->  Hash Join  (cost=217.03..438.84 rows=234 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1929 width=4)
+               Filter: ((a > 35) AND (a < 54))
+         ->  Hash  (cost=214.00..214.00 rows=1211 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1211 width=4)
+                     Filter: ((b > 5572) AND (b < 7571))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=488.75..488.75 rows=1 width=0)
+   ->  Hash Join  (cost=220.31..485.71 rows=1217 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=4823 width=4)
+               Filter: ((a > 22) AND (a < 51))
+         ->  Hash  (cost=214.00..214.00 rows=2522 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=2522 width=4)
+                     Filter: ((b > 2368) AND (b < 5367))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=448.11..448.11 rows=1 width=0)
+   ->  Hash Join  (cost=218.78..446.93 rows=471 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=2458 width=4)
+               Filter: ((a > 37) AND (a < 66))
+         ->  Hash  (cost=214.00..214.00 rows=1914 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1914 width=4)
+                     Filter: ((b > 4628) AND (b < 7627))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=449.21..449.21 rows=1 width=0)
+   ->  Hash Join  (cost=210.18..447.92 rows=514 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2480 width=4)
+               Filter: ((b > 2481) AND (b < 5480))
+         ->  Hash  (cost=205.00..205.00 rows=2072 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2072 width=4)
+                     Filter: ((a > 46) AND (a < 75))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=450.99..450.99 rows=1 width=0)
+   ->  Hash Join  (cost=208.10..450.00 rows=396 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=3192 width=4)
+               Filter: ((b > 1071) AND (b < 4070))
+         ->  Hash  (cost=205.00..205.00 rows=1239 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1239 width=4)
+                     Filter: ((a > 87) AND (a < 116))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=464.43..464.43 rows=1 width=0)
+   ->  Hash Join  (cost=211.60..462.50 rows=771 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2919 width=4)
+               Filter: ((b > 1504) AND (b < 4503))
+         ->  Hash  (cost=205.00..205.00 rows=2640 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2640 width=4)
+                     Filter: ((a > 35) AND (a < 64))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=404.25..404.25 rows=1 width=0)
-   ->  Hash Join  (cost=190.71..402.54 rows=683 width=0)
+ Aggregate  (cost=430.55..430.55 rows=1 width=0)
+   ->  Hash Join  (cost=207.26..430.30 rows=98 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=683 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=683 width=4)
-                     Filter: (d > 92)
-(7 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1075 width=4)
+               Filter: ((b > 7000) AND (b < 9000))
+         ->  Hash  (cost=205.00..205.00 rows=904 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=904 width=4)
+                     Filter: ((a > 80) AND (a < 100))
+(8 rows)
 
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=590.18..590.18 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..566.65 rows=9412 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9412 width=4)
-               Filter: (d < 96)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=449.76..449.76 rows=1 width=0)
+   ->  Hash Join  (cost=209.35..448.57 rows=475 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2729 width=4)
+               Filter: ((b > 500) AND (b < 2500))
+         ->  Hash  (cost=205.00..205.00 rows=1740 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1740 width=4)
+                     Filter: ((a > 40) AND (a < 60))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=436.42..436.42 rows=1 width=0)
+   ->  Hash Join  (cost=207.97..435.94 rows=191 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1609 width=4)
+               Filter: ((b > 3000) AND (b < 5000))
+         ->  Hash  (cost=205.00..205.00 rows=1186 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1186 width=4)
+                     Filter: ((a > 60) AND (a < 80))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=401.43..401.43 rows=1 width=0)
-   ->  Hash Join  (cost=190.24..400.19 rows=495 width=0)
+ Aggregate  (cost=435.22..435.22 rows=1 width=0)
+   ->  Hash Join  (cost=207.14..434.72 rows=199 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=495 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=495 width=4)
-                     Filter: (d > 100)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=593.00..593.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..569.00 rows=9600 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9600 width=4)
-               Filter: (d < 104)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2318 width=4)
+               Filter: ((b > 100) AND (b < 1100))
+         ->  Hash  (cost=205.00..205.00 rows=856 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=856 width=4)
+                     Filter: ((a > 90) AND (a < 110))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=398.41..398.41 rows=1 width=0)
-   ->  Hash Join  (cost=189.74..397.68 rows=294 width=0)
+ Aggregate  (cost=427.63..427.63 rows=1 width=0)
+   ->  Hash Join  (cost=207.06..427.40 rows=90 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=294 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=294 width=4)
-                     Filter: (d > 108)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=596.21..596.21 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..571.68 rows=9814 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..229.00 rows=9814 width=4)
-               Filter: (d < 112)
-         ->  Index Scan using two_pk on two  (cost=0.00..195.00 rows=10000 width=4)
-(6 rows)
-
-                               QUERY PLAN                               
-------------------------------------------------------------------------
- Aggregate  (cost=395.22..395.22 rows=1 width=0)
-   ->  Hash Join  (cost=189.20..395.01 rows=81 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on two  (cost=0.00..155.00 rows=10000 width=4)
-         ->  Hash  (cost=189.00..189.00 rows=81 width=4)
-               ->  Seq Scan on one  (cost=0.00..189.00 rows=81 width=4)
-                     Filter: (d > 116)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=599.00..599.00 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..574.00 rows=10000 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=10000 width=4)
-               Filter: (a > 20)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1088 width=4)
+               Filter: ((b > 8000) AND (b < 9999))
+         ->  Hash  (cost=205.00..205.00 rows=823 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+                     Filter: ((a > 100) AND (a < 120))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=480.27..480.27 rows=1 width=0)
-   ->  Hash Join  (cost=186.04..474.23 rows=2418 width=0)
+ Aggregate  (cost=469.54..469.54 rows=1 width=0)
+   ->  Hash Join  (cost=216.84..468.02 rows=607 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=2418 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=2418 width=4)
-                     Filter: (a < 25)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=542.30..542.30 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..526.75 rows=6220 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=6220 width=4)
-               Filter: (a > 29)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=513.28..513.28 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..502.56 rows=4285 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=4285 width=4)
-               Filter: (a < 33)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=525.73..525.73 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..512.94 rows=5115 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=5115 width=4)
-               Filter: (a > 37)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=530.42..530.42 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..516.85 rows=5428 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=5428 width=4)
-               Filter: (a < 41)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=510.68..510.68 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..500.40 rows=4112 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=4112 width=4)
-               Filter: (a > 45)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=543.35..543.35 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..527.62 rows=6290 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=6290 width=4)
-               Filter: (a < 49)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=499.30..499.30 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..490.91 rows=3353 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=3353 width=4)
-               Filter: (a > 53)
-(6 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=553.88..553.88 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..536.40 rows=6992 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=6992 width=4)
-               Filter: (a < 57)
-(6 rows)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=5349 width=4)
+               Filter: ((a > 20) AND (a < 40))
+         ->  Hash  (cost=214.00..214.00 rows=1134 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1134 width=4)
+                     Filter: ((b > 6000) AND (b < 8000))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=485.12..485.12 rows=1 width=0)
-   ->  Hash Join  (cost=186.85..478.26 rows=2741 width=0)
+ Aggregate  (cost=430.63..430.63 rows=1 width=0)
+   ->  Hash Join  (cost=207.62..430.25 rows=150 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=2741 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=2741 width=4)
-                     Filter: (a > 61)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=561.91..561.91 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..543.09 rows=7527 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=7527 width=4)
-               Filter: (a < 65)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1427 width=4)
+               Filter: ((b > 4000) AND (b < 6000))
+         ->  Hash  (cost=205.00..205.00 rows=1046 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1046 width=4)
+                     Filter: ((a > 70) AND (a < 90))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=477.86..477.86 rows=1 width=0)
-   ->  Hash Join  (cost=185.64..472.21 rows=2257 width=0)
+ Aggregate  (cost=440.62..440.62 rows=1 width=0)
+   ->  Hash Join  (cost=208.56..439.92 rows=277 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=2257 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=2257 width=4)
-                     Filter: (a > 69)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=568.18..568.18 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..548.31 rows=7945 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=7945 width=4)
-               Filter: (a < 73)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1946 width=4)
+               Filter: ((b > 2000) AND (b < 4000))
+         ->  Hash  (cost=205.00..205.00 rows=1422 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1422 width=4)
+                     Filter: ((a > 50) AND (a < 70))
+(8 rows)
 
                                 QUERY PLAN                                
 --------------------------------------------------------------------------
- Aggregate  (cost=446.84..446.84 rows=1 width=0)
-   ->  Hash Join  (cost=184.64..442.20 rows=1856 width=0)
+ Aggregate  (cost=481.81..481.81 rows=1 width=0)
+   ->  Hash Join  (cost=210.85..479.23 rows=1032 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=1856 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=1856 width=4)
-                     Filter: (a > 77)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=574.19..574.19 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..553.33 rows=8346 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=8346 width=4)
-               Filter: (a < 81)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=440.83..440.83 rows=1 width=0)
-   ->  Hash Join  (cost=183.64..437.19 rows=1455 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=1455 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=1455 width=4)
-                     Filter: (a > 85)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=580.21..580.21 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..558.34 rows=8747 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=8747 width=4)
-               Filter: (a < 89)
-(6 rows)
-
-                                QUERY PLAN                                
---------------------------------------------------------------------------
- Aggregate  (cost=410.13..410.13 rows=1 width=0)
-   ->  Hash Join  (cost=182.69..407.44 rows=1075 width=0)
-         Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=1075 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=1075 width=4)
-                     Filter: (a > 93)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=585.47..585.47 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..562.73 rows=9098 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=9098 width=4)
-               Filter: (a < 97)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=4406 width=4)
+               Filter: ((b > 0) AND (b < 2000))
+         ->  Hash  (cost=205.00..205.00 rows=2340 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2340 width=4)
+                     Filter: ((a > 30) AND (a < 50))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=404.97..404.97 rows=1 width=0)
-   ->  Hash Join  (cost=181.83..403.14 rows=731 width=0)
+ Aggregate  (cost=423.01..423.01 rows=1 width=0)
+   ->  Hash Join  (cost=206.01..422.95 rows=22 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=731 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=731 width=4)
-                     Filter: (a > 101)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=544 width=4)
+               Filter: ((b > 9000) AND (b < 9998))
+         ->  Hash  (cost=205.00..205.00 rows=404 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=404 width=4)
+                     Filter: ((a > 110) AND (a < 120))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=449.36..449.36 rows=1 width=0)
+   ->  Hash Join  (cost=216.39..448.28 rows=432 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=4513 width=4)
+               Filter: ((a > 21) AND (a < 41))
+         ->  Hash  (cost=214.00..214.00 rows=957 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=957 width=4)
+                     Filter: ((c > 0) AND (c < 100))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=440.44..440.44 rows=1 width=0)
+   ->  Hash Join  (cost=209.25..439.68 rows=304 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1786 width=4)
+               Filter: ((c > 100) AND (c < 200))
+         ->  Hash  (cost=205.00..205.00 rows=1699 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1699 width=4)
+                     Filter: ((a > 41) AND (a < 61))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=478.27..478.27 rows=1 width=0)
+   ->  Hash Join  (cost=207.93..476.42 rows=737 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6283 width=4)
+               Filter: ((c > 200) AND (c < 300))
+         ->  Hash  (cost=205.00..205.00 rows=1172 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1172 width=4)
+                     Filter: ((a > 61) AND (a < 81))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.47..425.47 rows=1 width=0)
+   ->  Hash Join  (cost=215.35..425.35 rows=49 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=901 width=4)
+               Filter: ((a > 81) AND (a < 101))
+         ->  Hash  (cost=214.00..214.00 rows=541 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=541 width=4)
+                     Filter: ((c > 300) AND (c < 400))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=426.37..426.37 rows=1 width=0)
+   ->  Hash Join  (cost=215.09..426.28 rows=34 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=780 width=4)
+               Filter: ((a > 101) AND (a < 120))
+         ->  Hash  (cost=214.00..214.00 rows=435 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=435 width=4)
+                     Filter: ((c > 400) AND (c < 500))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=579.85..579.85 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..570.34 rows=3800 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..254.00 rows=9348 width=4)
+               Filter: ((c > 50) AND (c < 450))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=4065 width=4)
+               Filter: ((a > 30) AND (a < 75))
 (7 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=402.48..402.48 rows=1 width=0)
-   ->  Hash Join  (cost=181.41..401.06 rows=565 width=0)
+ Aggregate  (cost=469.17..469.17 rows=1 width=0)
+   ->  Hash Join  (cost=207.41..467.31 rows=742 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=565 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=565 width=4)
-                     Filter: (a > 105)
-(7 rows)
-
-                                     QUERY PLAN                                     
-------------------------------------------------------------------------------------
- Aggregate  (cost=592.81..592.81 rows=1 width=0)
-   ->  Merge Join  (cost=0.00..568.84 rows=9587 width=0)
-         Merge Cond: ("outer".id = "inner".id)
-         ->  Index Scan using one_pk on one  (cost=0.00..204.00 rows=10000 width=4)
-         ->  Index Scan using two_pk on two  (cost=0.00..220.00 rows=9587 width=4)
-               Filter: (a < 109)
-(6 rows)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=7696 width=4)
+               Filter: ((c > 150) AND (c < 350))
+         ->  Hash  (cost=205.00..205.00 rows=963 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=963 width=4)
+                     Filter: ((a > 75) AND (a < 95))
+(8 rows)
 
                                QUERY PLAN                                
 -------------------------------------------------------------------------
- Aggregate  (cost=397.96..397.96 rows=1 width=0)
-   ->  Hash Join  (cost=180.66..397.30 rows=264 width=0)
+ Aggregate  (cost=428.43..428.43 rows=1 width=0)
+   ->  Hash Join  (cost=207.09..428.18 rows=102 width=0)
          Hash Cond: ("outer".id = "inner".id)
-         ->  Seq Scan on one  (cost=0.00..164.00 rows=10000 width=4)
-         ->  Hash  (cost=180.00..180.00 rows=264 width=4)
-               ->  Seq Scan on two  (cost=0.00..180.00 rows=264 width=4)
-                     Filter: (a > 113)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1212 width=4)
+               Filter: ((c > 250) AND (c < 450))
+         ->  Hash  (cost=205.00..205.00 rows=838 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=838 width=4)
+                     Filter: ((a > 95) AND (a < 115))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=541.59..541.59 rows=1 width=0)
+   ->  Hash Join  (cost=210.87..536.30 rows=2118 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=9025 width=4)
+               Filter: ((c > 0) AND (c < 300))
+         ->  Hash  (cost=205.00..205.00 rows=2346 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2346 width=4)
+                     Filter: ((a > 40) AND (a < 70))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=492.56..492.56 rows=1 width=0)
+   ->  Hash Join  (cost=209.13..489.56 rows=1200 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=7257 width=4)
+               Filter: ((c > 200) AND (c < 499))
+         ->  Hash  (cost=205.00..205.00 rows=1653 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1653 width=4)
+                     Filter: ((a > 60) AND (a < 90))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=461.41..461.41 rows=1 width=0)
+   ->  Hash Join  (cost=218.09..459.76 rows=657 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=4014 width=4)
+               Filter: ((a > 22) AND (a < 42))
+         ->  Hash  (cost=214.00..214.00 rows=1636 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1636 width=4)
+                     Filter: ((c > 1) AND (c < 150))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=493.91..493.91 rows=1 width=0)
+   ->  Hash Join  (cost=209.15..490.84 rows=1227 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=7390 width=4)
+               Filter: ((c > 150) AND (c < 300))
+         ->  Hash  (cost=205.00..205.00 rows=1659 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1659 width=4)
+                     Filter: ((a > 42) AND (a < 62))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=427.81..427.81 rows=1 width=0)
+   ->  Hash Join  (cost=215.90..427.58 rows=89 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1158 width=4)
+               Filter: ((a > 62) AND (a < 82))
+         ->  Hash  (cost=214.00..214.00 rows=760 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=760 width=4)
+                     Filter: ((c > 300) AND (c < 450))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=437.60..437.60 rows=1 width=0)
+   ->  Hash Join  (cost=207.24..436.99 rows=240 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2670 width=4)
+               Filter: ((c > 10) AND (c < 200))
+         ->  Hash  (cost=205.00..205.00 rows=897 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=897 width=4)
+                     Filter: ((a > 82) AND (a < 102))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=459.87..459.87 rows=1 width=0)
+   ->  Hash Join  (cost=206.84..458.65 rows=486 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6589 width=4)
+               Filter: ((c > 200) AND (c < 350))
+         ->  Hash  (cost=205.00..205.00 rows=737 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=737 width=4)
+                     Filter: ((a > 102) AND (a < 122))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=438.82..438.82 rows=1 width=0)
+   ->  Hash Join  (cost=215.67..438.30 rows=208 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=3110 width=4)
+               Filter: ((a > 25) AND (a < 45))
+         ->  Hash  (cost=214.00..214.00 rows=668 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=668 width=4)
+                     Filter: ((c > 350) AND (c < 499))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=503.82..503.82 rows=1 width=0)
+   ->  Hash Join  (cost=208.88..500.49 rows=1331 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8573 width=4)
+               Filter: ((c > 0) AND (c < 250))
+         ->  Hash  (cost=205.00..205.00 rows=1552 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1552 width=4)
+                     Filter: ((a > 45) AND (a < 65))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=428.45..428.45 rows=1 width=0)
+   ->  Hash Join  (cost=216.48..428.17 rows=111 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1116 width=4)
+               Filter: ((a > 65) AND (a < 85))
+         ->  Hash  (cost=214.00..214.00 rows=993 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=993 width=4)
+                     Filter: ((c > 250) AND (c < 400))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=427.23..427.23 rows=1 width=0)
+   ->  Hash Join  (cost=215.09..427.13 rows=39 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=887 width=4)
+               Filter: ((a > 85) AND (a < 105))
+         ->  Hash  (cost=214.00..214.00 rows=435 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=435 width=4)
+                     Filter: ((c > 400) AND (c < 500))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=467.84..467.84 rows=1 width=0)
+   ->  Hash Join  (cost=206.52..466.59 rows=499 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8217 width=4)
+               Filter: ((c > 125) AND (c < 375))
+         ->  Hash  (cost=205.00..205.00 rows=607 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=607 width=4)
+                     Filter: ((a > 105) AND (a < 125))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=433.09..433.09 rows=1 width=0)
+   ->  Hash Join  (cost=215.10..432.83 rows=103 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=2340 width=4)
+               Filter: ((a > 30) AND (a < 50))
+         ->  Hash  (cost=214.00..214.00 rows=440 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=440 width=4)
+                     Filter: ((c > 375) AND (c < 475))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=502.93..502.93 rows=1 width=0)
+   ->  Hash Join  (cost=208.56..499.85 rows=1232 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8663 width=4)
+               Filter: ((c > 25) AND (c < 275))
+         ->  Hash  (cost=205.00..205.00 rows=1422 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1422 width=4)
+                     Filter: ((a > 50) AND (a < 70))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=427.31..427.31 rows=1 width=0)
+   ->  Hash Join  (cost=216.01..427.09 rows=85 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1046 width=4)
+               Filter: ((a > 70) AND (a < 90))
+         ->  Hash  (cost=214.00..214.00 rows=804 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=804 width=4)
+                     Filter: ((c > 275) AND (c < 425))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=424.44..424.44 rows=1 width=0)
+   ->  Hash Join  (cost=214.81..424.37 rows=28 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=856 width=4)
+               Filter: ((a > 90) AND (a < 110))
+         ->  Hash  (cost=214.00..214.00 rows=325 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=325 width=4)
+                     Filter: ((c > 425) AND (c < 500))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=467.29..467.29 rows=1 width=0)
+   ->  Hash Join  (cost=206.01..466.42 rows=347 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8588 width=4)
+               Filter: ((c > 50) AND (c < 300))
+         ->  Hash  (cost=205.00..205.00 rows=404 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=404 width=4)
+                     Filter: ((a > 110) AND (a < 130))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=432.91..432.91 rows=1 width=0)
+   ->  Hash Join  (cost=215.90..432.52 rows=154 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=2016 width=4)
+               Filter: ((a > 35) AND (a < 55))
+         ->  Hash  (cost=214.00..214.00 rows=760 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=760 width=4)
+                     Filter: ((c > 300) AND (c < 450))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=429.58..429.58 rows=1 width=0)
+   ->  Hash Join  (cost=214.54..429.51 rows=28 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1292 width=4)
+               Filter: ((a > 55) AND (a < 75))
+         ->  Hash  (cost=214.00..214.00 rows=215 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=215 width=4)
+                     Filter: ((c > 450) AND (c < 500))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=473.37..473.37 rows=1 width=0)
+   ->  Hash Join  (cost=207.41..471.35 rows=807 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8375 width=4)
+               Filter: ((c > 100) AND (c < 350))
+         ->  Hash  (cost=205.00..205.00 rows=963 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=963 width=4)
+                     Filter: ((a > 75) AND (a < 95))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.56..425.56 rows=1 width=0)
+   ->  Hash Join  (cost=215.67..425.42 rows=56 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=838 width=4)
+               Filter: ((a > 95) AND (a < 115))
+         ->  Hash  (cost=214.00..214.00 rows=668 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=668 width=4)
+                     Filter: ((c > 350) AND (c < 500))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=455.35..455.35 rows=1 width=0)
+   ->  Hash Join  (cost=205.50..455.00 rows=138 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6823 width=4)
+               Filter: ((c > 200) AND (c < 400))
+         ->  Hash  (cost=205.00..205.00 rows=202 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=202 width=4)
+                     Filter: ((a > 115) AND (a < 135))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=496.34..496.34 rows=1 width=0)
+   ->  Hash Join  (cost=220.53..492.85 rows=1395 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=5337 width=4)
+               Filter: ((a > 21) AND (a < 50))
+         ->  Hash  (cost=214.00..214.00 rows=2613 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=2613 width=4)
+                     Filter: ((d > 20) AND (d < 60))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=493.44..493.44 rows=1 width=0)
+   ->  Hash Join  (cost=210.00..489.97 rows=1390 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6942 width=4)
+               Filter: ((d > 60) AND (d < 100))
+         ->  Hash  (cost=205.00..205.00 rows=2001 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2001 width=4)
+                     Filter: ((a > 50) AND (a < 80))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=429.71..429.71 rows=1 width=0)
+   ->  Hash Join  (cost=215.11..429.52 rows=77 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1727 width=4)
+               Filter: ((a > 80) AND (a < 120))
+         ->  Hash  (cost=214.00..214.00 rows=445 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=445 width=4)
+                     Filter: ((d > 100) AND (d < 120))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=539.54..539.54 rows=1 width=0)
+   ->  Hash Join  (cost=212.89..533.17 rows=2549 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8079 width=4)
+               Filter: ((d > 40) AND (d < 80))
+         ->  Hash  (cost=205.00..205.00 rows=3155 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=3155 width=4)
+                     Filter: ((a > 30) AND (a < 60))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=431.66..431.66 rows=1 width=0)
+   ->  Hash Join  (cost=216.40..431.26 rows=159 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1653 width=4)
+               Filter: ((a > 60) AND (a < 90))
+         ->  Hash  (cost=214.00..214.00 rows=961 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=961 width=4)
+                     Filter: ((d > 80) AND (d < 120))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=501.65..501.65 rows=1 width=0)
+   ->  Hash Join  (cost=208.15..498.89 rows=1104 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8760 width=4)
+               Filter: ((d > 20) AND (d < 70))
+         ->  Hash  (cost=205.00..205.00 rows=1260 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1260 width=4)
+                     Filter: ((a > 90) AND (a < 120))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=539.50..539.50 rows=1 width=0)
+   ->  Hash Join  (cost=210.87..534.30 rows=2080 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=8863 width=4)
+               Filter: ((d > 30) AND (d < 90))
+         ->  Hash  (cost=205.00..205.00 rows=2346 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=2346 width=4)
+                     Filter: ((a > 40) AND (a < 70))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=430.91..430.91 rows=1 width=0)
+   ->  Hash Join  (cost=216.58..430.52 rows=153 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1483 width=4)
+               Filter: ((a > 70) AND (a < 100))
+         ->  Hash  (cost=214.00..214.00 rows=1031 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1031 width=4)
+                     Filter: ((d > 70) AND (d < 110))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=468.66..468.66 rows=1 width=0)
+   ->  Hash Join  (cost=207.06..467.03 rows=650 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=7894 width=4)
+               Filter: ((d > 50) AND (d < 100))
+         ->  Hash  (cost=205.00..205.00 rows=823 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+                     Filter: ((a > 100) AND (a < 120))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=590.87..590.87 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..579.28 rows=4634 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..254.00 rows=7387 width=4)
+               Filter: ((d > 60) AND (d < 120))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=6273 width=4)
+               Filter: ((a > 20) AND (a < 50))
 (7 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=441.60..441.60 rows=1 width=0)
+   ->  Hash Join  (cost=216.29..440.84 rows=303 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=3303 width=4)
+               Filter: ((a > 24) AND (a < 44))
+         ->  Hash  (cost=214.00..214.00 rows=917 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=917 width=4)
+                     Filter: ((d > 21) AND (d < 40))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=438.61..438.61 rows=1 width=0)
+   ->  Hash Join  (cost=208.94..437.95 rows=261 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1653 width=4)
+               Filter: ((d > 40) AND (d < 60))
+         ->  Hash  (cost=205.00..205.00 rows=1578 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1578 width=4)
+                     Filter: ((a > 44) AND (a < 64))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=479.11..479.11 rows=1 width=0)
+   ->  Hash Join  (cost=207.82..477.29 rows=727 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6426 width=4)
+               Filter: ((d > 60) AND (d < 80))
+         ->  Hash  (cost=205.00..205.00 rows=1130 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1130 width=4)
+                     Filter: ((a > 64) AND (a < 84))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.32..425.32 rows=1 width=0)
+   ->  Hash Join  (cost=215.29..425.20 rows=46 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=891 width=4)
+               Filter: ((a > 84) AND (a < 104))
+         ->  Hash  (cost=214.00..214.00 rows=516 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=516 width=4)
+                     Filter: ((d > 80) AND (d < 100))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=423.73..423.73 rows=1 width=0)
+   ->  Hash Join  (cost=215.11..423.65 rows=29 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=650 width=4)
+               Filter: ((a > 104) AND (a < 124))
+         ->  Hash  (cost=214.00..214.00 rows=445 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=445 width=4)
+                     Filter: ((d > 100) AND (d < 120))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=436.38..436.38 rows=1 width=0)
+   ->  Hash Join  (cost=216.62..435.77 rows=245 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=2340 width=4)
+               Filter: ((a > 30) AND (a < 50))
+         ->  Hash  (cost=214.00..214.00 rows=1047 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1047 width=4)
+                     Filter: ((d > 25) AND (d < 45))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=443.95..443.95 rows=1 width=0)
+   ->  Hash Join  (cost=208.56..443.13 rows=328 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=2306 width=4)
+               Filter: ((d > 45) AND (d < 65))
+         ->  Hash  (cost=205.00..205.00 rows=1422 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1422 width=4)
+                     Filter: ((a > 50) AND (a < 70))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=454.95..454.95 rows=1 width=0)
+   ->  Hash Join  (cost=207.62..453.56 rows=553 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=5283 width=4)
+               Filter: ((d > 65) AND (d < 85))
+         ->  Hash  (cost=205.00..205.00 rows=1046 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1046 width=4)
+                     Filter: ((a > 70) AND (a < 90))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.06..425.06 rows=1 width=0)
+   ->  Hash Join  (cost=215.24..424.94 rows=43 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=856 width=4)
+               Filter: ((a > 90) AND (a < 110))
+         ->  Hash  (cost=214.00..214.00 rows=494 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=494 width=4)
+                     Filter: ((d > 85) AND (d < 105))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=423.02..423.02 rows=1 width=0)
+   ->  Hash Join  (cost=214.81..422.99 rows=14 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=404 width=4)
+               Filter: ((a > 110) AND (a < 130))
+         ->  Hash  (cost=214.00..214.00 rows=326 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=326 width=4)
+                     Filter: ((d > 105) AND (d < 120))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=437.75..437.75 rows=1 width=0)
+   ->  Hash Join  (cost=217.04..437.21 rows=212 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=1740 width=4)
+               Filter: ((a > 40) AND (a < 60))
+         ->  Hash  (cost=214.00..214.00 rows=1217 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1217 width=4)
+                     Filter: ((d > 30) AND (d < 50))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=485.74..485.74 rows=1 width=0)
+   ->  Hash Join  (cost=207.97..483.63 rows=842 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=7099 width=4)
+               Filter: ((d > 50) AND (d < 70))
+         ->  Hash  (cost=205.00..205.00 rows=1186 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1186 width=4)
+                     Filter: ((a > 60) AND (a < 80))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.52..425.52 rows=1 width=0)
+   ->  Hash Join  (cost=215.37..425.39 rows=50 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=904 width=4)
+               Filter: ((a > 80) AND (a < 100))
+         ->  Hash  (cost=214.00..214.00 rows=548 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=548 width=4)
+                     Filter: ((d > 70) AND (d < 90))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=424.83..424.83 rows=1 width=0)
+   ->  Hash Join  (cost=215.21..424.72 rows=40 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+               Filter: ((a > 100) AND (a < 120))
+         ->  Hash  (cost=214.00..214.00 rows=483 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=483 width=4)
+                     Filter: ((d > 90) AND (d < 110))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=441.24..441.24 rows=1 width=0)
+   ->  Hash Join  (cost=217.54..440.52 rows=286 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=2016 width=4)
+               Filter: ((a > 35) AND (a < 55))
+         ->  Hash  (cost=214.00..214.00 rows=1418 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1418 width=4)
+                     Filter: ((d > 35) AND (d < 55))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=484.12..484.12 rows=1 width=0)
+   ->  Hash Join  (cost=208.23..481.92 rows=878 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6788 width=4)
+               Filter: ((d > 55) AND (d < 75))
+         ->  Hash  (cost=205.00..205.00 rows=1292 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1292 width=4)
+                     Filter: ((a > 55) AND (a < 75))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=425.80..425.80 rows=1 width=0)
+   ->  Hash Join  (cost=215.34..425.67 rows=52 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=963 width=4)
+               Filter: ((a > 75) AND (a < 95))
+         ->  Hash  (cost=214.00..214.00 rows=534 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=534 width=4)
+                     Filter: ((d > 75) AND (d < 95))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=424.88..424.88 rows=1 width=0)
+   ->  Hash Join  (cost=215.19..424.78 rows=40 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=838 width=4)
+               Filter: ((a > 95) AND (a < 115))
+         ->  Hash  (cost=214.00..214.00 rows=476 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=476 width=4)
+                     Filter: ((d > 95) AND (d < 115))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=438.49..438.49 rows=1 width=0)
+   ->  Hash Join  (cost=208.88..437.85 rows=257 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=1653 width=4)
+               Filter: ((d > 40) AND (d < 60))
+         ->  Hash  (cost=205.00..205.00 rows=1552 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1552 width=4)
+                     Filter: ((a > 45) AND (a < 65))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=478.96..478.96 rows=1 width=0)
+   ->  Hash Join  (cost=207.79..477.16 rows=718 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=6426 width=4)
+               Filter: ((d > 60) AND (d < 80))
+         ->  Hash  (cost=205.00..205.00 rows=1116 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1116 width=4)
+                     Filter: ((a > 65) AND (a < 85))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=589.53..589.53 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..578.56 rows=4386 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..254.00 rows=9939 width=4)
+               Filter: ((b > 1) AND (b < 9999))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=4412 width=4)
+               Filter: ((a > 21) AND (a < 40))
+(7 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=511.25..511.25 rows=1 width=0)
+   ->  Hash Join  (cost=207.97..508.30 rows=1179 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=9939 width=4)
+               Filter: ((b > 1) AND (b < 9999))
+         ->  Hash  (cost=205.00..205.00 rows=1186 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1186 width=4)
+                     Filter: ((a > 60) AND (a < 80))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=480.98..480.98 rows=1 width=0)
+   ->  Hash Join  (cost=207.06..478.93 rows=818 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=9939 width=4)
+               Filter: ((b > 1) AND (b < 9999))
+         ->  Hash  (cost=205.00..205.00 rows=823 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+                     Filter: ((a > 100) AND (a < 120))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=590.01..590.01 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..578.97 rows=4412 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..254.00 rows=9999 width=4)
+               Filter: ((c > 1) AND (c < 500))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=4412 width=4)
+               Filter: ((a > 21) AND (a < 40))
+(7 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=511.78..511.78 rows=1 width=0)
+   ->  Hash Join  (cost=207.97..508.82 rows=1186 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=9999 width=4)
+               Filter: ((c > 1) AND (c < 500))
+         ->  Hash  (cost=205.00..205.00 rows=1186 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1186 width=4)
+                     Filter: ((a > 60) AND (a < 80))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=481.34..481.34 rows=1 width=0)
+   ->  Hash Join  (cost=207.06..479.28 rows=823 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=9999 width=4)
+               Filter: ((c > 1) AND (c < 500))
+         ->  Hash  (cost=205.00..205.00 rows=823 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+                     Filter: ((a > 100) AND (a < 120))
+(8 rows)
+
+                                     QUERY PLAN                                     
+------------------------------------------------------------------------------------
+ Aggregate  (cost=590.01..590.01 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..578.98 rows=4412 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..254.00 rows=10000 width=4)
+               Filter: ((d > 20) AND (d < 120))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=4412 width=4)
+               Filter: ((a > 21) AND (a < 40))
+(7 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=511.79..511.79 rows=1 width=0)
+   ->  Hash Join  (cost=207.97..508.83 rows=1186 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=10000 width=4)
+               Filter: ((d > 20) AND (d < 120))
+         ->  Hash  (cost=205.00..205.00 rows=1186 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=1186 width=4)
+                     Filter: ((a > 60) AND (a < 80))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=481.35..481.35 rows=1 width=0)
+   ->  Hash Join  (cost=207.06..479.29 rows=823 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..214.00 rows=10000 width=4)
+               Filter: ((d > 20) AND (d < 120))
+         ->  Hash  (cost=205.00..205.00 rows=823 width=4)
+               ->  Seq Scan on two  (cost=0.00..205.00 rows=823 width=4)
+                     Filter: ((a > 100) AND (a < 120))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=592.26..592.26 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..584.75 rows=3004 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..279.00 rows=3314 width=4)
+               Filter: ((b > 1) AND ((b)::numeric < 2000.6))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+(7 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=506.70..506.70 rows=1 width=0)
+   ->  Hash Join  (cost=217.56..503.47 rows=1293 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+         ->  Hash  (cost=214.00..214.00 rows=1426 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=1426 width=4)
+                     Filter: ((b > 4000) AND (b < 5999))
+(8 rows)
+
+                                    QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Aggregate  (cost=592.53..592.53 rows=1 width=0)
+   ->  Merge Join  (cost=0.00..584.98 rows=3022 width=0)
+         Merge Cond: ("outer".id = "inner".id)
+         ->  Index Scan using one_pk on one  (cost=0.00..279.00 rows=3334 width=4)
+               Filter: ((c > 1) AND ((c)::numeric < 100.8))
+         ->  Index Scan using two_pk on two  (cost=0.00..245.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+(7 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=493.00..493.00 rows=1 width=0)
+   ->  Hash Join  (cost=215.09..492.01 rows=395 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+         ->  Hash  (cost=214.00..214.00 rows=435 width=4)
+               ->  Seq Scan on one  (cost=0.00..214.00 rows=435 width=4)
+                     Filter: ((c > 400) AND (c < 500))
+(8 rows)
+
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Aggregate  (cost=573.08..573.08 rows=1 width=0)
+   ->  Hash Join  (cost=245.95..566.78 rows=2520 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+         ->  Hash  (cost=239.00..239.00 rows=2780 width=4)
+               ->  Seq Scan on one  (cost=0.00..239.00 rows=2780 width=4)
+                     Filter: ((d > 50) AND ((d)::numeric < 40.0))
+(8 rows)
+
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=491.39..491.39 rows=1 width=0)
+   ->  Hash Join  (cost=239.37..491.05 rows=136 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..205.00 rows=9063 width=4)
+               Filter: ((a > 21) AND (a < 120))
+         ->  Hash  (cost=239.00..239.00 rows=149 width=4)
+               ->  Seq Scan on one  (cost=0.00..239.00 rows=149 width=4)
+                     Filter: ((d > 100) AND ((d)::numeric < 40.0))
+(8 rows)
 

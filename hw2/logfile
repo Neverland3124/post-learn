@@ -1,10 +1,10 @@
 postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
 postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
 postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
-LOG:  database system was shut down at 2024-04-07 14:42:36 EDT
-LOG:  checkpoint record is at 0/53027C8
-LOG:  redo record is at 0/53027C8; undo record is at 0/0; shutdown TRUE
-LOG:  next transaction ID: 28895; next OID: 38270
+LOG:  database system was shut down at 2024-04-07 15:15:12 EDT
+LOG:  checkpoint record is at 0/54F3A28
+LOG:  redo record is at 0/54F3A28; undo record is at 0/0; shutdown TRUE
+LOG:  next transaction ID: 30064; next OID: 38295
 LOG:  database system is ready
 postmaster: setproctitle not initialized, please either call setproctitle_init() or link against libbsd-ctor.
 ERROR:  syntax error at or near "EXISTS" at character 37
