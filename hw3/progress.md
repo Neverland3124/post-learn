@@ -619,6 +619,7 @@ ALTER TABLE Two DROP CONSTRAINT two_pk;
 -- add foreign key
 ALTER TABLE Two ADD CONSTRAINT two_fk_one FOREIGN KEY (id) REFERENCES One (id);
 
+vacuum analyze;
 
 SELECT constraint_name, constraint_type
 FROM information_schema.table_constraints

@@ -6,7 +6,7 @@ import subprocess
 
 json_output = []
 
-default_statistics_target_size = [10, 400, 500]
+default_statistics_target_size = [10]
 # default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
@@ -165,6 +165,11 @@ for sizes in default_statistics_target_size:
 	# Prepare the SQL commands to be executed
 	all_sql_commands = f"""
 	SET default_statistics_target = {new_default_statistics_target};
+	ALTER TABLE One DROP CONSTRAINT IF EXISTS one_pk;
+	ALTER TABLE Two DROP CONSTRAINT IF EXISTS two_pk;
+	ALTER TABLE Two DROP CONSTRAINT IF EXISTS two_fk_one;
+	ALTER TABLE One ADD CONSTRAINT one_pk PRIMARY KEY (id);
+	ALTER TABLE Two ADD CONSTRAINT two_pk PRIMARY KEY (id);
 	VACUUM ANALYZE;
 	"""
 
@@ -190,24 +195,24 @@ for sizes in default_statistics_target_size:
 			output_file.write(result.stdout)
 			
 		
-		query_details = []
-		# also append to the json file
-		pattern_counts = pattern.findall(result.stdout)
-		for match in pattern_counts:
-			join_type, rows1, rows2 = match
-			query_details.append((join_type, rows1, rows2))
+		# query_details = []
+		# # also append to the json file
+		# pattern_counts = pattern.findall(result.stdout)
+		# for match in pattern_counts:
+		# 	join_type, rows1, rows2 = match
+		# 	query_details.append((join_type, rows1, rows2))
 
 
-		output_filename = f'./result_3_2/5.3.2_output_{new_default_statistics_target}.txt'
+		# output_filename = f'./result_3_2/5.3.2_output_{new_default_statistics_target}.txt'
 
-		# Open the file in write mode and print the details
-		with open(output_filename, 'w') as output_file:
-			for detail in query_details:
-				# Convert the detail tuple to a string and write it to the file
-				# Assuming you want each detail on a new line
-				output_file.write(f"{detail}\n")
+		# # Open the file in write mode and print the details
+		# with open(output_filename, 'w') as output_file:
+		# 	for detail in query_details:
+		# 		# Convert the detail tuple to a string and write it to the file
+		# 		# Assuming you want each detail on a new line
+		# 		output_file.write(f"{detail}\n")
 
-		print(f"Details have been written to {output_filename}")
+		# print(f"Details have been written to {output_filename}")
 
 		# actual_counts = actual_pattern.findall(result.stdout)
 		# # print(actual_counts)
