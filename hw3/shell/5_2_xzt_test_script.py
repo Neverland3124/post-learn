@@ -26,7 +26,7 @@ estimated_pattern = re.compile(
 	re.DOTALL  # This flag allows '.' to match newlines
 )
 
-directory = "result_3"
+directory = "result_3_2"
 os.makedirs(directory, exist_ok=True)
 
 
@@ -198,7 +198,7 @@ for sizes in default_statistics_target_size:
 			query_details.append((join_type, rows1, rows2))
 
 
-		output_filename = f'./result_3/5.3_output_{new_default_statistics_target}.txt'
+		output_filename = f'./result_3_2/5.3.2_output_{new_default_statistics_target}.txt'
 
 		# Open the file in write mode and print the details
 		with open(output_filename, 'w') as output_file:

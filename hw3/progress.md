@@ -606,7 +606,26 @@ hw=# EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND
                      Filter: (c > 310)
 (8 rows)
 
---  Question 3
+--  Question 3/4 script
+-- workload.sql
 
+-- add primary key
+ALTER TABLE One ADD CONSTRAINT one_pk PRIMARY KEY (id);
+ALTER TABLE Two ADD CONSTRAINT two_pk PRIMARY KEY (id);
+-- to remove
+ALTER TABLE One DROP CONSTRAINT one_pk;
+ALTER TABLE Two DROP CONSTRAINT two_pk;
+
+-- add foreign key
+ALTER TABLE Two ADD CONSTRAINT two_fk_one FOREIGN KEY (id) REFERENCES One (id);
+
+
+SELECT constraint_name, constraint_type
+FROM information_schema.table_constraints
+WHERE table_name = 'two';
+
+SELECT constraint_name, constraint_type
+FROM information_schema.table_constraints
+WHERE table_name = 'one';
 ```
 - result
