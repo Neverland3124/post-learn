@@ -373,7 +373,7 @@ EXPLAIN SELECT COUNT(*) FROM One WHERE c > 50 AND c < 250;
 -- Very broad range covering a large portion of the spectrum
 SELECT COUNT(*) FROM One WHERE c > 50 AND c < 450;
 
--- on way
+-- one way
 SELECT COUNT(*) FROM One WHERE c > 10 AND c < 60;
 SELECT COUNT(*) FROM One WHERE c > 90 AND c < 320;
 SELECT COUNT(*) FROM One WHERE c > 200 AND c < 250;
@@ -482,17 +482,131 @@ WHERE One.id = Two.id AND
 <some selectivity conditions on Two>;
 
 -- first
-SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80;
-EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80;
+SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80; EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c > 50 AND Two. a < 80;
 
-SET enable_mergejoin TO off;
-SET enable_hashjoin TO off;
-vacuum analyze;
-
--- find one that flip the inner and outer with different size of statistics
--- explain
+-- setup
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310;
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND Two. a < 22;
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
 
 
-SET enable_nestloop TO off;
+SET enable_mergejoin TO off; SET enable_hashjoin TO off; SET default_statistics_target = 10; SHOW default_statistics_target; vacuum analyze;
+SET enable_mergejoin TO off; SET enable_hashjoin TO off; SET default_statistics_target = 500; SHOW default_statistics_target; vacuum analyze; 
+
+-- q1 result
+
+hw=# SET enable_mergejoin TO off; SET enable_hashjoin TO off; SET default_statistics_target = 500; SHOW default_statistics_target; vacuum analyze; 
+SET
+SET
+SET
+ default_statistics_target 
+---------------------------
+ 500
+(1 row)
+
+VACUUM
+hw=# EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
+                                    QUERY PLAN                                    
+----------------------------------------------------------------------------------
+ Aggregate  (cost=2981.50..2981.50 rows=1 width=0)
+   ->  Nested Loop  (cost=0.00..2981.28 rows=87 width=0)
+         ->  Seq Scan on one  (cost=0.00..189.00 rows=922 width=4)
+               Filter: (c > 310)
+         ->  Index Scan using two_id_idx on two  (cost=0.00..3.02 rows=1 width=4)
+               Index Cond: ("outer".id = two.id)
+               Filter: (a < 22)
+(7 rows)
+
+hw=# SET enable_mergejoin TO off; SET enable_hashjoin TO off; SET default_statistics_target = 10; SHOW default_statistics_target; vacuum analyze;
+SET
+SET
+SET
+ default_statistics_target 
+---------------------------
+ 10
+(1 row)
+
+VACUUM
+hw=# EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
+                                    QUERY PLAN                                    
+----------------------------------------------------------------------------------
+ Aggregate  (cost=2939.19..2939.19 rows=1 width=0)
+   ->  Nested Loop  (cost=0.00..2938.96 rows=88 width=0)
+         ->  Seq Scan on two  (cost=0.00..180.00 rows=911 width=4)
+               Filter: (a < 22)
+         ->  Index Scan using one_id_idx on one  (cost=0.00..3.02 rows=1 width=4)
+               Index Cond: (one.id = "outer".id)
+               Filter: (c > 310)
+(7 rows)
+
+
+-- q2
+-- hash join
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310;
+-- 500 - 922
+-- 10 - 931
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND Two. a < 22;
+-- 500 - 936
+-- 10 - 944
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
+-- 500 two 936
+-- 10 two 944
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 308;
+EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 308 AND Two. a < 22;
+
+
+SET enable_mergejoin TO off; SET enable_nestloop TO off; SET default_statistics_target = 10; SHOW default_statistics_target; vacuum analyze;
+SET enable_mergejoin TO off; SET enable_nestloop TO off; SET default_statistics_target = 500; SHOW default_statistics_target; vacuum analyze; 
+
+-- result
+
+hw=# SET enable_mergejoin TO off; SET enable_nestloop TO off; SET default_statistics_target = 10; SHOW default_statistics_target; vacuum analyze;
+SET
+SET
+SET
+ default_statistics_target 
+---------------------------
+ 10
+(1 row)
+
+VACUUM
+hw=# EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=377.24..377.24 rows=1 width=0)
+   ->  Hash Join  (cost=182.19..377.02 rows=87 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on one  (cost=0.00..189.00 rows=993 width=4)
+               Filter: (c > 310)
+         ->  Hash  (cost=180.00..180.00 rows=874 width=4)
+               ->  Seq Scan on two  (cost=0.00..180.00 rows=874 width=4)
+                     Filter: (a < 22)
+(8 rows)
+
+hw=# SET enable_mergejoin TO off; SET enable_nestloop TO off; SET default_statistics_target = 500; SHOW default_statistics_target; vacuum analyze; 
+SET
+SET
+SET
+ default_statistics_target 
+---------------------------
+ 500
+(1 row)
+
+VACUUM
+hw=# EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND c > 310 AND Two. a < 22;
+                               QUERY PLAN                                
+-------------------------------------------------------------------------
+ Aggregate  (cost=377.08..377.08 rows=1 width=0)
+   ->  Hash Join  (cost=191.31..376.86 rows=87 width=0)
+         Hash Cond: ("outer".id = "inner".id)
+         ->  Seq Scan on two  (cost=0.00..180.00 rows=936 width=4)
+               Filter: (a < 22)
+         ->  Hash  (cost=189.00..189.00 rows=922 width=4)
+               ->  Seq Scan on one  (cost=0.00..189.00 rows=922 width=4)
+                     Filter: (c > 310)
+(8 rows)
+
+--  Question 3
+
 ```
 - result
