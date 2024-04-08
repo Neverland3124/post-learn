@@ -6,7 +6,7 @@ import subprocess
 
 json_output = []
 
-default_statistics_target_size = [10]
+default_statistics_target_size = [10, 500]
 # default_statistics_target_size = [10, 20, 30, 50, 100, 128, 150, 200, 250, 256, 300, 350, 400, 450, 500]
 actual_pattern = re.compile(r'\s+count\s+-+\s+(\d+)\s+\(1 row\)')
 
@@ -61,12 +61,6 @@ for sizes in default_statistics_target_size:
 	# Prepare the SQL commands to be executed
 	all_sql_commands = f"""
 	SET default_statistics_target = {new_default_statistics_target};
-	ALTER TABLE One DROP CONSTRAINT IF EXISTS one_pk;
-	ALTER TABLE Two DROP CONSTRAINT IF EXISTS two_pk;
-	ALTER TABLE Two DROP CONSTRAINT IF EXISTS two_fk_one;
-	ALTER TABLE One ADD CONSTRAINT one_pk PRIMARY KEY (id);
-	ALTER TABLE Two ADD CONSTRAINT two_pk PRIMARY KEY (id);
-	ALTER TABLE Two ADD CONSTRAINT two_fk_one FOREIGN KEY (id) REFERENCES One (id);
 	VACUUM ANALYZE;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.b > 3049 AND One.b < 5048 AND Two.a > 71 AND Two.a < 90;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.b > 5923 AND One.b < 7922 AND Two.a > 78 AND Two.a < 97;

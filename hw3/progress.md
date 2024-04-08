@@ -628,5 +628,13 @@ WHERE table_name = 'two';
 SELECT constraint_name, constraint_type
 FROM information_schema.table_constraints
 WHERE table_name = 'one';
+
+ALTER TABLE One DROP CONSTRAINT one_pk;
+ALTER TABLE Two DROP CONSTRAINT two_pk;
+ALTER TABLE Two DROP CONSTRAINT two_fk_one;
+
+ALTER TABLE One ADD CONSTRAINT one_pk PRIMARY KEY (id);
+ALTER TABLE Two ADD CONSTRAINT two_pk PRIMARY KEY (id);
+ALTER TABLE Two ADD CONSTRAINT two_fk_one FOREIGN KEY (id) REFERENCES One (id);
 ```
 - result
