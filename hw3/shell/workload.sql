@@ -92,7 +92,7 @@
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.d > 65 AND One.d < 115 AND Two.a > 70 AND Two.a < 120;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.d > 70 AND One.d < 110 AND Two.a > 75 AND Two.a < 115;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.d > 75 AND One.d < 105 AND Two.a > 80 AND Two.a < 110;
-    EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.b < 100 AND Two.a > 50; EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c BETWEEN 10 AND 20 AND Two.a < 100;
+    EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c BETWEEN 10 AND 20 AND Two.a < 100;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.d > 100 AND Two.a BETWEEN 20 AND 30;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.b > 5000 AND One.b < 6000 AND Two.a > 75;
     EXPLAIN SELECT COUNT(*) FROM One, Two WHERE One.id = Two.id AND One.c < 5 AND Two.a > 90;
